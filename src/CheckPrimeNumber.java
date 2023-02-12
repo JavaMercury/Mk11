@@ -3,16 +3,16 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+//质数判断功能，并提供非质数的因子
 public class CheckPrimeNumber extends Initializer implements MouseListener, FocusListener, KeyListener {
 
-    JMenu about = new JMenu("关于");
-    JMenu properties = new JMenu("选项");
-    JMenuItem exit = new JMenuItem("退出质数判断器");
-    JMenuItem logout = new JMenuItem("退出登录");
+    JMenu propertiesJM = new JMenu("选项");
+    JMenuItem exitJMI = new JMenuItem("退出质数判断器");
+    JMenuItem logoutJMI = new JMenuItem("退出登录");
     JTextField inputJTF = new JTextField();
-    JButton submit = new JButton("确定");
+    JButton submitJB = new JButton("确定");
     String input;
-    JLabel wrongInputWarning = new JLabel("输入有误，请重新输入");
+    JLabel invalidInputWarningJL = new JLabel("输入有误，请重新输入");
     JLabel resultJL = new JLabel();
     String stateOne = "1既不是质数也不是合数";
     JLabel hintJL = new JLabel("判断质数，并给出合数的所有因子");
@@ -29,17 +29,17 @@ public class CheckPrimeNumber extends Initializer implements MouseListener, Focu
     void checkPrimeNumber() {
         int number;
         if (input.equals("") || notInteger(input)) {
-            wrongInputWarning.setVisible(true);
+            invalidInputWarningJL.setVisible(true);
             return;
         }
         number = Integer.parseInt(input);
         if (number <= 0) {
-            wrongInputWarning.setVisible(true);
+            invalidInputWarningJL.setVisible(true);
             return;
         }
         if (number == 1) {
             resultJL.setText(stateOne);
-            wrongInputWarning.setVisible(false);
+            invalidInputWarningJL.setVisible(false);
             resultJL.setVisible(true);
         }
         StringBuilder result = new StringBuilder();
@@ -90,13 +90,13 @@ public class CheckPrimeNumber extends Initializer implements MouseListener, Focu
     @Override
     void initMenuBar() {
         JMenuBar menuBar = new JMenuBar();
-        properties.add(exit);
-        properties.add(logout);
-        menuBar.add(properties);
-        menuBar.add(about);
-        about.addMouseListener(this);
-        exit.addMouseListener(this);
-        logout.addMouseListener(this);
+        propertiesJM.add(exitJMI);
+        propertiesJM.add(logoutJMI);
+        menuBar.add(propertiesJM);
+        menuBar.add(aboutJM);
+        aboutJM.addMouseListener(this);
+        exitJMI.addMouseListener(this);
+        logoutJMI.addMouseListener(this);
         setJMenuBar(menuBar);
     }
 
@@ -105,26 +105,26 @@ public class CheckPrimeNumber extends Initializer implements MouseListener, Focu
     void initContent() {
         getContentPane().setBackground(Color.WHITE);
         inputJTF.setBounds(100, 100, 200, 30);
-        submit.setBounds(100, 200, 70, 30);
-        wrongInputWarning.setBounds(100, 130, 200, 50);
+        submitJB.setBounds(100, 200, 70, 30);
+        invalidInputWarningJL.setBounds(100, 130, 200, 50);
         resultJL.setBounds(100, 300, 400, 200);
-        submit.addMouseListener(this);
+        submitJB.addMouseListener(this);
         inputJTF.addFocusListener(this);
-        wrongInputWarning.setVisible(false);
+        invalidInputWarningJL.setVisible(false);
         resultJL.setVisible(false);
         inputJTF.setText("请输入一个正整数");
         getContentPane().add(inputJTF);
-        getContentPane().add(submit);
-        getContentPane().add(wrongInputWarning);
+        getContentPane().add(submitJB);
+        getContentPane().add(invalidInputWarningJL);
         getContentPane().add(resultJL);
 
         backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
         getContentPane().add(backJB);
         inputJTF.addKeyListener(this);
-        submit.addKeyListener(this);
+        submitJB.addKeyListener(this);
         backJB.addKeyListener(this);
-        wrongInputWarning.setForeground(Color.RED);
+        invalidInputWarningJL.setForeground(Color.RED);
         hintJL.setBounds(100, 70, 200, 30);
         getContentPane().add(hintJL);
     }
@@ -137,14 +137,14 @@ public class CheckPrimeNumber extends Initializer implements MouseListener, Focu
     @Override
     public void mousePressed(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == submit) {
+        if (thing == submitJB) {
             input = inputJTF.getText();
             checkPrimeNumber();
-        } else if (thing == about) showAbout();
-        else if (thing == exit || thing == backJB) {
+        } else if (thing == aboutJM) showAbout();
+        else if (thing == exitJMI || thing == backJB) {
             setVisible(false);
             new Menu(username);
-        } else if (thing == logout) {
+        } else if (thing == logoutJMI) {
             setVisible(false);
             new Login();
         }
@@ -158,13 +158,13 @@ public class CheckPrimeNumber extends Initializer implements MouseListener, Focu
     @Override
     public void mouseEntered(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == backJB || thing == submit) setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        if (thing == backJB || thing == submitJB) setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == backJB || thing == submit) setCursor(Cursor.getDefaultCursor());
+        if (thing == backJB || thing == submitJB) setCursor(Cursor.getDefaultCursor());
     }
 
     @Override

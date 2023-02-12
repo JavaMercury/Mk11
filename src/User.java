@@ -1,4 +1,4 @@
-//此类用于记录水银客户端的用户账户
+//记录水银客户端的用户账户
 public class User {
     private String username;
     private String password;

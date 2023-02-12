@@ -14,13 +14,14 @@ public abstract class Initializer extends JFrame {
         library.add(new User("qwerqwer", "12341234Aa", "12312341234"));
     }
 
-    String version = "水银第11代 0.11.01.20230210";
+    JMenu aboutJM = new JMenu("关于");
+    String version = "水银第11代 0.11.02.20230212";
     String username;
     String password;
-    JDialog about = new JDialog();
+    JDialog aboutJD = new JDialog();
     Runtime rt = Runtime.getRuntime();
     JButton backJB = new JButton("返回");
-    JLabel aboutText = new JLabel("<html>水银的开发开始于2022年9月16日， <br />起源于初中作者自学的VBS语言，<br />" +
+    JLabel aboutJL = new JLabel("<html>水银的开发开始于2022年9月16日， <br />起源于初中作者自学的VBS语言，<br />" +
             "当时作者用此语言和同学制作了一个简陋的\"悦豪客户端\"，<br />而水银继承了这个传统。<br />当前版本：" + version + "<br />作者：邹上豪<br />感谢所有测试员！" +
             "<br /><br />当前系统运行环境对象：" + rt + "<br />" +
             "当前计算机CPU线程数：" + rt.availableProcessors() + "<br />" +
@@ -30,8 +31,8 @@ public abstract class Initializer extends JFrame {
             "当前虚拟机已使用的内存大小：" + (rt.totalMemory() - rt.freeMemory()) / 1024 / 1024 + " Mb");
     JPasswordField passwordJPF = new JPasswordField();
     StringBuilder passwordSB = new StringBuilder();
-    JLabel revealPassword = new JLabel(new ImageIcon(new ImageIcon("image\\login\\密码隐藏.png").getImage().getScaledInstance(30,30,Image.SCALE_DEFAULT)));
-    JLabel revealPasswordPressed = new JLabel(new ImageIcon(new ImageIcon("image\\login\\密码显示.png").getImage().getScaledInstance(30,30,Image.SCALE_DEFAULT)));
+    JLabel revealPasswordJL = new JLabel(new ImageIcon(new ImageIcon("image\\login\\密码隐藏.png").getImage().getScaledInstance(30,30,Image.SCALE_DEFAULT)));
+    JLabel revealPasswordPressedJL = new JLabel(new ImageIcon(new ImageIcon("image\\login\\密码显示.png").getImage().getScaledInstance(30,30,Image.SCALE_DEFAULT)));
 
     ///检验整数
     public static boolean notInteger(String str) {
@@ -143,15 +144,15 @@ public abstract class Initializer extends JFrame {
 
     ///显示关于界面
     void showAbout() {
-        about.getContentPane().setBackground(Color.WHITE);
-        about.setResizable(false);
-        about.setTitle("关于");
-        about.setIconImage(new ImageIcon("image\\login\\MkLogInBackground.jpg").getImage());
-        about.getContentPane().add(aboutText);
-        about.setSize(400, 300);
-        about.setLocationRelativeTo(null);
-        about.setAlwaysOnTop(true);
-        about.setVisible(true);
+        aboutJD.getContentPane().setBackground(Color.WHITE);
+        aboutJD.setResizable(false);
+        aboutJD.setTitle("关于");
+        aboutJD.setIconImage(new ImageIcon("image\\login\\MkLogInBackground.jpg").getImage());
+        aboutJD.getContentPane().add(aboutJL);
+        aboutJD.setSize(400, 300);
+        aboutJD.setLocationRelativeTo(null);
+        aboutJD.setAlwaysOnTop(true);
+        aboutJD.setVisible(true);
     }
 
     ///统一窗口左上角图标

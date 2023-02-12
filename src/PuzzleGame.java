@@ -9,9 +9,10 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+//拼图小游戏
 public class PuzzleGame extends Initializer implements MouseListener, KeyListener, Border {
 
-    //定义一个二维数组，用于管理图片数据
+    //管理图片数据
     static int[][] data = new int[4][4];
 
     //空白方块在二维数组中的位置
@@ -27,7 +28,6 @@ public class PuzzleGame extends Initializer implements MouseListener, KeyListene
     String defaultPath = "image\\animal\\animal1\\";
     String path = defaultPath;
     String chooseImage;
-    JMenu aboutJMenu = new JMenu("关于");
     JMenu changeImageJM = new JMenu("更换图片");
     JMenu changeMovePatternJM = new JMenu("更改移动模式");
     JMenuItem moveBlankJMI = new JMenuItem("移动空白方块");
@@ -35,13 +35,13 @@ public class PuzzleGame extends Initializer implements MouseListener, KeyListene
     JMenuItem animalJMI = new JMenuItem("动物");
     JMenuItem girlJMI = new JMenuItem("美女");
     JMenuItem sportJMI = new JMenuItem("运动");
-    JMenuItem logOutJMenuItem = new JMenuItem("退出登录");
-    JMenuItem exitGameJMenuItem = new JMenuItem("退出游戏");
-    JMenuItem replayGameJMenuItem = new JMenuItem("重玩游戏");
-    JMenu helpJMenu = new JMenu("帮助");
-    JMenu propertiesJMenu = new JMenu("选项");
-    JMenuBar puzzleGameMenuBar = new JMenuBar();
-    JLabel background = new JLabel(new ImageIcon("image\\background.png"));
+    JMenuItem logoutJMI = new JMenuItem("退出登录");
+    JMenuItem exitGameJMI = new JMenuItem("退出游戏");
+    JMenuItem replayJMI = new JMenuItem("重玩游戏");
+    JMenu helpJM = new JMenu("帮助");
+    JMenu propertiesJM = new JMenu("选项");
+    JMenuBar puzzleGameJMB = new JMenuBar();
+    JLabel backgroundJL = new JLabel(new ImageIcon("image\\background.png"));
     private int MOVE_UP_LEFT = 1;
     private int MOVE_DOWN_RIGHT = -1;
     private int BOUNDS_UP_LEFT = 3;
@@ -169,26 +169,26 @@ public class PuzzleGame extends Initializer implements MouseListener, KeyListene
         changeImageJM.add(animalJMI);
         changeImageJM.add(girlJMI);
         changeImageJM.add(sportJMI);
-        propertiesJMenu.add(changeImageJM);
-        propertiesJMenu.add(changeMovePatternJM);
+        propertiesJM.add(changeImageJM);
+        propertiesJM.add(changeMovePatternJM);
         changeMovePatternJM.add(moveBlankJMI);
         changeMovePatternJM.add(movePuzzleJMI);
-        propertiesJMenu.add(replayGameJMenuItem);
-        propertiesJMenu.add(exitGameJMenuItem);
-        propertiesJMenu.add(logOutJMenuItem);
-        puzzleGameMenuBar.add(propertiesJMenu);
-        puzzleGameMenuBar.add(aboutJMenu);
-        puzzleGameMenuBar.add(helpJMenu);
-        aboutJMenu.addMouseListener(this);
-        helpJMenu.addMouseListener(this);
-        logOutJMenuItem.addMouseListener(this);
-        exitGameJMenuItem.addMouseListener(this);
-        replayGameJMenuItem.addMouseListener(this);
+        propertiesJM.add(replayJMI);
+        propertiesJM.add(exitGameJMI);
+        propertiesJM.add(logoutJMI);
+        puzzleGameJMB.add(propertiesJM);
+        puzzleGameJMB.add(aboutJM);
+        puzzleGameJMB.add(helpJM);
+        aboutJM.addMouseListener(this);
+        helpJM.addMouseListener(this);
+        logoutJMI.addMouseListener(this);
+        exitGameJMI.addMouseListener(this);
+        replayJMI.addMouseListener(this);
         animalJMI.addMouseListener(this);
         girlJMI.addMouseListener(this);
         sportJMI.addMouseListener(this);
-        setJMenuBar(puzzleGameMenuBar);
-        background.addMouseListener(this);
+        setJMenuBar(puzzleGameJMB);
+        backgroundJL.addMouseListener(this);
         changeMovePatternJM.addMouseListener(this);
         moveBlankJMI.addMouseListener(this);
         movePuzzleJMI.addMouseListener(this);
@@ -216,12 +216,12 @@ public class PuzzleGame extends Initializer implements MouseListener, KeyListene
                 getContentPane().add(mainImage);
             }
         }
-        background.setBounds(40, 40, 508, 560);
-        getContentPane().add(background);
+        backgroundJL.setBounds(40, 40, 508, 560);
+        getContentPane().add(backgroundJL);
         getContentPane().repaint();
     }
 
-    //方法：判断用户是否胜利
+    ///判断用户是否胜利
     boolean victory() {
         int index = 1;
         for (int i = 0; i < 4; i++) {
@@ -263,15 +263,15 @@ public class PuzzleGame extends Initializer implements MouseListener, KeyListene
     @Override
     public void mousePressed(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == aboutJMenu) showAbout();
-        else if (thing == replayGameJMenuItem) replay();
-        else if (thing == exitGameJMenuItem) {
+        if (thing == aboutJM) showAbout();
+        else if (thing == replayJMI) replay();
+        else if (thing == exitGameJMI) {
             setVisible(false);
             new Menu(username);
-        } else if (thing == logOutJMenuItem) {
+        } else if (thing == logoutJMI) {
             setVisible(false);
             new Login();
-        } else if (thing == helpJMenu) {
+        } else if (thing == helpJM) {
             showHelp();
         } else if (thing == animalJMI) {
             chooseImage = "animal";
@@ -285,7 +285,7 @@ public class PuzzleGame extends Initializer implements MouseListener, KeyListene
             chooseImage = "sport";
             changeImage();
             replay();
-        } else if (thing == background) mouseClickCount++;
+        } else if (thing == backgroundJL) mouseClickCount++;
         else if (thing == moveBlankJMI) {
             MOVE_UP_LEFT = -1;
             MOVE_DOWN_RIGHT = 1;
@@ -320,7 +320,7 @@ public class PuzzleGame extends Initializer implements MouseListener, KeyListene
 
     }
 
-    ///用户按住不松时
+    ///用户按住不松
     @Override
     public void keyPressed(KeyEvent e) {
         if (victory()) return;
@@ -390,55 +390,6 @@ public class PuzzleGame extends Initializer implements MouseListener, KeyListene
             new Menu(username);
         }
     }
-
-    /*private void movePuzzle() {
-        if (code == 37 || code == 65) {
-            if (x != 0) {
-                step++;
-                data[x][y] = data[x + 1][y];
-                data[x + 1][y] = 0;
-                x--;
-                initContent();
-            }
-        } else if (code == 38 || code == 87) {
-            if (y != 0) {
-                step++;
-                data[x][y] = data[x][y + 1];
-                data[x][y + 1] = 0;
-                y--;
-                initContent();
-            }
-        } else if (code == 39 || code == 68) {
-            if (x != 0) {
-                step++;
-                data[x][y] = data[x - 1][y];
-                data[x - 1][y] = 0;
-                x++;
-                initContent();
-            }
-        } else if (code == 40 || code == 83) {
-            if (y != 0) {
-                step++;
-                data[x][y] = data[x][y - 1];
-                data[x][y - 1] = 0;
-                y++;
-                initContent();
-            }
-        } else if (code == 17) initContent();
-        else if (code == 109) {
-            step = 99999;
-            data = new int[][]{
-                    {1, 5, 9, 13},
-                    {2, 6, 10, 14},
-                    {3, 7, 11, 15},
-                    {4, 8, 12, 0}
-            };
-            initContent();
-        } else if (code == 27) {
-            setVisible(false);
-            new Menu(username);
-        }
-    }*/
 
     @Override
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {

@@ -3,15 +3,15 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
 
+//随机数生成器
 public class GetRandomNumber extends Initializer implements MouseListener, FocusListener, KeyListener {
 
-    JMenu about = new JMenu("关于");
-    JMenu properties = new JMenu("选项");
-    JMenuItem exit = new JMenuItem("退出随机数生成器");
-    JMenuItem logout = new JMenuItem("退出登录");
+    JMenu propertiesJM = new JMenu("选项");
+    JMenuItem exitJMI = new JMenuItem("退出随机数生成器");
+    JMenuItem logoutJMI = new JMenuItem("退出登录");
     JTextField inputMinimumJTF = new JTextField();
     JTextField inputMaximumJTF = new JTextField();
-    JButton submit = new JButton("确定");
+    JButton submitJB = new JButton("确定");
     String inputMin;
     String inputMax;
     String warning;
@@ -80,13 +80,13 @@ public class GetRandomNumber extends Initializer implements MouseListener, Focus
     @Override
     void initMenuBar() {
         JMenuBar menuBar = new JMenuBar();
-        properties.add(exit);
-        properties.add(logout);
-        menuBar.add(properties);
-        menuBar.add(about);
-        about.addMouseListener(this);
-        exit.addMouseListener(this);
-        logout.addMouseListener(this);
+        propertiesJM.add(exitJMI);
+        propertiesJM.add(logoutJMI);
+        menuBar.add(propertiesJM);
+        menuBar.add(aboutJM);
+        aboutJM.addMouseListener(this);
+        exitJMI.addMouseListener(this);
+        logoutJMI.addMouseListener(this);
         setJMenuBar(menuBar);
     }
 
@@ -96,17 +96,17 @@ public class GetRandomNumber extends Initializer implements MouseListener, Focus
         getContentPane().setBackground(Color.WHITE);
         inputMinimumJTF.setBounds(100, 100, 100, 30);
         inputMaximumJTF.setBounds(250, 100, 100, 30);
-        submit.setBounds(100, 200, 70, 30);
+        submitJB.setBounds(100, 200, 70, 30);
         warningJL.setBounds(100, 130, 200, 50);
         resultJL.setBounds(100, 300, 200, 30);
-        submit.addMouseListener(this);
+        submitJB.addMouseListener(this);
         warningJL.setVisible(false);
         resultJL.setVisible(false);
         inputMinimumJTF.setText("范围最小值");
         inputMaximumJTF.setText("范围最大值");
         getContentPane().add(inputMinimumJTF);
         getContentPane().add(inputMaximumJTF);
-        getContentPane().add(submit);
+        getContentPane().add(submitJB);
         getContentPane().add(warningJL);
         getContentPane().add(resultJL);
 
@@ -119,7 +119,7 @@ public class GetRandomNumber extends Initializer implements MouseListener, Focus
         inputMaximumJTF.addKeyListener(this);
         hintJL.setBounds(100, 70, 200, 30);
         getContentPane().add(hintJL);
-        submit.addKeyListener(this);
+        submitJB.addKeyListener(this);
         backJB.addKeyListener(this);
         warningJL.setForeground(Color.RED);
     }
@@ -132,15 +132,15 @@ public class GetRandomNumber extends Initializer implements MouseListener, Focus
     @Override
     public void mousePressed(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == submit) {
+        if (thing == submitJB) {
             inputMin = inputMinimumJTF.getText();
             inputMax = inputMaximumJTF.getText();
             getRandomNumber();
-        } else if (thing == about) showAbout();
-        else if (thing == exit || thing == backJB) {
+        } else if (thing == aboutJM) showAbout();
+        else if (thing == exitJMI || thing == backJB) {
             setVisible(false);
             new Menu(username);
-        } else if (thing == logout) {
+        } else if (thing == logoutJMI) {
             setVisible(false);
             new Login();
         }
@@ -154,13 +154,13 @@ public class GetRandomNumber extends Initializer implements MouseListener, Focus
     @Override
     public void mouseEntered(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == backJB || thing == submit) setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        if (thing == backJB || thing == submitJB) setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == backJB || thing == submit) setCursor(Cursor.getDefaultCursor());
+        if (thing == backJB || thing == submitJB) setCursor(Cursor.getDefaultCursor());
     }
 
     @Override

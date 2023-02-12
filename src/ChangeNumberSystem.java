@@ -2,12 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+//进制转换功能
 public class ChangeNumberSystem extends Initializer implements MouseListener, FocusListener, KeyListener {
 
-    JMenu about = new JMenu("关于");
-    JMenu properties = new JMenu("选项");
-    JMenuItem exit = new JMenuItem("退出进制转换器");
-    JMenuItem logout = new JMenuItem("退出登录");
+    JMenu propertiesJM = new JMenu("选项");
+    JMenuItem exitJMI = new JMenuItem("退出进制转换器");
+    JMenuItem logoutJMI = new JMenuItem("退出登录");
     JButton binaryToOctalJB = new JButton("将二进制转换为八进制");
     JButton binaryToDecimalJB = new JButton("将二进制转换为十进制");
     JButton binaryToHexJB = new JButton("将二进制转换为十六进制");
@@ -20,8 +20,8 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
     JButton hexToBinaryJB = new JButton("将十六进制转换为二进制");
     JButton hexToOctalJB = new JButton("将十六进制转换为八进制");
     JButton hexToDecimalJB = new JButton("将十六进制转换为十进制");
-    JButton submit = new JButton("确定");
-    JLabel wrongInputWarning = new JLabel("输入有误，请重新输入");
+    JButton submitJB = new JButton("确定");
+    JLabel invalidInputWarningJL = new JLabel("输入有误，请重新输入");
     String resultIs;
     String result;
     JLabel resultJL = new JLabel();
@@ -58,7 +58,7 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
         return true;
     }
 
-    //方法：判断输入的字符串是否只包含八进制数字
+    ///判断输入的字符串是否只包含八进制数字
     public static boolean isOnlyOctal(String octalString) {
         if (octalString.equals("")) return false;
         for (int i = 0; i < octalString.length(); i++) {
@@ -69,7 +69,7 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
         return true;
     }
 
-    //方法：判断输入的字符串是否只包含十进制数字
+    ///判断输入的字符串是否只包含十进制数字
     public static boolean isOnlyDecimal(String decimalString) {
         if (decimalString.equals("")) return false;
         for (int i = 0; i < decimalString.length(); i++) {
@@ -112,14 +112,14 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
     @Override
     void initMenuBar() {
         JMenuBar menuBar = new JMenuBar();
-        properties.add(exit);
-        properties.add(logout);
-        menuBar.add(properties);
-        menuBar.add(about);
-        about.addMouseListener(this);
-        properties.addMouseListener(this);
-        exit.addMouseListener(this);
-        logout.addMouseListener(this);
+        propertiesJM.add(exitJMI);
+        propertiesJM.add(logoutJMI);
+        menuBar.add(propertiesJM);
+        menuBar.add(aboutJM);
+        aboutJM.addMouseListener(this);
+        propertiesJM.addMouseListener(this);
+        exitJMI.addMouseListener(this);
+        logoutJMI.addMouseListener(this);
         setJMenuBar(menuBar);
     }
 
@@ -140,10 +140,10 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
         hexToOctalJB.setBounds(60, 560, 200, 40);
         hexToDecimalJB.setBounds(360, 560, 200, 40);
         inputJTF.setBounds(640, 210, 200, 30);
-        submit.setBounds(705, 270, 70, 30);
-        wrongInputWarning.setBounds(640, 160, 200, 30);
+        submitJB.setBounds(705, 270, 70, 30);
+        invalidInputWarningJL.setBounds(640, 160, 200, 30);
         resultJL.setBounds(640, 360, 500, 50);
-        wrongInputWarning.setVisible(false);
+        invalidInputWarningJL.setVisible(false);
         resultJL.setVisible(false);
         binaryToOctalJB.addMouseListener(this);
         binaryToDecimalJB.addMouseListener(this);
@@ -158,7 +158,7 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
         hexToOctalJB.addMouseListener(this);
         hexToDecimalJB.addMouseListener(this);
         inputJTF.addFocusListener(this);
-        submit.addMouseListener(this);
+        submitJB.addMouseListener(this);
         getContentPane().add(binaryToOctalJB);
         getContentPane().add(binaryToDecimalJB);
         getContentPane().add(binaryToHexJB);
@@ -172,18 +172,18 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
         getContentPane().add(hexToOctalJB);
         getContentPane().add(hexToDecimalJB);
         getContentPane().add(inputJTF);
-        getContentPane().add(submit);
+        getContentPane().add(submitJB);
         getContentPane().add(resultJL);
-        getContentPane().add(wrongInputWarning);
+        getContentPane().add(invalidInputWarningJL);
 
         backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
         getContentPane().add(backJB);
         inputJTF.addKeyListener(this);
-        submit.setVisible(true);
-        submit.addKeyListener(this);
+        submitJB.setVisible(true);
+        submitJB.addKeyListener(this);
         backJB.addKeyListener(this);
-        wrongInputWarning.setForeground(Color.RED);
+        invalidInputWarningJL.setForeground(Color.RED);
     }
 
     @Override
@@ -200,14 +200,14 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
             hint = inputBinary;
             inputJTF.setText(hint);
             binaryToDecimalUser();
-        } else if (thing == submit) {
+        } else if (thing == submitJB) {
             input = inputJTF.getText().toUpperCase();
             select();
-        } else if (thing == about) showAbout();
-        else if (thing == exit || thing == backJB) {
+        } else if (thing == aboutJM) showAbout();
+        else if (thing == exitJMI || thing == backJB) {
             setVisible(false);
             new Menu(username);
-        } else if (thing == logout) {
+        } else if (thing == logoutJMI) {
             setVisible(false);
             new Login();
         } else if (thing == octalToDecimalJB) {
@@ -318,7 +318,7 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
         Object thing = e.getSource();
         if (thing == binaryToOctalJB || thing == binaryToDecimalJB || thing == binaryToHexJB || thing == octalToBinaryJB ||
                 thing == octalToDecimalJB || thing == octalToHexJB || thing == decimalToBinaryJB || thing == decimalToOctalJB ||
-                thing == decimalToHexJB || thing == hexToBinaryJB || thing == hexToOctalJB || thing == hexToDecimalJB || thing == submit || thing == backJB)
+                thing == decimalToHexJB || thing == hexToBinaryJB || thing == hexToOctalJB || thing == hexToDecimalJB || thing == submitJB || thing == backJB)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
@@ -327,7 +327,7 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
         Object thing = e.getSource();
         if (thing == binaryToOctalJB || thing == binaryToDecimalJB || thing == binaryToHexJB || thing == octalToBinaryJB ||
                 thing == octalToDecimalJB || thing == octalToHexJB || thing == decimalToBinaryJB || thing == decimalToOctalJB ||
-                thing == decimalToHexJB || thing == hexToBinaryJB || thing == hexToOctalJB || thing == hexToDecimalJB || thing == submit || thing == backJB)
+                thing == decimalToHexJB || thing == hexToBinaryJB || thing == hexToOctalJB || thing == hexToDecimalJB || thing == submitJB || thing == backJB)
             setCursor(Cursor.getDefaultCursor());
     }
 
@@ -352,19 +352,19 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
     ///二进制转十进制 - 用户
     void binaryToDecimalUser() {
         setSize(940, 702);
-        if (input == null) wrongInputWarning.setVisible(false);
+        if (input == null) invalidInputWarningJL.setVisible(false);
         else if (!input.equals("") && isOnlyBinary(input)) {
-            wrongInputWarning.setVisible(false);
+            invalidInputWarningJL.setVisible(false);
             this.result = binaryToDecimal(input);
             resultIs = resultDecimal;
             resultJL.setText(resultIs + " " + this.result);
             resultJL.setVisible(true);
-        } else wrongInputWarning.setVisible(true);
+        } else invalidInputWarningJL.setVisible(true);
     }
 
     ///二进制转十进制 - 底层
     String binaryToDecimal(String binaryString) {
-        wrongInputWarning.setVisible(false);
+        invalidInputWarningJL.setVisible(false);
         StringBuilder temp = new StringBuilder();
         String binaryReverse = temp.append(binaryString).reverse().toString();
         long multiplier = 1;
@@ -376,17 +376,17 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
         return result + "";
     }
 
-    //方法：八进制转十进制 - 用户
+    ///八进制转十进制 - 用户
     void octalToDecimalUser() {
         setSize(940, 702);
-        if (input == null) wrongInputWarning.setVisible(false);
+        if (input == null) invalidInputWarningJL.setVisible(false);
         else if (!input.equals("") && isOnlyOctal(input)) {
-            wrongInputWarning.setVisible(false);
+            invalidInputWarningJL.setVisible(false);
             this.result = octalToDecimal(input);
             resultIs = resultDecimal;
             resultJL.setText(resultIs + " " + this.result);
             resultJL.setVisible(true);
-        } else wrongInputWarning.setVisible(true);
+        } else invalidInputWarningJL.setVisible(true);
     }
 
     ///八进制转十进制 - 底层
@@ -405,14 +405,14 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
     ///十六进制转十进制 - 用户
     void hexToDecimalUser() {
         setSize(940, 702);
-        if (input == null) wrongInputWarning.setVisible(false);
+        if (input == null) invalidInputWarningJL.setVisible(false);
         else if (!input.equals("") && isOnlyHexNumber(input)) {
-            wrongInputWarning.setVisible(false);
+            invalidInputWarningJL.setVisible(false);
             this.result = hexToDecimal(input);
             resultIs = resultDecimal;
             resultJL.setText(resultIs + " " + this.result);
             resultJL.setVisible(true);
-        } else wrongInputWarning.setVisible(true);
+        } else invalidInputWarningJL.setVisible(true);
     }
 
     ///十六进制转十进制 - 底层
@@ -434,14 +434,14 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
     ///十进制转二进制 - 用户
     void decimalToBinaryUser() {
         setSize(940, 702);
-        if (input == null) wrongInputWarning.setVisible(false);
+        if (input == null) invalidInputWarningJL.setVisible(false);
         else if (!input.equals("") && isOnlyDecimal(input)) {
-            wrongInputWarning.setVisible(false);
+            invalidInputWarningJL.setVisible(false);
             this.result = decimalToBinary(input);
             resultIs = resultBinary;
             resultJL.setText(resultIs + " " + this.result);
             resultJL.setVisible(true);
-        } else wrongInputWarning.setVisible(true);
+        } else invalidInputWarningJL.setVisible(true);
     }
 
     ///十进制转二进制 - 底层
@@ -452,14 +452,14 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
     ///十进制转八进制 - 用户
     void decimalToOctalUser() {
         setSize(940, 702);
-        if (input == null) wrongInputWarning.setVisible(false);
+        if (input == null) invalidInputWarningJL.setVisible(false);
         else if (!input.equals("") && isOnlyDecimal(input)) {
-            wrongInputWarning.setVisible(false);
+            invalidInputWarningJL.setVisible(false);
             this.result = decimalToOctal(input);
             resultIs = resultOctal;
             resultJL.setText(resultIs + " " + this.result);
             resultJL.setVisible(true);
-        } else wrongInputWarning.setVisible(true);
+        } else invalidInputWarningJL.setVisible(true);
     }
 
     ///十进制转八进制 - 底层
@@ -470,14 +470,14 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
     ///十进制转十六进制 - 用户
     void decimalToHexUser() {
         setSize(940, 702);
-        if (input == null) wrongInputWarning.setVisible(false);
+        if (input == null) invalidInputWarningJL.setVisible(false);
         else if (!input.equals("") && isOnlyDecimal(input)) {
-            wrongInputWarning.setVisible(false);
+            invalidInputWarningJL.setVisible(false);
             this.result = decimalToHex(input);
             resultIs = resultHex;
             resultJL.setText(resultIs + " " + this.result);
             resultJL.setVisible(true);
-        } else wrongInputWarning.setVisible(true);
+        } else invalidInputWarningJL.setVisible(true);
     }
 
     ///十进制转十六进制 - 底层
@@ -489,79 +489,79 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
     ///二进制转八进制
     void binaryToOctal() {
         setSize(940, 702);
-        if (input == null) wrongInputWarning.setVisible(false);
+        if (input == null) invalidInputWarningJL.setVisible(false);
         else if (!input.equals("") && isOnlyBinary(input)) {
-            wrongInputWarning.setVisible(false);
+            invalidInputWarningJL.setVisible(false);
             this.result = decimalToOctal(binaryToDecimal(input)) + "";
             resultIs = resultOctal;
             resultJL.setText(resultIs + " " + this.result);
             resultJL.setVisible(true);
-        } else wrongInputWarning.setVisible(true);
+        } else invalidInputWarningJL.setVisible(true);
     }
 
     ///二进制转十六进制
     void binaryToHex() {
         setSize(940, 702);
-        if (input == null) wrongInputWarning.setVisible(false);
+        if (input == null) invalidInputWarningJL.setVisible(false);
         else if (!input.equals("") && isOnlyBinary(input)) {
-            wrongInputWarning.setVisible(false);
+            invalidInputWarningJL.setVisible(false);
             this.result = decimalToHex(binaryToDecimal(input));
             resultIs = resultHex;
             resultJL.setText(resultIs + " " + this.result);
             resultJL.setVisible(true);
-        } else wrongInputWarning.setVisible(true);
+        } else invalidInputWarningJL.setVisible(true);
     }
 
     ///八进制转二进制
     void octalToBinary() {
         setSize(940, 702);
-        if (input == null) wrongInputWarning.setVisible(false);
+        if (input == null) invalidInputWarningJL.setVisible(false);
         else if (!input.equals("") && isOnlyOctal(input)) {
-            wrongInputWarning.setVisible(false);
+            invalidInputWarningJL.setVisible(false);
             this.result = decimalToBinary(octalToDecimal(input));
             resultIs = resultBinary;
             resultJL.setText(resultIs + " " + this.result);
             resultJL.setVisible(true);
-        } else wrongInputWarning.setVisible(true);
+        } else invalidInputWarningJL.setVisible(true);
     }
 
     ///八进制转十六进制
     void octalToHex() {
         setSize(940, 702);
-        if (input == null) wrongInputWarning.setVisible(false);
+        if (input == null) invalidInputWarningJL.setVisible(false);
         else if (!input.equals("") && isOnlyOctal(input)) {
-            wrongInputWarning.setVisible(false);
+            invalidInputWarningJL.setVisible(false);
             this.result = decimalToHex(octalToDecimal(input));
             resultIs = resultHex;
             resultJL.setText(resultIs + " " + this.result);
             resultJL.setVisible(true);
-        } else wrongInputWarning.setVisible(true);
+        } else invalidInputWarningJL.setVisible(true);
     }
 
     ///十六进制转二进制
     void hexToBinary() {
         setSize(940, 702);
-        if (input == null) wrongInputWarning.setVisible(false);
+        if (input == null) invalidInputWarningJL.setVisible(false);
         else if (!input.equals("") && isOnlyHexNumber(input)) {
-            wrongInputWarning.setVisible(false);
+            invalidInputWarningJL.setVisible(false);
             this.result = decimalToBinary(hexToDecimal(input));
             resultIs = resultBinary;
             resultJL.setText(resultIs + " " + this.result);
             resultJL.setVisible(true);
-        } else wrongInputWarning.setVisible(true);
+        } else invalidInputWarningJL.setVisible(true);
     }
 
     ///十六进制转八进制
     void hexToOctal() {
         setSize(940, 702);
-        if (input == null) wrongInputWarning.setVisible(false);
+        if (input == null) invalidInputWarningJL.setVisible(false);
         else if (!input.equals("") && isOnlyHexNumber(input)) {
-            wrongInputWarning.setVisible(false);
+            invalidInputWarningJL.setVisible(false);
             this.result = decimalToOctal(hexToDecimal(input)) + "";
             resultIs = resultOctal;
             resultJL.setText(resultIs + " " + this.result);
             resultJL.setVisible(true);
-        } else wrongInputWarning.setVisible(true);
+        } else invalidInputWarningJL.setVisible(true);
     }
 
     @Override

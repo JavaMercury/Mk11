@@ -2,16 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+//水银主菜单
 public class Menu extends Initializer implements MouseListener, KeyListener, FocusListener {
 
-    JMenu aboutJMenu = new JMenu("关于");
     JButton changeNumberSystemJB = new JButton("进制转换工具");
     JButton checkPrimeNumberJB = new JButton("质数判断器");
     JButton getRandomNumberJB = new JButton("随机数生成器");
     JButton playPuzzleGameJB = new JButton("拼图小游戏");
     JMenuItem resetPasswordJMI = new JMenuItem("修改密码");
     JMenuItem resetPhoneNumberJMI = new JMenuItem("修改手机号码");
-    JMenuItem logout = new JMenuItem("退出登录");
+    JMenuItem logoutJMI = new JMenuItem("退出登录");
     int focusSelect;
 
     public Menu(String username) {
@@ -45,11 +45,11 @@ public class Menu extends Initializer implements MouseListener, KeyListener, Foc
     void initMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         JMenu me = new JMenu("我的");
-        me.add(logout);
+        me.add(logoutJMI);
         me.add(resetPasswordJMI);
         me.add(resetPhoneNumberJMI);
         menuBar.add(me);
-        menuBar.add(aboutJMenu);
+        menuBar.add(aboutJM);
         setJMenuBar(menuBar);
     }
 
@@ -69,8 +69,8 @@ public class Menu extends Initializer implements MouseListener, KeyListener, Foc
         checkPrimeNumberJB.addMouseListener(this);
         getRandomNumberJB.addMouseListener(this);
         playPuzzleGameJB.addMouseListener(this);
-        aboutJMenu.addMouseListener(this);
-        logout.addMouseListener(this);
+        aboutJM.addMouseListener(this);
+        logoutJMI.addMouseListener(this);
         resetPasswordJMI.addMouseListener(this);
         resetPhoneNumberJMI.addMouseListener(this);
         changeNumberSystemJB.addKeyListener(this);
@@ -91,7 +91,7 @@ public class Menu extends Initializer implements MouseListener, KeyListener, Foc
     @Override
     public void mousePressed(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == aboutJMenu) {
+        if (thing == aboutJM) {
             showAbout();
         } else if (thing == playPuzzleGameJB) {
             setVisible(false);
@@ -102,7 +102,7 @@ public class Menu extends Initializer implements MouseListener, KeyListener, Foc
         } else if (thing == checkPrimeNumberJB) {
             setVisible(false);
             new CheckPrimeNumber();
-        } else if (thing == logout) {
+        } else if (thing == logoutJMI) {
             setVisible(false);
             new Login();
         } else if (thing == getRandomNumberJB) {

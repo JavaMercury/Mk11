@@ -6,13 +6,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+//用户登录界面
 public class Login extends Initializer implements KeyListener, MouseListener {
 
-    JMenu aboutJMenu = new JMenu("关于");
-    JButton logInButton = new JButton(new ImageIcon("image\\login\\登录按钮.png"));
-    JButton signUpButton = new JButton(new ImageIcon("image\\login\\注册按钮.png"));
+    JButton loginJB = new JButton(new ImageIcon("image\\login\\登录按钮.png"));
+    JButton signupJB = new JButton(new ImageIcon("image\\login\\注册按钮.png"));
     JTextField usernameJTF = new JTextField();
-    JLabel wrongInputWarning = new JLabel(new ImageIcon("image\\login\\登录输入有误.png"));
+    JLabel invalidInputWarningJL = new JLabel(new ImageIcon("image\\login\\登录输入有误.png"));
     JLabel usernameJL = new JLabel("用户名");
     JLabel passwordJL = new JLabel("密码");
 
@@ -77,8 +77,8 @@ public class Login extends Initializer implements KeyListener, MouseListener {
     @Override
     void initMenuBar() {
         JMenuBar loginMenuBar = new JMenuBar();
-        loginMenuBar.add(aboutJMenu);
-        aboutJMenu.addMouseListener(this);
+        loginMenuBar.add(aboutJM);
+        aboutJM.addMouseListener(this);
         setJMenuBar(loginMenuBar);
     }
 
@@ -88,19 +88,19 @@ public class Login extends Initializer implements KeyListener, MouseListener {
         getContentPane().setBackground(Color.WHITE);
         usernameJTF.setBounds(100, 70, 340, 30);
         passwordJPF.setBounds(100, 170, 340, 30);
-        logInButton.setBounds(110, 70, 128, 47);
-        logInButton.setContentAreaFilled(false);
-        logInButton.setBorderPainted(false);
-        logInButton.addMouseListener(this);
-        signUpButton.setBounds(302, 70, 128, 47);
-        signUpButton.setContentAreaFilled(false);
-        signUpButton.setBorderPainted(false);
-        signUpButton.addMouseListener(this);
-        wrongInputWarning.setBounds(100, 215, 221, 34);
-        wrongInputWarning.setVisible(false);
-        getContentPane().add(wrongInputWarning);
-        getContentPane().add(logInButton);
-        getContentPane().add(signUpButton);
+        loginJB.setBounds(110, 70, 128, 47);
+        loginJB.setContentAreaFilled(false);
+        loginJB.setBorderPainted(false);
+        loginJB.addMouseListener(this);
+        signupJB.setBounds(302, 70, 128, 47);
+        signupJB.setContentAreaFilled(false);
+        signupJB.setBorderPainted(false);
+        signupJB.addMouseListener(this);
+        invalidInputWarningJL.setBounds(100, 215, 221, 34);
+        invalidInputWarningJL.setVisible(false);
+        getContentPane().add(invalidInputWarningJL);
+        getContentPane().add(loginJB);
+        getContentPane().add(signupJB);
         getContentPane().add(usernameJTF);
         getContentPane().add(passwordJPF);
         usernameJL.setBounds(100, 30, 100, 50);
@@ -113,15 +113,15 @@ public class Login extends Initializer implements KeyListener, MouseListener {
         passwordJPF.setVisible(false);
         usernameJL.setVisible(false);
         passwordJL.setVisible(false);
-        revealPassword.setBounds(70, 170, 30, 30);
-        revealPasswordPressed.setBounds(70, 170, 30, 30);
-        getContentPane().add(revealPassword);
-        getContentPane().add(revealPasswordPressed);
-        revealPasswordPressed.setVisible(false);
-        revealPassword.addMouseListener(this);
-        revealPasswordPressed.addMouseListener(this);
-        revealPassword.setVisible(false);
-        logInButton.addKeyListener(this);
+        revealPasswordJL.setBounds(70, 170, 30, 30);
+        revealPasswordPressedJL.setBounds(70, 170, 30, 30);
+        getContentPane().add(revealPasswordJL);
+        getContentPane().add(revealPasswordPressedJL);
+        revealPasswordPressedJL.setVisible(false);
+        revealPasswordJL.addMouseListener(this);
+        revealPasswordPressedJL.addMouseListener(this);
+        revealPasswordJL.setVisible(false);
+        loginJB.addKeyListener(this);
     }
 
     @Override
@@ -153,18 +153,18 @@ public class Login extends Initializer implements KeyListener, MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == aboutJMenu) {
+        if (thing == aboutJM) {
             showAbout();
-        } else if (thing == revealPassword) {
-            revealPassword.setVisible(false);
-            revealPasswordPressed.setVisible(true);
+        } else if (thing == revealPasswordJL) {
+            revealPasswordJL.setVisible(false);
+            revealPasswordPressedJL.setVisible(true);
             showPassword();
         }
     }
 
     ///显示输入框
     void showLogin() {
-        revealPassword.setVisible(true);
+        revealPasswordJL.setVisible(true);
         usernameJTF.setVisible(true);
         passwordJPF.setVisible(true);
         usernameJL.setVisible(true);
@@ -174,31 +174,31 @@ public class Login extends Initializer implements KeyListener, MouseListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == logInButton) {
+        if (thing == loginJB) {
             setSize(555, 469);
-            logInButton.setLocation(110, 270);
-            signUpButton.setLocation(302, 270);
+            loginJB.setLocation(110, 270);
+            signupJB.setLocation(302, 270);
             showLogin();
             collectData();
             login();
-        } else if (thing == signUpButton) {
+        } else if (thing == signupJB) {
             setVisible(false);
-            new SignUp();
-        } else if (thing == revealPasswordPressed) {
-            revealPassword.setVisible(true);
-            revealPasswordPressed.setVisible(false);
+            new Signup();
+        } else if (thing == revealPasswordPressedJL) {
+            revealPasswordJL.setVisible(true);
+            revealPasswordPressedJL.setVisible(false);
             hidePassword();
         }
     }
 
     ///登录
     void login() {
-        wrongInputWarning.setVisible(false);
+        invalidInputWarningJL.setVisible(false);
         if (checkSameUsername(library, username) && checkSamePassword(library, username, passwordSB.toString())) {
             setVisible(false);
             new Menu(username);
         } else if ((!username.equals("") || passwordSB.length() != 0))
-            wrongInputWarning.setVisible(true);
+            invalidInputWarningJL.setVisible(true);
     }
 
     ///采集登录信息
@@ -214,18 +214,18 @@ public class Login extends Initializer implements KeyListener, MouseListener {
     @Override
     public void mouseEntered(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == logInButton) logInButton.setIcon(new ImageIcon("image\\login\\登录按下.png"));
-        else if (thing == signUpButton) signUpButton.setIcon(new ImageIcon("image\\login\\注册按下.png"));
-        if (thing == logInButton || thing == signUpButton || thing == revealPassword || thing == revealPasswordPressed)
+        if (thing == loginJB) loginJB.setIcon(new ImageIcon("image\\login\\登录按下.png"));
+        else if (thing == signupJB) signupJB.setIcon(new ImageIcon("image\\login\\注册按下.png"));
+        if (thing == loginJB || thing == signupJB || thing == revealPasswordJL || thing == revealPasswordPressedJL)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == logInButton) logInButton.setIcon(new ImageIcon("image\\login\\登录按钮.png"));
-        else if (thing == signUpButton) signUpButton.setIcon(new ImageIcon("image\\login\\注册按钮.png"));
-        if (thing == logInButton || thing == signUpButton || thing == revealPassword || thing == revealPasswordPressed)
+        if (thing == loginJB) loginJB.setIcon(new ImageIcon("image\\login\\登录按钮.png"));
+        else if (thing == signupJB) signupJB.setIcon(new ImageIcon("image\\login\\注册按钮.png"));
+        if (thing == loginJB || thing == signupJB || thing == revealPasswordJL || thing == revealPasswordPressedJL)
             setCursor(Cursor.getDefaultCursor());
     }
 

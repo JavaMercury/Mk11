@@ -6,27 +6,27 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+//重设密码
 public class ResetPassword extends Initializer implements MouseListener, KeyListener {
-    JMenu properties = new JMenu("选项");
-    JMenu about = new JMenu("关于");
-    JMenuItem exit = new JMenuItem("取消修改");
+    JMenu propertiesJM = new JMenu("选项");
+    JMenuItem exitJMI = new JMenuItem("取消修改");
     JTextField phoneNumberJTF = new JTextField();
     JPasswordField passwordAgainJPF = new JPasswordField();
     JTextField codeJTF = new JTextField();
-    JLabel inputPhoneNumberMessage = new JLabel("输入手机号码用于验证");
-    JLabel inputNewPasswordMessage = new JLabel("输入新的密码");
-    JLabel inputNewPasswordAgainMessage = new JLabel("再次输入密码");
-    JButton submit = new JButton("确定");
+    JLabel inputPhoneNumberJL = new JLabel("输入手机号码用于验证");
+    JLabel inputNewPasswordJL = new JLabel("输入新的密码");
+    JLabel inputNewPasswordAgainJL = new JLabel("再次输入密码");
+    JButton submitJB = new JButton("确定");
     JButton codeJB = new JButton();
     String phoneNumber;
     String codeTemp;
     String passwordAgain;
     String code;
-    JLabel invalidPhoneNumberWarning = new JLabel("手机号码无效，请重新输入");
-    JLabel invalidCodeWarning = new JLabel("验证码输入有误，请重新输入，或点击验证码重新生成");
-    JLabel invalidPasswordWarning = new JLabel("密码无效，密码长度在8-20之间，必须包括大小写字母和数字");
-    JLabel differentPasswordWarning = new JLabel("两次输入的密码不一致");
-    JLabel samePasswordWarning = new JLabel("新密码不能与旧密码相同");
+    JLabel invalidPhoneNumberJL = new JLabel("手机号码无效，请重新输入");
+    JLabel invalidCodeJL = new JLabel("验证码输入有误，请重新输入，或点击验证码重新生成");
+    JLabel invalidPasswordJL = new JLabel("密码无效，密码长度在8-20之间，必须包括大小写字母和数字");
+    JLabel differentPasswordJL = new JLabel("两次输入的密码不一致");
+    JLabel samePasswordJL = new JLabel("新密码不能与旧密码相同");
 
     public ResetPassword(String username) {
         super.username = username;
@@ -57,11 +57,11 @@ public class ResetPassword extends Initializer implements MouseListener, KeyList
     @Override
     void initMenuBar() {
         JMenuBar menuBar = new JMenuBar();
-        properties.add(exit);
-        menuBar.add(properties);
-        menuBar.add(about);
-        about.addMouseListener(this);
-        exit.addMouseListener(this);
+        propertiesJM.add(exitJMI);
+        menuBar.add(propertiesJM);
+        menuBar.add(aboutJM);
+        aboutJM.addMouseListener(this);
+        exitJMI.addMouseListener(this);
         setJMenuBar(menuBar);
     }
 
@@ -69,45 +69,45 @@ public class ResetPassword extends Initializer implements MouseListener, KeyList
     void initContent() {
         getContentPane().setBackground(Color.WHITE);
         phoneNumberJTF.setBounds(100, 50, 200, 30);
-        inputPhoneNumberMessage.setBounds(100, 20, 200, 30);
-        submit.setBounds(100, 500, 100, 30);
-        invalidPhoneNumberWarning.setBounds(100, 80, 200, 30);
+        inputPhoneNumberJL.setBounds(100, 20, 200, 30);
+        submitJB.setBounds(100, 500, 100, 30);
+        invalidPhoneNumberJL.setBounds(100, 80, 200, 30);
         passwordJPF.setBounds(100, 150, 200, 30);
         passwordAgainJPF.setBounds(100, 250, 200, 30);
-        inputNewPasswordMessage.setBounds(100, 120, 200, 30);
-        inputNewPasswordAgainMessage.setBounds(100, 220, 200, 30);
+        inputNewPasswordJL.setBounds(100, 120, 200, 30);
+        inputNewPasswordAgainJL.setBounds(100, 220, 200, 30);
         codeJTF.setBounds(100, 350, 100, 30);
         codeJB.setBounds(200, 350, 80, 30);
-        invalidPasswordWarning.setBounds(100, 180, 400, 30);
-        differentPasswordWarning.setBounds(100, 280, 200, 30);
-        invalidCodeWarning.setBounds(100, 380, 400, 30);
-        samePasswordWarning.setBounds(100, 180, 400, 30);
+        invalidPasswordJL.setBounds(100, 180, 400, 30);
+        differentPasswordJL.setBounds(100, 280, 200, 30);
+        invalidCodeJL.setBounds(100, 380, 400, 30);
+        samePasswordJL.setBounds(100, 180, 400, 30);
 
-        submit.addMouseListener(this);
+        submitJB.addMouseListener(this);
         codeJB.addMouseListener(this);
 
         getContentPane().add(phoneNumberJTF);
-        getContentPane().add(inputPhoneNumberMessage);
-        getContentPane().add(submit);
-        getContentPane().add(invalidPhoneNumberWarning);
+        getContentPane().add(inputPhoneNumberJL);
+        getContentPane().add(submitJB);
+        getContentPane().add(invalidPhoneNumberJL);
         getContentPane().add(passwordJPF);
         getContentPane().add(passwordAgainJPF);
-        getContentPane().add(inputNewPasswordMessage);
-        getContentPane().add(inputNewPasswordAgainMessage);
+        getContentPane().add(inputNewPasswordJL);
+        getContentPane().add(inputNewPasswordAgainJL);
         getContentPane().add(codeJTF);
         getContentPane().add(codeJB);
-        getContentPane().add(invalidPasswordWarning);
-        getContentPane().add(differentPasswordWarning);
-        getContentPane().add(invalidCodeWarning);
-        getContentPane().add(samePasswordWarning);
+        getContentPane().add(invalidPasswordJL);
+        getContentPane().add(differentPasswordJL);
+        getContentPane().add(invalidCodeJL);
+        getContentPane().add(samePasswordJL);
 
-        invalidPhoneNumberWarning.setVisible(false);
+        invalidPhoneNumberJL.setVisible(false);
         codeJB.setContentAreaFilled(false);
         codeJB.setBorderPainted(false);
-        invalidPasswordWarning.setVisible(false);
-        differentPasswordWarning.setVisible(false);
-        invalidCodeWarning.setVisible(false);
-        samePasswordWarning.setVisible(false);
+        invalidPasswordJL.setVisible(false);
+        differentPasswordJL.setVisible(false);
+        invalidCodeJL.setVisible(false);
+        samePasswordJL.setVisible(false);
 
         codeTemp = getVerificationCode();
         codeJB.setText(codeTemp);
@@ -115,25 +115,26 @@ public class ResetPassword extends Initializer implements MouseListener, KeyList
         backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
         getContentPane().add(backJB);
-        invalidPhoneNumberWarning.setForeground(Color.RED);
-        invalidCodeWarning.setForeground(Color.RED);
-        invalidPasswordWarning.setForeground(Color.RED);
-        differentPasswordWarning.setForeground(Color.RED);
-        samePasswordWarning.setForeground(Color.RED);
-        submit.addKeyListener(this);
+        invalidPhoneNumberJL.setForeground(Color.RED);
+        invalidCodeJL.setForeground(Color.RED);
+        invalidPasswordJL.setForeground(Color.RED);
+        differentPasswordJL.setForeground(Color.RED);
+        samePasswordJL.setForeground(Color.RED);
+        submitJB.addKeyListener(this);
         phoneNumberJTF.addKeyListener(this);
         passwordJPF.addKeyListener(this);
         passwordAgainJPF.addKeyListener(this);
         codeJTF.addKeyListener(this);
-        revealPassword.setBounds(70, 150, 30, 30);
-        revealPasswordPressed.setBounds(70, 150, 30, 30);
-        getContentPane().add(revealPassword);
-        getContentPane().add(revealPasswordPressed);
-        revealPassword.addMouseListener(this);
-        revealPasswordPressed.addMouseListener(this);
-        revealPasswordPressed.setVisible(false);
+        revealPasswordJL.setBounds(70, 150, 30, 30);
+        revealPasswordPressedJL.setBounds(70, 150, 30, 30);
+        getContentPane().add(revealPasswordJL);
+        getContentPane().add(revealPasswordPressedJL);
+        revealPasswordJL.addMouseListener(this);
+        revealPasswordPressedJL.addMouseListener(this);
+        revealPasswordPressedJL.setVisible(false);
     }
 
+    ///重设密码
     void resetPassword() {
         if (code.equals(codeTemp) && checkSamePhoneNumber(library, username, phoneNumber) && checkPassword(password) && !checkSamePassword(library, username, password) && password.equals(passwordAgain)) {
             User user = library.get(getUserIndex(library, username));
@@ -141,19 +142,19 @@ public class ResetPassword extends Initializer implements MouseListener, KeyList
             setVisible(false);
             new Login();
         } else {
-            invalidCodeWarning.setVisible(!code.equals(codeTemp));
+            invalidCodeJL.setVisible(!code.equals(codeTemp));
             codeTemp = getVerificationCode();
             codeJB.setText(codeTemp);
-            invalidPhoneNumberWarning.setVisible(!checkSamePhoneNumber(library, username, phoneNumber));
-            invalidPasswordWarning.setVisible(!checkPassword(password));
+            invalidPhoneNumberJL.setVisible(!checkSamePhoneNumber(library, username, phoneNumber));
+            invalidPasswordJL.setVisible(!checkPassword(password));
             if (!password.equals(passwordAgain)) {
-                invalidPasswordWarning.setVisible(false);
-                samePasswordWarning.setVisible(false);
-                differentPasswordWarning.setVisible(true);
-            } else differentPasswordWarning.setVisible(false);
+                invalidPasswordJL.setVisible(false);
+                samePasswordJL.setVisible(false);
+                differentPasswordJL.setVisible(true);
+            } else differentPasswordJL.setVisible(false);
             if (checkSamePassword(library, username, password)) {
-                invalidPasswordWarning.setVisible(false);
-                samePasswordWarning.setVisible(true);
+                invalidPasswordJL.setVisible(false);
+                samePasswordJL.setVisible(true);
             }
         }
     }
@@ -166,19 +167,19 @@ public class ResetPassword extends Initializer implements MouseListener, KeyList
     @Override
     public void mousePressed(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == about) showAbout();
-        else if (thing == exit || thing == backJB) {
+        if (thing == aboutJM) showAbout();
+        else if (thing == exitJMI || thing == backJB) {
             setVisible(false);
             new Menu(username);
         } else if (thing == codeJB) {
             codeTemp = getVerificationCode();
             codeJB.setText(codeTemp);
-        } else if (thing == submit) {
+        } else if (thing == submitJB) {
             collectData();
             resetPassword();
-        } else if (thing == revealPassword) {
-            revealPassword.setVisible(false);
-            revealPasswordPressed.setVisible(true);
+        } else if (thing == revealPasswordJL) {
+            revealPasswordJL.setVisible(false);
+            revealPasswordPressedJL.setVisible(true);
             showPassword();
         }
     }
@@ -186,9 +187,9 @@ public class ResetPassword extends Initializer implements MouseListener, KeyList
     @Override
     public void mouseReleased(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == revealPasswordPressed) {
-            revealPassword.setVisible(true);
-            revealPasswordPressed.setVisible(false);
+        if (thing == revealPasswordPressedJL) {
+            revealPasswordJL.setVisible(true);
+            revealPasswordPressedJL.setVisible(false);
             hidePassword();
         }
     }
@@ -196,14 +197,14 @@ public class ResetPassword extends Initializer implements MouseListener, KeyList
     @Override
     public void mouseEntered(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == backJB || thing == submit || thing == revealPassword || thing == revealPasswordPressed || thing == codeJB)
+        if (thing == backJB || thing == submitJB || thing == revealPasswordJL || thing == revealPasswordPressedJL || thing == codeJB)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == backJB || thing == submit || thing == revealPassword || thing == revealPasswordPressed || thing == codeJB)
+        if (thing == backJB || thing == submitJB || thing == revealPasswordJL || thing == revealPasswordPressedJL || thing == codeJB)
             setCursor(Cursor.getDefaultCursor());
     }
 
@@ -229,6 +230,7 @@ public class ResetPassword extends Initializer implements MouseListener, KeyList
         }
     }
 
+    ///收集用户输入的数据
     void collectData() {
         passwordSB.delete(0, passwordSB.length());
         for (char c : passwordJPF.getPassword()) {

@@ -5,25 +5,25 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+//重设手机号码
 public class ResetPhoneNumber extends Initializer implements MouseListener, KeyListener {
 
     JMenu properties = new JMenu("选项");
-    JMenu about = new JMenu("关于");
-    JMenuItem exit = new JMenuItem("取消修改");
+    JMenuItem exitJMI = new JMenuItem("取消修改");
     JTextField phoneNumberJTF = new JTextField();
     JTextField codeJTF = new JTextField();
-    JLabel inputPasswordMessage = new JLabel("输入密码用于验证");
-    JLabel inputNewPhoneNumberMessage = new JLabel("输入新的手机号码");
-    JButton submit = new JButton("确定");
+    JLabel inputPasswordJL = new JLabel("输入密码用于验证");
+    JLabel inputNewPhoneNumberJL = new JLabel("输入新的手机号码");
+    JButton submitJB = new JButton("确定");
     JButton codeJB = new JButton();
     String phoneNumber;
     String codeTemp;
     String code;
-    JLabel invalidPhoneNumberWarning = new JLabel("手机号码无效，请重新输入");
-    JLabel invalidCodeWarning = new JLabel("验证码输入有误，请重新输入，或点击验证码重新生成");
-    JLabel invalidPasswordWarning = new JLabel("密码无效，请重新输入");
-    JLabel samePhoneNumberWarning = new JLabel("新手机号码不能与旧手机号码相同");
-    JLabel occupiedPhoneNumberWarning = new JLabel("手机号码已被占用");
+    JLabel invalidPhoneNumberJL = new JLabel("手机号码无效，请重新输入");
+    JLabel invalidCodeJL = new JLabel("验证码输入有误，请重新输入，或点击验证码重新生成");
+    JLabel invalidPasswordJL = new JLabel("密码无效，请重新输入");
+    JLabel samePhoneNumberJL = new JLabel("新手机号码不能与旧手机号码相同");
+    JLabel occupiedPhoneNumberJL = new JLabel("手机号码已被占用");
 
     public ResetPhoneNumber(String username) {
         super.username = username;
@@ -48,11 +48,11 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
     @Override
     void initMenuBar() {
         JMenuBar menuBar = new JMenuBar();
-        properties.add(exit);
+        properties.add(exitJMI);
         menuBar.add(properties);
-        menuBar.add(about);
-        about.addMouseListener(this);
-        exit.addMouseListener(this);
+        menuBar.add(aboutJM);
+        aboutJM.addMouseListener(this);
+        exitJMI.addMouseListener(this);
         setJMenuBar(menuBar);
     }
 
@@ -60,38 +60,38 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
     void initContent() {
         getContentPane().setBackground(Color.WHITE);
         passwordJPF.setBounds(100, 50, 200, 30);
-        inputPasswordMessage.setBounds(100, 20, 200, 30);
-        submit.setBounds(100, 500, 100, 30);
-        invalidPasswordWarning.setBounds(100, 80, 200, 30);
+        inputPasswordJL.setBounds(100, 20, 200, 30);
+        submitJB.setBounds(100, 500, 100, 30);
+        invalidPasswordJL.setBounds(100, 80, 200, 30);
         phoneNumberJTF.setBounds(100, 150, 200, 30);
-        inputNewPhoneNumberMessage.setBounds(100, 120, 200, 30);
+        inputNewPhoneNumberJL.setBounds(100, 120, 200, 30);
         codeJTF.setBounds(100, 250, 100, 30);
         codeJB.setBounds(200, 250, 80, 30);
-        invalidPhoneNumberWarning.setBounds(100, 180, 400, 30);
-        invalidCodeWarning.setBounds(100, 280, 400, 30);
-        samePhoneNumberWarning.setBounds(100, 180, 400, 30);
+        invalidPhoneNumberJL.setBounds(100, 180, 400, 30);
+        invalidCodeJL.setBounds(100, 280, 400, 30);
+        samePhoneNumberJL.setBounds(100, 180, 400, 30);
 
-        submit.addMouseListener(this);
+        submitJB.addMouseListener(this);
         codeJB.addMouseListener(this);
 
         getContentPane().add(phoneNumberJTF);
-        getContentPane().add(inputPasswordMessage);
-        getContentPane().add(submit);
-        getContentPane().add(invalidPhoneNumberWarning);
+        getContentPane().add(inputPasswordJL);
+        getContentPane().add(submitJB);
+        getContentPane().add(invalidPhoneNumberJL);
         getContentPane().add(passwordJPF);
-        getContentPane().add(inputNewPhoneNumberMessage);
+        getContentPane().add(inputNewPhoneNumberJL);
         getContentPane().add(codeJTF);
         getContentPane().add(codeJB);
-        getContentPane().add(invalidPasswordWarning);
-        getContentPane().add(invalidCodeWarning);
-        getContentPane().add(samePhoneNumberWarning);
+        getContentPane().add(invalidPasswordJL);
+        getContentPane().add(invalidCodeJL);
+        getContentPane().add(samePhoneNumberJL);
 
-        invalidPhoneNumberWarning.setVisible(false);
+        invalidPhoneNumberJL.setVisible(false);
         codeJB.setContentAreaFilled(false);
         codeJB.setBorderPainted(false);
-        invalidPasswordWarning.setVisible(false);
-        invalidCodeWarning.setVisible(false);
-        samePhoneNumberWarning.setVisible(false);
+        invalidPasswordJL.setVisible(false);
+        invalidCodeJL.setVisible(false);
+        samePhoneNumberJL.setVisible(false);
 
         codeTemp = getVerificationCode();
         codeJB.setText(codeTemp);
@@ -99,51 +99,52 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
         backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
         getContentPane().add(backJB);
-        invalidPhoneNumberWarning.setForeground(Color.RED);
-        invalidCodeWarning.setForeground(Color.RED);
-        invalidPasswordWarning.setForeground(Color.RED);
-        samePhoneNumberWarning.setForeground(Color.RED);
-        occupiedPhoneNumberWarning.setForeground(Color.RED);
-        submit.addKeyListener(this);
+        invalidPhoneNumberJL.setForeground(Color.RED);
+        invalidCodeJL.setForeground(Color.RED);
+        invalidPasswordJL.setForeground(Color.RED);
+        samePhoneNumberJL.setForeground(Color.RED);
+        occupiedPhoneNumberJL.setForeground(Color.RED);
+        submitJB.addKeyListener(this);
         passwordJPF.addKeyListener(this);
         phoneNumberJTF.addKeyListener(this);
         codeJTF.addKeyListener(this);
-        revealPassword.setBounds(70, 50, 30, 30);
-        revealPasswordPressed.setBounds(70, 50, 30, 30);
-        getContentPane().add(revealPassword);
-        getContentPane().add(revealPasswordPressed);
-        revealPasswordPressed.setVisible(false);
-        revealPassword.addMouseListener(this);
-        revealPasswordPressed.addMouseListener(this);
+        revealPasswordJL.setBounds(70, 50, 30, 30);
+        revealPasswordPressedJL.setBounds(70, 50, 30, 30);
+        getContentPane().add(revealPasswordJL);
+        getContentPane().add(revealPasswordPressedJL);
+        revealPasswordPressedJL.setVisible(false);
+        revealPasswordJL.addMouseListener(this);
+        revealPasswordPressedJL.addMouseListener(this);
     }
 
-    void resetPhoneNumber() {
+    ///重设手机号码
+    private void resetPhoneNumber() {
         if (code.equals(codeTemp) && checkSamePassword(library, username, password) && checkPhoneNumber(phoneNumber) && checkSamePhoneNumber(library, username, phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber)) {
             User user = library.get(getUserIndex(library, username));
             user.setPhoneNumber(phoneNumber);
             setVisible(false);
             new Login();
         } else {
-            invalidCodeWarning.setVisible(!code.equals(codeTemp));
+            invalidCodeJL.setVisible(!code.equals(codeTemp));
             codeTemp = getVerificationCode();
             codeJB.setText(codeTemp);
-            invalidCodeWarning.setVisible(!code.equals(codeTemp));
-            invalidPhoneNumberWarning.setVisible(!checkSamePhoneNumber(library, username, phoneNumber));
-            invalidPasswordWarning.setVisible(!checkPassword(password));
+            invalidCodeJL.setVisible(!code.equals(codeTemp));
+            invalidPhoneNumberJL.setVisible(!checkSamePhoneNumber(library, username, phoneNumber));
+            invalidPasswordJL.setVisible(!checkPassword(password));
             if (!checkPhoneNumber(phoneNumber)) {
-                occupiedPhoneNumberWarning.setVisible(false);
-                samePhoneNumberWarning.setVisible(false);
-                invalidPhoneNumberWarning.setVisible(true);
+                occupiedPhoneNumberJL.setVisible(false);
+                samePhoneNumberJL.setVisible(false);
+                invalidPhoneNumberJL.setVisible(true);
             }
             if (checkPhoneNumberUsed(library, phoneNumber)) {
-                invalidPhoneNumberWarning.setVisible(false);
-                samePhoneNumberWarning.setVisible(false);
-                occupiedPhoneNumberWarning.setVisible(true);
+                invalidPhoneNumberJL.setVisible(false);
+                samePhoneNumberJL.setVisible(false);
+                occupiedPhoneNumberJL.setVisible(true);
             }
             if (!checkSamePhoneNumber(library, username, phoneNumber)) {
-                invalidPhoneNumberWarning.setVisible(false);
-                occupiedPhoneNumberWarning.setVisible(false);
-                samePhoneNumberWarning.setVisible(true);
+                invalidPhoneNumberJL.setVisible(false);
+                occupiedPhoneNumberJL.setVisible(false);
+                samePhoneNumberJL.setVisible(true);
             }
         }
     }
@@ -156,19 +157,19 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
     @Override
     public void mousePressed(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == about) showAbout();
-        else if (thing == exit || thing == backJB) {
+        if (thing == aboutJM) showAbout();
+        else if (thing == exitJMI || thing == backJB) {
             setVisible(false);
             new Menu(username);
         } else if (thing == codeJB) {
             codeTemp = getVerificationCode();
             codeJB.setText(codeTemp);
-        } else if (thing == submit) {
+        } else if (thing == submitJB) {
             collectData();
             resetPhoneNumber();
-        } else if (thing == revealPassword) {
-            revealPassword.setVisible(false);
-            revealPasswordPressed.setVisible(true);
+        } else if (thing == revealPasswordJL) {
+            revealPasswordJL.setVisible(false);
+            revealPasswordPressedJL.setVisible(true);
             showPassword();
         }
     }
@@ -176,9 +177,9 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
     @Override
     public void mouseReleased(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == revealPasswordPressed) {
-            revealPassword.setVisible(true);
-            revealPasswordPressed.setVisible(false);
+        if (thing == revealPasswordPressedJL) {
+            revealPasswordJL.setVisible(true);
+            revealPasswordPressedJL.setVisible(false);
             hidePassword();
         }
     }
@@ -186,14 +187,14 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
     @Override
     public void mouseEntered(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == backJB || thing == submit || thing == revealPassword || thing == revealPasswordPressed || thing == codeJB)
+        if (thing == backJB || thing == submitJB || thing == revealPasswordJL || thing == revealPasswordPressedJL || thing == codeJB)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == backJB || thing == submit || thing == revealPassword || thing == revealPasswordPressed || thing == codeJB)
+        if (thing == backJB || thing == submitJB || thing == revealPasswordJL || thing == revealPasswordPressedJL || thing == codeJB)
             setCursor(Cursor.getDefaultCursor());
     }
 
@@ -219,6 +220,7 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
         }
     }
 
+    ///收集用户输入的数据
     void collectData() {
         passwordSB.delete(0, passwordSB.length());
         for (char c : passwordJPF.getPassword()) {
