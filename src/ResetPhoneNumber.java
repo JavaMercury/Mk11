@@ -70,6 +70,7 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
         invalidPhoneNumberJL.setBounds(100, 180, 400, 30);
         invalidCodeJL.setBounds(100, 280, 400, 30);
         samePhoneNumberJL.setBounds(100, 180, 400, 30);
+        occupiedPhoneNumberJL.setBounds(100,180,400,30);
 
         submitJB.addMouseListener(this);
         codeJB.addMouseListener(this);
@@ -85,6 +86,7 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
         getContentPane().add(invalidPasswordJL);
         getContentPane().add(invalidCodeJL);
         getContentPane().add(samePhoneNumberJL);
+        getContentPane().add(occupiedPhoneNumberJL);
 
         invalidPhoneNumberJL.setVisible(false);
         codeJB.setContentAreaFilled(false);
@@ -115,6 +117,7 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
         revealPasswordPressedJL.setVisible(false);
         revealPasswordJL.addMouseListener(this);
         revealPasswordPressedJL.addMouseListener(this);
+        occupiedPhoneNumberJL.setVisible(false);
     }
 
     ///重设手机号码
@@ -130,7 +133,7 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
             codeJB.setText(codeTemp);
             invalidPhoneNumberJL.setVisible(!checkSamePhoneNumber(library, username, phoneNumber));
             invalidPasswordJL.setVisible(!checkPassword(password));
-            if (!checkPhoneNumber(phoneNumber)) {
+            if (checkPhoneNumber(phoneNumber)) {
                 occupiedPhoneNumberJL.setVisible(false);
                 samePhoneNumberJL.setVisible(false);
                 invalidPhoneNumberJL.setVisible(true);
@@ -141,6 +144,7 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
                 occupiedPhoneNumberJL.setVisible(true);
             }
             if (!checkSamePhoneNumber(library, username, phoneNumber)) {
+                System.out.println("same phone number");
                 invalidPhoneNumberJL.setVisible(false);
                 occupiedPhoneNumberJL.setVisible(false);
                 samePhoneNumberJL.setVisible(true);
