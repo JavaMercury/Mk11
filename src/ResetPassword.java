@@ -37,12 +37,6 @@ public class ResetPassword extends Initializer implements MouseListener, KeyList
         setVisible(true);
     }
 
-    ///判断手机号码是否重复
-    /*public static boolean checkSamePhoneNumber(ArrayList<User> library, String username, String phoneNumber) {
-        User user = getUser(username);
-        return phoneNumber.equals(user.getPhoneNumber());
-    }*/
-
     @Override
     void initJFrame() {
         setLayout(null);
@@ -136,7 +130,7 @@ public class ResetPassword extends Initializer implements MouseListener, KeyList
 
     ///重设密码
     void resetPassword() {
-        if (code.equals(codeTemp) && checkSamePhoneNumber(library, username, phoneNumber) && checkPassword(password) && !checkSamePassword(library, username, password) && password.equals(passwordAgain)) {
+        if (code.equals(codeTemp) && !checkSamePhoneNumber(library, username, phoneNumber) && checkPassword(password) && !checkSamePassword(library, username, password) && password.equals(passwordAgain)) {
             User user = getUser(username);
             user.setPassword(password);
             setVisible(false);
@@ -145,7 +139,7 @@ public class ResetPassword extends Initializer implements MouseListener, KeyList
             invalidCodeJL.setVisible(!code.equals(codeTemp));
             codeTemp = getVerificationCode();
             codeJB.setText(codeTemp);
-            invalidPhoneNumberJL.setVisible(!checkSamePhoneNumber(library, username, phoneNumber));
+            invalidPhoneNumberJL.setVisible(checkSamePhoneNumber(library, username, phoneNumber));
             invalidPasswordJL.setVisible(!checkPassword(password));
             if (!password.equals(passwordAgain)) {
                 invalidPasswordJL.setVisible(false);
