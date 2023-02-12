@@ -131,9 +131,9 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
             invalidCodeJL.setVisible(!code.equals(codeTemp));
             codeTemp = getVerificationCode();
             codeJB.setText(codeTemp);
-            invalidPhoneNumberJL.setVisible(!checkSamePhoneNumber(library, username, phoneNumber));
+            //invalidPhoneNumberJL.setVisible(!checkSamePhoneNumber(library, username, phoneNumber));
             invalidPasswordJL.setVisible(!checkPassword(password));
-            if (checkPhoneNumber(phoneNumber)) {
+            if (!checkPhoneNumber(phoneNumber)) {
                 occupiedPhoneNumberJL.setVisible(false);
                 samePhoneNumberJL.setVisible(false);
                 invalidPhoneNumberJL.setVisible(true);
@@ -144,7 +144,6 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
                 occupiedPhoneNumberJL.setVisible(true);
             }
             if (!checkSamePhoneNumber(library, username, phoneNumber)) {
-                System.out.println("same phone number");
                 invalidPhoneNumberJL.setVisible(false);
                 occupiedPhoneNumberJL.setVisible(false);
                 samePhoneNumberJL.setVisible(true);
