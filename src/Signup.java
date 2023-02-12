@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 //注册
 public class Signup extends Initializer implements MouseListener, KeyListener {
@@ -19,7 +19,7 @@ public class Signup extends Initializer implements MouseListener, KeyListener {
     JButton codeJB = new JButton();
     String passwordAgain;
     String phoneNumber;
-    String inputCode;
+    String code;
     String codeTemp;
     JLabel invalidCodeJL = new JLabel("验证码输入有误，请重新输入，或点击验证码重新生成");
     JLabel invalidUsernameJL = new JLabel("用户名无效，用户名长度在5-15之间，只能使用字母、数字及下划线，且不能为纯数字");
@@ -44,7 +44,7 @@ public class Signup extends Initializer implements MouseListener, KeyListener {
     }
 
     ///判断注册时用户名是否被占用
-    public static boolean checkUsernameUsed(ArrayList<User> library, String username) {
+    public static boolean checkUsernameUsed(HashSet<User> library, String username) {
         boolean flag = false;
         for (User user : library) {
             flag = user.getUsername().equals(username);
@@ -194,12 +194,12 @@ public class Signup extends Initializer implements MouseListener, KeyListener {
 
     ///注册
     void signup() {
-        if (checkUsername(username) && !checkUsernameUsed(library, username) && checkPassword(password) && password.equals(passwordAgain) && checkPhoneNumber(phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber) && inputCode.equals(codeTemp)) {
+        if (checkUsername(username) && !checkUsernameUsed(library, username) && checkPassword(password) && password.equals(passwordAgain) && checkPhoneNumber(phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber) && code.equals(codeTemp)) {
             library.add(new User(username, password, phoneNumber));
             setVisible(false);
             new Login();
         } else {
-            invalidCodeJL.setVisible(!inputCode.equals(codeTemp));
+            invalidCodeJL.setVisible(!code.equals(codeTemp));
             codeTemp = getVerificationCode();
             codeJB.setText(codeTemp);
             invalidUsernameJL.setVisible(!checkUsername(username));
@@ -238,7 +238,7 @@ public class Signup extends Initializer implements MouseListener, KeyListener {
         }
         passwordAgain = passwordSB.toString();
         phoneNumber = phoneNumberJTF.getText();
-        inputCode = codeJTF.getText();
+        code = codeJTF.getText();
     }
 
     @Override

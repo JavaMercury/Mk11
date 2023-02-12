@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 //用户登录界面
 public class Login extends Initializer implements KeyListener, MouseListener {
@@ -12,7 +13,7 @@ public class Login extends Initializer implements KeyListener, MouseListener {
     JButton loginJB = new JButton(new ImageIcon("image\\login\\登录按钮.png"));
     JButton signupJB = new JButton(new ImageIcon("image\\login\\注册按钮.png"));
     JTextField usernameJTF = new JTextField();
-    JLabel invalidInputWarningJL = new JLabel(new ImageIcon("image\\login\\登录输入有误.png"));
+    JLabel invalidInputJL = new JLabel(new ImageIcon("image\\login\\登录输入有误.png"));
     JLabel usernameJL = new JLabel("用户名");
     JLabel passwordJL = new JLabel("密码");
 
@@ -26,15 +27,15 @@ public class Login extends Initializer implements KeyListener, MouseListener {
     }
 
     ///判断用户名是否重复
-    public static boolean checkSameUsername(ArrayList<User> library, String username) {
+    public static boolean checkSameUsername(HashSet<User> library, String username) {
         if (checkUserExist(library, username)) {
-            User user = library.get(getUserIndex(library, username));
+            User user = getUser(username);
             return username.equals(user.getUsername());
         } else return false;
     }
 
     ///判断输入新密码的用户是否存在
-    public static boolean checkUserExist(ArrayList<User> library, String username) {
+    public static boolean checkUserExist(HashSet<User> library, String username) {
         for (User user : library) {
             String rightUsername = user.getUsername();
             if (username.equals(rightUsername))
@@ -43,20 +44,10 @@ public class Login extends Initializer implements KeyListener, MouseListener {
         return false;
     }
 
-    ///获取用户名对应的索引
-    public static int getUserIndex(ArrayList<User> library, String username) {
-        int index;
-        for (index = 0; index < library.size(); index++) {
-            User user = library.get(index);
-            if (user.getUsername().equals(username)) break;
-        }
-        return index;
-    }
-
     ///判断密码是否重复
-    public static boolean checkSamePassword(ArrayList<User> library, String username, String password) {
+    public static boolean checkSamePassword(HashSet<User> library, String username, String password) {
         if (checkUserExist(library, username)) {
-            User user = library.get(getUserIndex(library, username));
+            User user = getUser(username);
             return user.getPassword().equals(password);
         } else return false;
     }
@@ -96,9 +87,9 @@ public class Login extends Initializer implements KeyListener, MouseListener {
         signupJB.setContentAreaFilled(false);
         signupJB.setBorderPainted(false);
         signupJB.addMouseListener(this);
-        invalidInputWarningJL.setBounds(100, 215, 221, 34);
-        invalidInputWarningJL.setVisible(false);
-        getContentPane().add(invalidInputWarningJL);
+        invalidInputJL.setBounds(100, 215, 221, 34);
+        invalidInputJL.setVisible(false);
+        getContentPane().add(invalidInputJL);
         getContentPane().add(loginJB);
         getContentPane().add(signupJB);
         getContentPane().add(usernameJTF);
@@ -193,12 +184,12 @@ public class Login extends Initializer implements KeyListener, MouseListener {
 
     ///登录
     void login() {
-        invalidInputWarningJL.setVisible(false);
+        invalidInputJL.setVisible(false);
         if (checkSameUsername(library, username) && checkSamePassword(library, username, passwordSB.toString())) {
             setVisible(false);
             new Menu(username);
         } else if ((!username.equals("") || passwordSB.length() != 0))
-            invalidInputWarningJL.setVisible(true);
+            invalidInputJL.setVisible(true);
     }
 
     ///采集登录信息

@@ -119,8 +119,8 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
 
     ///重设手机号码
     private void resetPhoneNumber() {
-        if (code.equals(codeTemp) && checkSamePassword(library, username, password) && checkPhoneNumber(phoneNumber) && checkSamePhoneNumber(library, username, phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber)) {
-            User user = library.get(getUserIndex(library, username));
+        if (checkSamePassword(library, username, password) && checkPhoneNumber(phoneNumber) && checkSamePhoneNumber(library, username, phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber) && code.equals(codeTemp)) {
+            User user = getUser(username);
             user.setPhoneNumber(phoneNumber);
             setVisible(false);
             new Login();
@@ -128,7 +128,6 @@ public class ResetPhoneNumber extends Initializer implements MouseListener, KeyL
             invalidCodeJL.setVisible(!code.equals(codeTemp));
             codeTemp = getVerificationCode();
             codeJB.setText(codeTemp);
-            invalidCodeJL.setVisible(!code.equals(codeTemp));
             invalidPhoneNumberJL.setVisible(!checkSamePhoneNumber(library, username, phoneNumber));
             invalidPasswordJL.setVisible(!checkPassword(password));
             if (!checkPhoneNumber(phoneNumber)) {

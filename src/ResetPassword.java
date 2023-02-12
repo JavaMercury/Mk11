@@ -38,10 +38,10 @@ public class ResetPassword extends Initializer implements MouseListener, KeyList
     }
 
     ///判断手机号码是否重复
-    public static boolean checkSamePhoneNumber(ArrayList<User> library, String username, String phoneNumber) {
-        User user = library.get(getUserIndex(library, username));
+    /*public static boolean checkSamePhoneNumber(ArrayList<User> library, String username, String phoneNumber) {
+        User user = getUser(username);
         return phoneNumber.equals(user.getPhoneNumber());
-    }
+    }*/
 
     @Override
     void initJFrame() {
@@ -137,7 +137,7 @@ public class ResetPassword extends Initializer implements MouseListener, KeyList
     ///重设密码
     void resetPassword() {
         if (code.equals(codeTemp) && checkSamePhoneNumber(library, username, phoneNumber) && checkPassword(password) && !checkSamePassword(library, username, password) && password.equals(passwordAgain)) {
-            User user = library.get(getUserIndex(library, username));
+            User user = getUser(username);
             user.setPassword(password);
             setVisible(false);
             new Login();

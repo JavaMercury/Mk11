@@ -1,13 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
 
 public abstract class Initializer extends JFrame {
     //数字字符-48为实际数字，大写字母-55
 
     //创建集合，存储用户信息
-    static ArrayList<User> library = new ArrayList<>();
+    static HashSet<User> library = new HashSet<>();
 
     //测试用账号
     static {
@@ -31,8 +33,8 @@ public abstract class Initializer extends JFrame {
             "当前虚拟机已使用的内存大小：" + (rt.totalMemory() - rt.freeMemory()) / 1024 / 1024 + " Mb");
     JPasswordField passwordJPF = new JPasswordField();
     StringBuilder passwordSB = new StringBuilder();
-    JLabel revealPasswordJL = new JLabel(new ImageIcon(new ImageIcon("image\\login\\密码隐藏.png").getImage().getScaledInstance(30,30,Image.SCALE_DEFAULT)));
-    JLabel revealPasswordPressedJL = new JLabel(new ImageIcon(new ImageIcon("image\\login\\密码显示.png").getImage().getScaledInstance(30,30,Image.SCALE_DEFAULT)));
+    JLabel revealPasswordJL = new JLabel(new ImageIcon(new ImageIcon("image\\login\\密码隐藏.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+    JLabel revealPasswordPressedJL = new JLabel(new ImageIcon(new ImageIcon("image\\login\\密码显示.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
 
     ///检验整数
     public static boolean notInteger(String str) {
@@ -40,7 +42,7 @@ public abstract class Initializer extends JFrame {
     }
 
     ///判断重设的手机号码是否被占用
-    public static boolean checkPhoneNumberUsed(ArrayList<User> library, String phoneNumber) {
+    public static boolean checkPhoneNumberUsed(HashSet<User> library, String phoneNumber) {
         boolean flag = false;
         for (User user : library) {
             flag = user.getPhoneNumber().equals(phoneNumber);
@@ -50,8 +52,8 @@ public abstract class Initializer extends JFrame {
     }
 
     ///判断手机号码是否重复
-    public static boolean checkSamePhoneNumber(ArrayList<User> library, String username, String phoneNumber) {
-        User user = library.get(getUserIndex(library, username));
+    public static boolean checkSamePhoneNumber(HashSet<User> library, String username, String phoneNumber) {
+        User user = getUser(username);
         return !phoneNumber.equals(user.getPhoneNumber());
     }
 
@@ -60,15 +62,15 @@ public abstract class Initializer extends JFrame {
         return password.matches("\\S*(?=\\S{8,20})(?=\\S*[0-9])(?=\\S*[a-z])(?=\\S*[A-Z])\\S*");
     }
 
-    ///获取用户名对应的索引
-    public static int getUserIndex(ArrayList<User> library, String username) {
-        int index;
-        for (index = 0; index < library.size(); index++) {
-            User user = library.get(index);
+    ///获取对象
+    public static User getUser(String username) {
+        Iterator<User> it = library.iterator();
+        User user = null;
+        while (it.hasNext()) {
+            user = it.next();
             if (user.getUsername().equals(username)) break;
         }
-        System.out.println(index);
-        return index;
+        return user;
     }
 
     ///生成验证码
@@ -109,11 +111,9 @@ public abstract class Initializer extends JFrame {
     }
 
     ///判断密码是否重复
-    public static boolean checkSamePassword(ArrayList<User> library, String username, String password) {
-        if (checkUserExist(library, username)) {
-            User user = library.get(getUserIndex(library, username));
-            return user.getPassword().equals(password);
-        } else return false;
+    public static boolean checkSamePassword(HashSet<User> library, String username, String password) {
+        User user = getUser(username);
+        return user.getPassword().equals(password);
     }
 
     ///判断手机号码是否合法
@@ -122,19 +122,16 @@ public abstract class Initializer extends JFrame {
     }
 
     ///判断输入新密码的用户是否存在
-    public static boolean checkUserExist(ArrayList<User> library, String username) {
-        for (User user : library) {
-            if (username.equals(user.getUsername()))
-                return true;
-        }
+    /*public static boolean checkUserExist(ArrayList<User> library, String username) {
+        if
         return false;
-    }
+    }*/
 
     abstract void collectData();
 
     ///显示密码
     void showPassword() {
-        passwordJPF.setEchoChar((char)0);
+        passwordJPF.setEchoChar((char) 0);
     }
 
     ///隐藏密码
