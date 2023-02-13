@@ -12,6 +12,7 @@ public class Menu extends Initializer implements FocusListener {
     JMenuItem resetPasswordJMI = new JMenuItem("修改密码");
     JMenuItem resetPhoneNumberJMI = new JMenuItem("修改手机号码");
     JMenuItem logoutJMI = new JMenuItem("退出登录");
+    JMenuItem signInJMI = new JMenuItem("每日签到");
     int focusSelect;
 
     public Menu(String username) {
@@ -43,14 +44,15 @@ public class Menu extends Initializer implements FocusListener {
     ///菜单初始化
     @Override
     void initMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-        JMenu me = new JMenu("我的");
-        me.add(logoutJMI);
-        me.add(resetPasswordJMI);
-        me.add(resetPhoneNumberJMI);
-        menuBar.add(me);
-        menuBar.add(aboutJM);
-        setJMenuBar(menuBar);
+        JMenuBar jmb = new JMenuBar();
+        JMenu meJM = new JMenu("我的");
+        meJM.add(signInJMI);
+        meJM.add(logoutJMI);
+        meJM.add(resetPasswordJMI);
+        meJM.add(resetPhoneNumberJMI);
+        jmb.add(meJM);
+        jmb.add(aboutJM);
+        setJMenuBar(jmb);
     }
 
     ///内容初始化
@@ -81,6 +83,7 @@ public class Menu extends Initializer implements FocusListener {
         checkPrimeNumberJB.addFocusListener(this);
         getRandomNumberJB.addFocusListener(this);
         playPuzzleGameJB.addFocusListener(this);
+        signInJMI.addMouseListener(this);
     }
 
     @Override
@@ -114,6 +117,9 @@ public class Menu extends Initializer implements FocusListener {
         } else if (thing == resetPhoneNumberJMI) {
             setVisible(false);
             new ResetPhoneNumber(username);
+        }else if (thing== signInJMI){
+            setVisible(false);
+            new SignIn(username);
         }
     }
 

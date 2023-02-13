@@ -7,7 +7,7 @@ import java.util.HashSet;
 //注册
 public class Signup extends Initializer{
 
-    JMenu meJM = new JMenu("我的");
+    JMenu propertiesJM = new JMenu("选项");
     JMenuItem exitJMI = new JMenuItem("中止注册");
     JTextField usernameJTF = new JTextField();
     JPasswordField passwordAgainJPF = new JPasswordField();
@@ -72,8 +72,8 @@ public class Signup extends Initializer{
     @Override
     void initMenuBar() {
         JMenuBar menuBar = new JMenuBar();
-        meJM.add(exitJMI);
-        menuBar.add(meJM);
+        propertiesJM.add(exitJMI);
+        menuBar.add(propertiesJM);
         menuBar.add(aboutJM);
         aboutJM.addMouseListener(this);
         exitJMI.addMouseListener(this);
