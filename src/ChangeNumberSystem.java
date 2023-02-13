@@ -64,13 +64,7 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
 
     ///判断输入的字符串是否只包含十六进制数字
     public static boolean isOnlyHexNumber(String hexString) {
-        if (hexString.equals("")) return false;
-        for (int i = 0; i < hexString.length(); i++) {
-            if (!((hexString.charAt(i) >= '0' && hexString.charAt(i) <= '9') || (hexString.charAt(i) >= 'A' && hexString.charAt(i) <= 'F'))) {
-                return false;
-            }
-        }
-        return true;
+        return hexString.matches("[\\dA-F]+");
     }
 
     @Override
