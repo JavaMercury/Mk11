@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 //质数判断功能，并提供非质数的因子
-public class CheckPrimeNumber extends Initializer implements MouseListener, FocusListener, KeyListener {
+public class CheckPrimeNumber extends Initializer implements FocusListener {
 
     JMenu propertiesJM = new JMenu("选项");
     JMenuItem exitJMI = new JMenuItem("退出质数判断器");

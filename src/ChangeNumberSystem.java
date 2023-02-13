@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 //进制转换功能
-public class ChangeNumberSystem extends Initializer implements MouseListener, FocusListener, KeyListener {
+public class ChangeNumberSystem extends Initializer implements FocusListener {
 
     JMenu propertiesJM = new JMenu("选项");
     JMenuItem exitJMI = new JMenuItem("退出进制转换器");
@@ -422,7 +422,7 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
 
     ///十进制转二进制 - 底层
     String decimalToBinary(String decimalString) {
-       return Integer.toBinaryString(Integer.parseInt(decimalString));
+        return Integer.toBinaryString(Integer.parseInt(decimalString));
     }
 
     ///十进制转八进制 - 用户

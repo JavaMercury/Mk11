@@ -1,12 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 //重设密码
-public class ResetPassword extends Initializer implements MouseListener, KeyListener {
+public class ResetPassword extends Initializer {
     JMenu propertiesJM = new JMenu("选项");
     JMenuItem exitJMI = new JMenuItem("取消修改");
     JTextField phoneNumberJTF = new JTextField();

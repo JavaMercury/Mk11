@@ -1,13 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.HashSet;
 
 //用户登录界面
-public class Login extends Initializer implements KeyListener, MouseListener {
+public class Login extends Initializer {
 
     JButton loginJB = new JButton(new ImageIcon("image\\login\\登录按钮.png"));
     JButton signupJB = new JButton(new ImageIcon("image\\login\\注册按钮.png"));

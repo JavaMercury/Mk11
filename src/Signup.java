@@ -1,13 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.HashSet;
 
 //注册
-public class Signup extends Initializer implements MouseListener, KeyListener {
+public class Signup extends Initializer{
 
     JMenu meJM = new JMenu("我的");
     JMenuItem exitJMI = new JMenuItem("中止注册");
@@ -195,7 +193,7 @@ public class Signup extends Initializer implements MouseListener, KeyListener {
     ///注册
     void signup() {
         if (checkUsername(username) && !checkUsernameUsed(library, username) && checkPassword(password) && password.equals(passwordAgain) && checkPhoneNumber(phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber) && code.equals(codeTemp)) {
-            library.add(new User(username, password, phoneNumber));
+            library.add(new User(username, password, phoneNumber, 0, 1, 0, lastLDT));
             setVisible(false);
             new Login();
         } else {

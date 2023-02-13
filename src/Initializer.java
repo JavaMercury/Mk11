@@ -1,19 +1,22 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
 
-public abstract class Initializer extends JFrame {
+public abstract class Initializer extends JFrame implements KeyListener, MouseListener {
     //数字字符-48为实际数字，大写字母-55
 
     //创建集合，存储用户信息
     static HashSet<User> library = new HashSet<>();
-
+    static LocalDateTime lastLDT = LocalDateTime.of(2020, 3, 24, 0, 0, 0);
     //测试用账号
     static {
-        library.add(new User("qwerqwer", "12341234Aa", "12312341234"));
+        library.add(new User("qwerqwer", "12341234Aa", "12312341234",0,1,0,lastLDT));
     }
 
     JMenu aboutJM = new JMenu("关于");

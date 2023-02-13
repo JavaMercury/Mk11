@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 //水银主菜单
-public class Menu extends Initializer implements MouseListener, KeyListener, FocusListener {
+public class Menu extends Initializer implements FocusListener {
 
     JButton changeNumberSystemJB = new JButton("进制转换工具");
     JButton checkPrimeNumberJB = new JButton("质数判断器");

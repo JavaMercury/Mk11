@@ -1,12 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 //重设手机号码
-public class ResetPhoneNumber extends Initializer implements MouseListener, KeyListener {
+public class ResetPhoneNumber extends Initializer{
 
     JMenu properties = new JMenu("选项");
     JMenuItem exitJMI = new JMenuItem("取消修改");

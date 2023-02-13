@@ -4,7 +4,7 @@ import java.awt.event.*;
 import java.util.Random;
 
 //随机数生成器
-public class GetRandomNumber extends Initializer implements MouseListener, FocusListener, KeyListener {
+public class GetRandomNumber extends Initializer implements FocusListener {
 
     JMenu propertiesJM = new JMenu("选项");
     JMenuItem exitJMI = new JMenuItem("退出随机数生成器");

@@ -3,14 +3,12 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Random;
 
 //拼图小游戏
-public class PuzzleGame extends Initializer implements MouseListener, KeyListener, Border {
+public class PuzzleGame extends Initializer implements Border {
 
     //管理图片数据
     static int[][] data = new int[4][4];
