@@ -17,7 +17,7 @@ public abstract class Initializer extends JFrame {
     }
 
     JMenu aboutJM = new JMenu("关于");
-    String version = "水银第11代 0.11.02.20230212";
+    String version = "水银第11代 0.11.03.20230213";
     String username;
     String password;
     JDialog aboutJD = new JDialog();
