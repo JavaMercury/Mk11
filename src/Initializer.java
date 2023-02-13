@@ -121,12 +121,6 @@ public abstract class Initializer extends JFrame {
         return phoneNumber.matches("1\\d{10}");
     }
 
-    ///判断输入新密码的用户是否存在
-    /*public static boolean checkUserExist(ArrayList<User> library, String username) {
-        if
-        return false;
-    }*/
-
     abstract void collectData();
 
     ///显示密码
