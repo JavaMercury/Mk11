@@ -154,6 +154,7 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
 
         backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
+        backJB.addKeyListener(this);
         getContentPane().add(backJB);
         inputJTF.addKeyListener(this);
         submitJB.setVisible(true);
@@ -559,6 +560,6 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
         } else if (code == 27) {
             setVisible(false);
             new Menu(username);
-        }
+        } else if (code == 71) showAbout();
     }
 }

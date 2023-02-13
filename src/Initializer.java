@@ -21,7 +21,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         library.add(new User("qwerqwer", "12341234Aa", "12312341234", 0, 1, 0, lastLDT, LocalDateTime.of(2022, 9, 16, 0, 0, 0)));
     }
 
-    JMenu aboutJM = new JMenu("关于");
+    JMenu aboutJM = new JMenu("关于(G)");
     String version = "水银第11代 0.11.03.20230213";
     String username;
     String password;

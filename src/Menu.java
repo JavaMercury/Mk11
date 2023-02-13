@@ -87,6 +87,7 @@ public class Menu extends Initializer implements FocusListener {
         playPuzzleGameJB.addFocusListener(this);
         signInJMI.addMouseListener(this);
         profileJMI.addMouseListener(this);
+        aboutJM.addKeyListener(this);
     }
 
     @Override
@@ -187,7 +188,7 @@ public class Menu extends Initializer implements FocusListener {
         } else if (code == 27) {
             setVisible(false);
             new Login();
-        }
+        }else if (code == 71) showAbout();
     }
 
     @Override

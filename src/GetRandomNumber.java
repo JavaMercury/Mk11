@@ -122,6 +122,7 @@ public class GetRandomNumber extends Initializer implements FocusListener {
         submitJB.addKeyListener(this);
         backJB.addKeyListener(this);
         warningJL.setForeground(Color.RED);
+        aboutJM.addKeyListener(this);
     }
 
     @Override
@@ -203,6 +204,6 @@ public class GetRandomNumber extends Initializer implements FocusListener {
         } else if (code == 27) {
             setVisible(false);
             new Menu(username);
-        }
+        }else if (code == 71) showAbout();
     }
 }

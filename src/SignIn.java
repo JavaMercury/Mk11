@@ -97,6 +97,7 @@ public class SignIn extends Initializer {
         backJB.addMouseListener(this);
         backJB.addKeyListener(this);
         getContentPane().add(backJB);
+        aboutJM.addKeyListener(this);
     }
 
     @Override
@@ -115,7 +116,7 @@ public class SignIn extends Initializer {
         if (code == 27) {
             setVisible(false);
             new Menu(username);
-        }
+        }else if (code == 71) showAbout();
     }
 
     @Override

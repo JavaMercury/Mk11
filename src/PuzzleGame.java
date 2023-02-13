@@ -36,7 +36,7 @@ public class PuzzleGame extends Initializer implements Border {
     JMenuItem logoutJMI = new JMenuItem("退出登录");
     JMenuItem exitGameJMI = new JMenuItem("退出游戏");
     JMenuItem replayJMI = new JMenuItem("重玩游戏");
-    JMenu helpJM = new JMenu("帮助");
+    JMenu helpJM = new JMenu("帮助(H)");
     JMenu propertiesJM = new JMenu("选项");
     JMenuBar puzzleGameJMB = new JMenuBar();
     JLabel backgroundJL = new JLabel(new ImageIcon("image\\background.png"));
@@ -190,6 +190,7 @@ public class PuzzleGame extends Initializer implements Border {
         changeMovePatternJM.addMouseListener(this);
         moveBlankJMI.addMouseListener(this);
         movePuzzleJMI.addMouseListener(this);
+        backgroundJL.addKeyListener(this);
     }
 
     ///内容初始化
@@ -217,6 +218,7 @@ public class PuzzleGame extends Initializer implements Border {
         backgroundJL.setBounds(40, 40, 508, 560);
         getContentPane().add(backgroundJL);
         getContentPane().repaint();
+        aboutJM.addKeyListener(this);
     }
 
     ///判断用户是否胜利
@@ -338,7 +340,7 @@ public class PuzzleGame extends Initializer implements Border {
     ///用户键盘操作
     @Override
     public void keyReleased(KeyEvent e) {
-        //左 37, 上 38, 右 39, 下 40, W 87, A 65, S 83, D 68, Esc 27, Enter 10, 小- 109, ctrl 17
+        //左 37, 上 38, 右 39, 下 40, W 87, A 65, S 83, D 68, Esc 27, Enter 10, 小- 109, ctrl 17, G 71, H 72
         if (victory()) return;
         int code = e.getKeyCode();
         if (code == 37 || code == 65) {
@@ -386,7 +388,8 @@ public class PuzzleGame extends Initializer implements Border {
         } else if (code == 27) {
             setVisible(false);
             new Menu(username);
-        }
+        } else if (code == 71) showAbout();
+        else if (code == 72) showHelp();
     }
 
     @Override

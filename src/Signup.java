@@ -291,6 +291,6 @@ public class Signup extends Initializer {
         } else if (code == 27) {
             setVisible(false);
             new Login();
-        }
+        }else if (code == 71) showAbout();
     }
 }

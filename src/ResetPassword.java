@@ -105,6 +105,7 @@ public class ResetPassword extends Initializer {
 
         backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
+        backJB.addKeyListener(this);
         getContentPane().add(backJB);
         invalidPhoneNumberJL.setForeground(Color.RED);
         invalidCodeJL.setForeground(Color.RED);
@@ -226,7 +227,7 @@ public class ResetPassword extends Initializer {
         } else if (code == 27) {
             setVisible(false);
             new Menu(username);
-        }
+        }else if (code == 71) showAbout();
     }
 
     ///收集用户输入的数据

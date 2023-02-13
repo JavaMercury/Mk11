@@ -66,6 +66,7 @@ public class Profile extends Initializer {
         changePhoneNumberJL.setForeground(Color.BLUE);
         getContentPane().add(changePhoneNumberJL);
         getContentPane().add(profileJL);
+        aboutJM.addKeyListener(this);
     }
 
     @Override
@@ -80,7 +81,12 @@ public class Profile extends Initializer {
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-
+        int code = keyEvent.getKeyCode();
+        if (code == 71) showAbout();
+        else if (code == 27) {
+            setVisible(false);
+            new Menu(username);
+        }
     }
 
     @Override
@@ -120,7 +126,7 @@ public class Profile extends Initializer {
     public void mouseExited(MouseEvent mouseEvent) {
         Object thing = mouseEvent.getSource();
         if (thing == backJB) setCursor(Cursor.getDefaultCursor());
-        else if(thing == changePhoneNumberJL) {
+        else if (thing == changePhoneNumberJL) {
             changePhoneNumberJL.setText("修改");
             setCursor(Cursor.getDefaultCursor());
         }

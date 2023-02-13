@@ -127,6 +127,7 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
         invalidInputWarningJL.setForeground(Color.RED);
         hintJL.setBounds(100, 70, 200, 30);
         getContentPane().add(hintJL);
+        aboutJM.addKeyListener(this);
     }
 
     @Override
@@ -204,6 +205,6 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
         } else if (code == 27) {
             setVisible(false);
             new Menu(username);
-        }
+        }else if (code == 71) showAbout();
     }
 }

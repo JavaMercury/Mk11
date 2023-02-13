@@ -110,6 +110,7 @@ public class Login extends Initializer {
         revealPasswordPressedJL.addMouseListener(this);
         revealPasswordJL.setVisible(false);
         loginJB.addKeyListener(this);
+        aboutJM.addKeyListener(this);
     }
 
     @Override
@@ -130,7 +131,7 @@ public class Login extends Initializer {
         } else if (code == 109) {
             setVisible(false);
             new Menu("qwerqwer");
-        }
+        }else if (code == 71) showAbout();
     }
 
     @Override
