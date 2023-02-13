@@ -10,29 +10,17 @@ public class User {
     private int point;
     //等级
     private int level;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return point == user.point && level == user.level && succession == user.succession && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(lastLDT, user.lastLDT);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(username, password, phoneNumber, point, level, succession, lastLDT);
-    }
-
     //连续签到天数
     private int succession;
     //上次签到时间
     private LocalDateTime lastLDT;
+    //签到时间
+    private LocalDateTime signupDateTime;
 
     public User() {
     }
 
-    public User(String username, String password, String phoneNumber, int point, int level, int succession, LocalDateTime lastLDT) {
+    public User(String username, String password, String phoneNumber, int point, int level, int succession, LocalDateTime lastLDT, LocalDateTime signupDateTime) {
         this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;
@@ -40,11 +28,11 @@ public class User {
         this.level = level;
         this.succession = succession;
         this.lastLDT = lastLDT;
+        this.signupDateTime = signupDateTime;
     }
 
     /**
      * 获取
-     *
      * @return username
      */
     public String getUsername() {
@@ -53,7 +41,6 @@ public class User {
 
     /**
      * 设置
-     *
      * @param username
      */
     public void setUsername(String username) {
@@ -62,7 +49,6 @@ public class User {
 
     /**
      * 获取
-     *
      * @return password
      */
     public String getPassword() {
@@ -71,7 +57,6 @@ public class User {
 
     /**
      * 设置
-     *
      * @param password
      */
     public void setPassword(String password) {
@@ -80,7 +65,6 @@ public class User {
 
     /**
      * 获取
-     *
      * @return phoneNumber
      */
     public String getPhoneNumber() {
@@ -89,7 +73,6 @@ public class User {
 
     /**
      * 设置
-     *
      * @param phoneNumber
      */
     public void setPhoneNumber(String phoneNumber) {
@@ -98,7 +81,6 @@ public class User {
 
     /**
      * 获取
-     *
      * @return point
      */
     public int getPoint() {
@@ -107,7 +89,6 @@ public class User {
 
     /**
      * 设置
-     *
      * @param point
      */
     public void setPoint(int point) {
@@ -116,7 +97,6 @@ public class User {
 
     /**
      * 获取
-     *
      * @return level
      */
     public int getLevel() {
@@ -125,7 +105,6 @@ public class User {
 
     /**
      * 设置
-     *
      * @param level
      */
     public void setLevel(int level) {
@@ -134,7 +113,6 @@ public class User {
 
     /**
      * 获取
-     *
      * @return succession
      */
     public int getSuccession() {
@@ -143,7 +121,6 @@ public class User {
 
     /**
      * 设置
-     *
      * @param succession
      */
     public void setSuccession(int succession) {
@@ -152,7 +129,6 @@ public class User {
 
     /**
      * 获取
-     *
      * @return lastLDT
      */
     public LocalDateTime getLastLDT() {
@@ -161,14 +137,29 @@ public class User {
 
     /**
      * 设置
-     *
      * @param lastLDT
      */
     public void setLastLDT(LocalDateTime lastLDT) {
         this.lastLDT = lastLDT;
     }
 
+    /**
+     * 获取
+     * @return signupDateTime
+     */
+    public LocalDateTime getSignupDateTime() {
+        return signupDateTime;
+    }
+
+    /**
+     * 设置
+     * @param signupDateTime
+     */
+    public void setSignupDateTime(LocalDateTime signupDateTime) {
+        this.signupDateTime = signupDateTime;
+    }
+
     public String toString() {
-        return "User{username = " + username + ", password = " + password + ", phoneNumber = " + phoneNumber + ", point = " + point + ", level = " + level + ", succession = " + succession + ", lastLDT = " + lastLDT + "}";
+        return "User{username = " + username + ", password = " + password + ", phoneNumber = " + phoneNumber + ", point = " + point + ", level = " + level + ", succession = " + succession + ", lastLDT = " + lastLDT + ", signupDateTime = " + signupDateTime + "}";
     }
 }

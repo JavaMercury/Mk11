@@ -15,9 +15,10 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     static HashSet<User> library = new HashSet<>();
     //默认的上次签到时间，用于用户第一次签到
     static LocalDateTime lastLDT = LocalDateTime.of(2020, 3, 24, 0, 0, 0);
+
     //测试用账号
     static {
-        library.add(new User("qwerqwer", "12341234Aa", "12312341234",0,1,0,lastLDT));
+        library.add(new User("qwerqwer", "12341234Aa", "12312341234", 0, 1, 0, lastLDT, LocalDateTime.of(2022, 9, 16, 0, 0, 0)));
     }
 
     JMenu aboutJM = new JMenu("关于");

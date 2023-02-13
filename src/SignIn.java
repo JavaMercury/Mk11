@@ -134,10 +134,8 @@ public class SignIn extends Initializer {
             if (signIn()) {
                 successJL.setText(String.format("签到成功，已连续签到%d天，获得%d积分，目前积分%d，等级%d", succession, point, sumPoint, level(sumPoint)));
                 successJL.setVisible(true);
-                signInJB.setText("今日已签到");
-            } else {
-                signInJB.setText("今日已签到");
             }
+            signInJB.setText("今日已签到");
         }
     }
 

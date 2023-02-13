@@ -2,10 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 
 //注册
-public class Signup extends Initializer{
+public class Signup extends Initializer {
 
     JMenu propertiesJM = new JMenu("选项");
     JMenuItem exitJMI = new JMenuItem("中止注册");
@@ -193,7 +194,7 @@ public class Signup extends Initializer{
     ///注册
     void signup() {
         if (checkUsername(username) && !checkUsernameUsed(library, username) && checkPassword(password) && password.equals(passwordAgain) && checkPhoneNumber(phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber) && code.equals(codeTemp)) {
-            library.add(new User(username, password, phoneNumber, 0, 1, 0, lastLDT));
+            library.add(new User(username, password, phoneNumber, 0, 1, 0, lastLDT, LocalDateTime.now()));
             setVisible(false);
             new Login();
         } else {
