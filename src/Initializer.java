@@ -52,7 +52,7 @@ public abstract class Initializer extends JFrame {
     }
 
     ///判断手机号码是否重复
-    public static boolean checkSamePhoneNumber(HashSet<User> library, String username, String phoneNumber) {
+    public static boolean checkSamePhoneNumber(String username, String phoneNumber) {
         User user = getUser(username);
         return !phoneNumber.equals(user.getPhoneNumber());
     }
@@ -111,7 +111,7 @@ public abstract class Initializer extends JFrame {
     }
 
     ///判断密码是否重复
-    public static boolean checkSamePassword(HashSet<User> library, String username, String password) {
+    public static boolean checkSamePassword(String username, String password) {
         User user = getUser(username);
         return user.getPassword().equals(password);
     }

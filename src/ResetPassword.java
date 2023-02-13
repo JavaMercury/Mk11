@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 //重设密码
 public class ResetPassword extends Initializer implements MouseListener, KeyListener {
@@ -130,7 +129,7 @@ public class ResetPassword extends Initializer implements MouseListener, KeyList
 
     ///重设密码
     void resetPassword() {
-        if (code.equals(codeTemp) && !checkSamePhoneNumber(library, username, phoneNumber) && checkPassword(password) && !checkSamePassword(library, username, password) && password.equals(passwordAgain)) {
+        if (code.equals(codeTemp) && !checkSamePhoneNumber(username, phoneNumber) && checkPassword(password) && !checkSamePassword(username, password) && password.equals(passwordAgain)) {
             User user = getUser(username);
             user.setPassword(password);
             setVisible(false);
@@ -139,14 +138,14 @@ public class ResetPassword extends Initializer implements MouseListener, KeyList
             invalidCodeJL.setVisible(!code.equals(codeTemp));
             codeTemp = getVerificationCode();
             codeJB.setText(codeTemp);
-            invalidPhoneNumberJL.setVisible(checkSamePhoneNumber(library, username, phoneNumber));
+            invalidPhoneNumberJL.setVisible(checkSamePhoneNumber(username, phoneNumber));
             invalidPasswordJL.setVisible(!checkPassword(password));
             if (!password.equals(passwordAgain)) {
                 invalidPasswordJL.setVisible(false);
                 samePasswordJL.setVisible(false);
                 differentPasswordJL.setVisible(true);
             } else differentPasswordJL.setVisible(false);
-            if (checkSamePassword(library, username, password)) {
+            if (checkSamePassword(username, password)) {
                 invalidPasswordJL.setVisible(false);
                 samePasswordJL.setVisible(true);
             }

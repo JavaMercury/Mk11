@@ -42,8 +42,8 @@ public class PuzzleGame extends Initializer implements MouseListener, KeyListene
     JMenu propertiesJM = new JMenu("选项");
     JMenuBar puzzleGameJMB = new JMenuBar();
     JLabel backgroundJL = new JLabel(new ImageIcon("image\\background.png"));
-    private int MOVE_UP_LEFT = 1;
-    private int MOVE_DOWN_RIGHT = -1;
+    private int MOVE_UP_LEFT_OR_Y = 1;
+    private int MOVE_DOWN_RIGHT_OR_Y = -1;
     private int BOUNDS_UP_LEFT = 3;
     private int BOUNDS_DOWN_RIGHT = 0;
 
@@ -171,8 +171,8 @@ public class PuzzleGame extends Initializer implements MouseListener, KeyListene
         changeImageJM.add(sportJMI);
         propertiesJM.add(changeImageJM);
         propertiesJM.add(changeMovePatternJM);
-        changeMovePatternJM.add(moveBlankJMI);
         changeMovePatternJM.add(movePuzzleJMI);
+        changeMovePatternJM.add(moveBlankJMI);
         propertiesJM.add(replayJMI);
         propertiesJM.add(exitGameJMI);
         propertiesJM.add(logoutJMI);
@@ -287,13 +287,13 @@ public class PuzzleGame extends Initializer implements MouseListener, KeyListene
             replay();
         } else if (thing == backgroundJL) mouseClickCount++;
         else if (thing == moveBlankJMI) {
-            MOVE_UP_LEFT = -1;
-            MOVE_DOWN_RIGHT = 1;
+            MOVE_UP_LEFT_OR_Y = -1;
+            MOVE_DOWN_RIGHT_OR_Y = 1;
             BOUNDS_UP_LEFT = 0;
             BOUNDS_DOWN_RIGHT = 3;
         } else if (thing == movePuzzleJMI) {
-            MOVE_UP_LEFT = 1;
-            MOVE_DOWN_RIGHT = -1;
+            MOVE_UP_LEFT_OR_Y = 1;
+            MOVE_DOWN_RIGHT_OR_Y = -1;
             BOUNDS_UP_LEFT = 3;
             BOUNDS_DOWN_RIGHT = 0;
         }
@@ -346,33 +346,33 @@ public class PuzzleGame extends Initializer implements MouseListener, KeyListene
         if (code == 37 || code == 65) {
             if (x != BOUNDS_UP_LEFT) {
                 step++;
-                data[x][y] = data[x + MOVE_UP_LEFT][y];
-                data[x + MOVE_UP_LEFT][y] = 0;
-                x += MOVE_UP_LEFT;
+                data[x][y] = data[x + MOVE_UP_LEFT_OR_Y][y];
+                data[x + MOVE_UP_LEFT_OR_Y][y] = 0;
+                x += MOVE_UP_LEFT_OR_Y;
                 initContent();
             }
         } else if (code == 38 || code == 87) {
             if (y != BOUNDS_UP_LEFT) {
                 step++;
-                data[x][y] = data[x][y + MOVE_UP_LEFT];
-                data[x][y + MOVE_UP_LEFT] = 0;
-                y += MOVE_UP_LEFT;
+                data[x][y] = data[x][y + MOVE_UP_LEFT_OR_Y];
+                data[x][y + MOVE_UP_LEFT_OR_Y] = 0;
+                y += MOVE_UP_LEFT_OR_Y;
                 initContent();
             }
         } else if (code == 39 || code == 68) {
             if (x != BOUNDS_DOWN_RIGHT) {
                 step++;
-                data[x][y] = data[x + MOVE_DOWN_RIGHT][y];
-                data[x + MOVE_DOWN_RIGHT][y] = 0;
-                x += MOVE_DOWN_RIGHT;
+                data[x][y] = data[x + MOVE_DOWN_RIGHT_OR_Y][y];
+                data[x + MOVE_DOWN_RIGHT_OR_Y][y] = 0;
+                x += MOVE_DOWN_RIGHT_OR_Y;
                 initContent();
             }
         } else if (code == 40 || code == 83) {
             if (y != BOUNDS_DOWN_RIGHT) {
                 step++;
-                data[x][y] = data[x][y + MOVE_DOWN_RIGHT];
-                data[x][y + MOVE_DOWN_RIGHT] = 0;
-                y += MOVE_DOWN_RIGHT;
+                data[x][y] = data[x][y + MOVE_DOWN_RIGHT_OR_Y];
+                data[x][y + MOVE_DOWN_RIGHT_OR_Y] = 0;
+                y += MOVE_DOWN_RIGHT_OR_Y;
                 initContent();
             }
         } else if (code == 17) initContent();
