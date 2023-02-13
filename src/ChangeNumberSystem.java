@@ -49,35 +49,17 @@ public class ChangeNumberSystem extends Initializer implements MouseListener, Fo
 
     ///判断输入的字符串是否只包含二进制数字
     public static boolean isOnlyBinary(String binaryString) {
-        if (binaryString.equals("")) return false;
-        for (int i = 0; i < binaryString.length(); i++) {
-            if (!(binaryString.charAt(i) >= '0' && binaryString.charAt(i) <= '1')) {
-                return false;
-            }
-        }
-        return true;
+        return binaryString.matches("[01]+");
     }
 
     ///判断输入的字符串是否只包含八进制数字
     public static boolean isOnlyOctal(String octalString) {
-        if (octalString.equals("")) return false;
-        for (int i = 0; i < octalString.length(); i++) {
-            if (!(octalString.charAt(i) >= '0' && octalString.charAt(i) <= '7')) {
-                return false;
-            }
-        }
-        return true;
+        return octalString.matches("[0-7]+");
     }
 
     ///判断输入的字符串是否只包含十进制数字
     public static boolean isOnlyDecimal(String decimalString) {
-        if (decimalString.equals("")) return false;
-        for (int i = 0; i < decimalString.length(); i++) {
-            if (!(decimalString.charAt(i) >= '0' && decimalString.charAt(i) <= '9')) {
-                return false;
-            }
-        }
-        return true;
+        return decimalString.matches("\\d+");
     }
 
     ///判断输入的字符串是否只包含十六进制数字
