@@ -64,7 +64,7 @@ public class ResetPhoneNumber extends Initializer{
         phoneNumberJTF.setBounds(100, 150, 200, 30);
         inputNewPhoneNumberJL.setBounds(100, 120, 200, 30);
         codeJTF.setBounds(100, 250, 100, 30);
-        codeJB.setBounds(200, 250, 80, 30);
+        codeJB.setBounds(200, 257, 80, 16);
         invalidPhoneNumberJL.setBounds(100, 180, 400, 30);
         invalidCodeJL.setBounds(100, 280, 400, 30);
         samePhoneNumberJL.setBounds(100, 180, 400, 30);
@@ -187,15 +187,23 @@ public class ResetPhoneNumber extends Initializer{
     @Override
     public void mouseEntered(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == backJB || thing == submitJB || thing == revealPasswordJL || thing == revealPasswordPressedJL || thing == codeJB)
+        if (thing == backJB || thing == submitJB || thing == revealPasswordJL || thing == revealPasswordPressedJL)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        else if (thing == codeJB) {
+            codeJB.setText(String.format("<HTML><U>%s", codeTemp));
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == backJB || thing == submitJB || thing == revealPasswordJL || thing == revealPasswordPressedJL || thing == codeJB)
+        if (thing == backJB || thing == submitJB || thing == revealPasswordJL || thing == revealPasswordPressedJL)
             setCursor(Cursor.getDefaultCursor());
+        else if (thing == codeJB) {
+            codeJB.setText(codeTemp);
+            setCursor(Cursor.getDefaultCursor());
+        }
     }
 
     @Override
