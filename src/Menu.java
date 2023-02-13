@@ -13,6 +13,7 @@ public class Menu extends Initializer implements FocusListener {
     JMenuItem resetPhoneNumberJMI = new JMenuItem("修改手机号码");
     JMenuItem logoutJMI = new JMenuItem("退出登录");
     JMenuItem signInJMI = new JMenuItem("每日签到");
+    JMenuItem profileJMI = new JMenuItem("账户信息");
     int focusSelect;
 
     public Menu(String username) {
@@ -46,6 +47,7 @@ public class Menu extends Initializer implements FocusListener {
     void initMenuBar() {
         JMenuBar jmb = new JMenuBar();
         JMenu meJM = new JMenu("我的");
+        meJM.add(profileJMI);
         meJM.add(signInJMI);
         meJM.add(logoutJMI);
         meJM.add(resetPasswordJMI);
@@ -84,6 +86,7 @@ public class Menu extends Initializer implements FocusListener {
         getRandomNumberJB.addFocusListener(this);
         playPuzzleGameJB.addFocusListener(this);
         signInJMI.addMouseListener(this);
+        profileJMI.addMouseListener(this);
     }
 
     @Override
@@ -120,6 +123,9 @@ public class Menu extends Initializer implements FocusListener {
         }else if (thing== signInJMI){
             setVisible(false);
             new SignIn(username);
+        }else if (thing==profileJMI){
+            setVisible(false);
+            new Profile(username);
         }
     }
 
