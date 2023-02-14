@@ -16,11 +16,13 @@ public class User {
     private LocalDateTime lastLDT;
     //签到时间
     private LocalDateTime signupDateTime;
+    //拼图小游戏通关最佳步数，初始为0
+    private int puzzleSteps;
 
     public User() {
     }
 
-    public User(String username, String password, String phoneNumber, int point, int level, int succession, LocalDateTime lastLDT, LocalDateTime signupDateTime) {
+    public User(String username, String password, String phoneNumber, int point, int level, int succession, LocalDateTime lastLDT, LocalDateTime signupDateTime, int puzzleSteps) {
         this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;
@@ -29,6 +31,7 @@ public class User {
         this.succession = succession;
         this.lastLDT = lastLDT;
         this.signupDateTime = signupDateTime;
+        this.puzzleSteps = puzzleSteps;
     }
 
     /**
@@ -159,7 +162,23 @@ public class User {
         this.signupDateTime = signupDateTime;
     }
 
+    /**
+     * 获取
+     * @return puzzleSteps
+     */
+    public int getPuzzleSteps() {
+        return puzzleSteps;
+    }
+
+    /**
+     * 设置
+     * @param puzzleSteps
+     */
+    public void setPuzzleSteps(int puzzleSteps) {
+        this.puzzleSteps = puzzleSteps;
+    }
+
     public String toString() {
-        return "User{username = " + username + ", password = " + password + ", phoneNumber = " + phoneNumber + ", point = " + point + ", level = " + level + ", succession = " + succession + ", lastLDT = " + lastLDT + ", signupDateTime = " + signupDateTime + "}";
+        return "User{username = " + username + ", password = " + password + ", phoneNumber = " + phoneNumber + ", point = " + point + ", level = " + level + ", succession = " + succession + ", lastLDT = " + lastLDT + ", signupDateTime = " + signupDateTime + ", puzzleSteps = " + puzzleSteps + "}";
     }
 }

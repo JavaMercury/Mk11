@@ -45,7 +45,7 @@ public class PuzzleGame extends Initializer implements Border {
     private int BOUNDS_UP_LEFT = 3;
     private int BOUNDS_DOWN_RIGHT = 0;
 
-    public PuzzleGame() {
+    public PuzzleGame(String username) {
         animalLibrary.add("image\\animal\\animal1\\");
         animalLibrary.add("image\\animal\\animal2\\");
         animalLibrary.add("image\\animal\\animal3\\");
@@ -77,6 +77,7 @@ public class PuzzleGame extends Initializer implements Border {
         sportLibrary.add("image\\sport\\sport8\\");
         sportLibrary.add("image\\sport\\sport9\\");
         sportLibrary.add("image\\sport\\sport10\\");
+        this.username = username;
         initJFrame();
         initMenuBar();
         initData();
@@ -201,6 +202,8 @@ public class PuzzleGame extends Initializer implements Border {
             JLabel victory = new JLabel(new ImageIcon("image\\win.png"));
             victory.setBounds(203, 283, 197, 73);
             getContentPane().add(victory);
+            if (step != 99999 && getUser(username).getPuzzleSteps() >= 0 && getUser(username).getPuzzleSteps() > step)
+                getUser(username).setPuzzleSteps(step);
         }
         JLabel countStep = new JLabel("步数：" + step);
         countStep.setBounds(50, 30, 100, 20);
@@ -376,6 +379,7 @@ public class PuzzleGame extends Initializer implements Border {
                 initContent();
             }
         } else if (code == 17) initContent();
+            //官方开挂键数字键盘“-”
         else if (code == 109) {
             step = 99999;
             data = new int[][]{

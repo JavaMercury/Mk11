@@ -60,8 +60,9 @@ public class Profile extends Initializer {
                 "手机号码：" + getUser(username).getPhoneNumber() + "<br />" +
                 "等级：" + getUser(username).getLevel() + "<br />" +
                 "积分：" + getUser(username).getPoint() + "<br />" +
-                "注册日期：" + getUser(username).getSignupDateTime().format(DateTimeFormatter.ofPattern("yyyy年MM月dd日hh点mm分ss秒")));
-        changePhoneNumberJL.setBounds(190, 155, 26, 16);
+                "注册日期：" + getUser(username).getSignupDateTime().format(DateTimeFormatter.ofPattern("yyyy年MM月dd日hh点mm分ss秒")) + "<br />" +
+                "拼图小游戏最佳记录：" + getUser(username).getPuzzleSteps() + "步");
+        changePhoneNumberJL.setBounds(190, 148, 26, 16);
         changePhoneNumberJL.addMouseListener(this);
         changePhoneNumberJL.setForeground(Color.BLUE);
         getContentPane().add(changePhoneNumberJL);

@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 //水银主菜单
 public class Menu extends Initializer implements FocusListener {
@@ -102,7 +105,7 @@ public class Menu extends Initializer implements FocusListener {
             showAbout();
         } else if (thing == playPuzzleGameJB) {
             setVisible(false);
-            new PuzzleGame();
+            new PuzzleGame(username);
         } else if (thing == changeNumberSystemJB) {
             setVisible(false);
             new ChangeNumberSystem(username);
@@ -121,10 +124,10 @@ public class Menu extends Initializer implements FocusListener {
         } else if (thing == resetPhoneNumberJMI) {
             setVisible(false);
             new ResetPhoneNumber(username);
-        }else if (thing== signInJMI){
+        } else if (thing == signInJMI) {
             setVisible(false);
             new SignIn(username);
-        }else if (thing==profileJMI){
+        } else if (thing == profileJMI) {
             setVisible(false);
             new Profile(username);
         }
@@ -181,14 +184,14 @@ public class Menu extends Initializer implements FocusListener {
                 }
                 case 4: {
                     setVisible(false);
-                    new PuzzleGame();
+                    new PuzzleGame(username);
                     break;
                 }
             }
         } else if (code == 27) {
             setVisible(false);
             new Login();
-        }else if (code == 71) showAbout();
+        } else if (code == 71) showAbout();
     }
 
     @Override

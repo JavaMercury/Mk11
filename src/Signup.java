@@ -194,7 +194,7 @@ public class Signup extends Initializer {
     ///注册
     void signup() {
         if (checkUsername(username) && !checkUsernameUsed(library, username) && checkPassword(password) && password.equals(passwordAgain) && checkPhoneNumber(phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber) && code.equals(codeTemp)) {
-            library.add(new User(username, password, phoneNumber, 0, 1, 0, lastLDT, LocalDateTime.now()));
+            library.add(new User(username, password, phoneNumber, 0, 1, 0, lastLDT, LocalDateTime.now(), 0));
             setVisible(false);
             new Login();
         } else {
@@ -291,6 +291,6 @@ public class Signup extends Initializer {
         } else if (code == 27) {
             setVisible(false);
             new Login();
-        }else if (code == 71) showAbout();
+        } else if (code == 71) showAbout();
     }
 }
