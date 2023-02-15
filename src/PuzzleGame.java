@@ -192,6 +192,7 @@ public class PuzzleGame extends Initializer implements Border {
         moveBlankJMI.addMouseListener(this);
         movePuzzleJMI.addMouseListener(this);
         backgroundJL.addKeyListener(this);
+
     }
 
     ///内容初始化
@@ -199,15 +200,15 @@ public class PuzzleGame extends Initializer implements Border {
     void initContent() {
         getContentPane().removeAll();
         if (victory()) {
-            JLabel victory = new JLabel(new ImageIcon("image\\win.png"));
-            victory.setBounds(203, 283, 197, 73);
-            getContentPane().add(victory);
+            JLabel victoryJL = new JLabel(new ImageIcon("image\\win.png"));
+            victoryJL.setBounds(203, 283, 197, 73);
+            getContentPane().add(victoryJL);
             if (step != 99999 && getUser(username).getPuzzleSteps() >= 0 && getUser(username).getPuzzleSteps() > step)
                 getUser(username).setPuzzleSteps(step);
         }
-        JLabel countStep = new JLabel("步数：" + step);
-        countStep.setBounds(50, 30, 100, 20);
-        getContentPane().add(countStep);
+        JLabel countStepJL = new JLabel("步数：" + step);
+        countStepJL.setBounds(50, 30, 100, 20);
+        getContentPane().add(countStepJL);
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 int number = data[i][j];
