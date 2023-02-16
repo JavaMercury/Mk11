@@ -40,6 +40,9 @@ public class PuzzleGame extends Initializer implements Border {
     JMenu propertiesJM = new JMenu("选项");
     JMenuBar puzzleGameJMB = new JMenuBar();
     JLabel backgroundJL = new JLabel(new ImageIcon("image\\background.png"));
+    JButton successReplayJB = new JButton("重玩");
+    JButton successExitJB = new JButton("退出");
+    JLabel countStepJL = new JLabel();
     private int MOVE_UP_LEFT_OR_Y = 1;
     private int MOVE_DOWN_RIGHT_OR_Y = -1;
     private int BOUNDS_UP_LEFT = 3;
@@ -192,7 +195,6 @@ public class PuzzleGame extends Initializer implements Border {
         moveBlankJMI.addMouseListener(this);
         movePuzzleJMI.addMouseListener(this);
         backgroundJL.addKeyListener(this);
-
     }
 
     ///内容初始化
@@ -202,13 +204,29 @@ public class PuzzleGame extends Initializer implements Border {
         if (victory()) {
             JLabel victoryJL = new JLabel(new ImageIcon("image\\win.png"));
             victoryJL.setBounds(203, 283, 197, 73);
+            successReplayJB.setBounds(235, 380, 60, 30);
+            successExitJB.setBounds(305, 380, 60, 30);
+            getContentPane().add(successReplayJB);
+            getContentPane().add(successExitJB);
             getContentPane().add(victoryJL);
-            if (step != 99999 && getUser(username).getPuzzleSteps() >= 0 && getUser(username).getPuzzleSteps() > step)
+            if (step != 99999 && getUser(username).getPuzzleSteps() > step)
                 getUser(username).setPuzzleSteps(step);
+            loadPuzzles();
+            getContentPane().repaint();
+            successReplayJB.setFocusable(true);
+            successReplayJB.addKeyListener(this);
         }
-        JLabel countStepJL = new JLabel("步数：" + step);
         countStepJL.setBounds(50, 30, 100, 20);
-        getContentPane().add(countStepJL);
+        loadPuzzles();
+        getContentPane().repaint();
+        aboutJM.addKeyListener(this);
+        successReplayJB.addMouseListener(this);
+        requestFocus();
+        successExitJB.addMouseListener(this);
+    }
+
+    ///加载拼图
+    private void loadPuzzles() {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 int number = data[i][j];
@@ -217,12 +235,12 @@ public class PuzzleGame extends Initializer implements Border {
                 mainImage.setBounds(105 * i + 83, 105 * j + 134, 105, 105);
                 mainImage.setBorder(new BevelBorder(BevelBorder.RAISED));
                 getContentPane().add(mainImage);
+                backgroundJL.setBounds(40, 40, 508, 560);
+                getContentPane().add(backgroundJL);
+                countStepJL.setText("步数：" + step);
+                getContentPane().add(countStepJL);
             }
         }
-        backgroundJL.setBounds(40, 40, 508, 560);
-        getContentPane().add(backgroundJL);
-        getContentPane().repaint();
-        aboutJM.addKeyListener(this);
     }
 
     ///判断用户是否胜利
@@ -268,8 +286,8 @@ public class PuzzleGame extends Initializer implements Border {
     public void mousePressed(MouseEvent e) {
         Object thing = e.getSource();
         if (thing == aboutJM) showAbout();
-        else if (thing == replayJMI) replay();
-        else if (thing == exitGameJMI) {
+        else if (thing == replayJMI || thing == successReplayJB) replay();
+        else if (thing == exitGameJMI || thing == successExitJB) {
             setVisible(false);
             new Menu(username);
         } else if (thing == logoutJMI) {
@@ -338,6 +356,10 @@ public class PuzzleGame extends Initializer implements Border {
             getContentPane().add(fullImage);
             getContentPane().add(background);
             getContentPane().repaint();
+        } else if (code == 27) {
+            System.out.println("esc pressed");
+            setVisible(false);
+            new Menu(username);
         }
     }
 
@@ -380,7 +402,7 @@ public class PuzzleGame extends Initializer implements Border {
                 initContent();
             }
         } else if (code == 17) initContent();
-            //官方开挂键数字键盘“-”
+            //官方开挂键，数字键盘“-”
         else if (code == 109) {
             step = 99999;
             data = new int[][]{
@@ -391,6 +413,7 @@ public class PuzzleGame extends Initializer implements Border {
             };
             initContent();
         } else if (code == 27) {
+            System.out.println("esc released");
             setVisible(false);
             new Menu(username);
         } else if (code == 71) showAbout();
