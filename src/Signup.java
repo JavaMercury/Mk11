@@ -83,6 +83,7 @@ public class Signup extends Initializer {
 
     ///内容初始化
     void initContent() {
+        aboutJM.setText("关于");
         getContentPane().setBackground(Color.WHITE);
         usernameJTF.setBounds(100, 50, 200, 30);
         passwordJPF.setBounds(100, 130, 200, 30);
@@ -291,6 +292,6 @@ public class Signup extends Initializer {
         } else if (code == 27) {
             setVisible(false);
             new Login();
-        } else if (code == 71) showAbout();
+        }
     }
 }

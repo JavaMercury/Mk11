@@ -289,7 +289,7 @@ public class PuzzleGame extends Initializer implements Border {
         else if (thing == replayJMI || thing == successReplayJB) replay();
         else if (thing == exitGameJMI || thing == successExitJB) {
             setVisible(false);
-            new Menu(username);
+            new MainMenu(username);
         } else if (thing == logoutJMI) {
             setVisible(false);
             new Login();
@@ -356,10 +356,6 @@ public class PuzzleGame extends Initializer implements Border {
             getContentPane().add(fullImage);
             getContentPane().add(background);
             getContentPane().repaint();
-        } else if (code == 27) {
-            System.out.println("esc pressed");
-            setVisible(false);
-            new Menu(username);
         }
     }
 
@@ -413,9 +409,8 @@ public class PuzzleGame extends Initializer implements Border {
             };
             initContent();
         } else if (code == 27) {
-            System.out.println("esc released");
             setVisible(false);
-            new Menu(username);
+            new GamesMenu(username);
         } else if (code == 71) showAbout();
         else if (code == 72) showHelp();
     }

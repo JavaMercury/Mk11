@@ -21,17 +21,7 @@ public class Test {
     static int sumPoint = 0;
 
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        String str = "3";
-        while (!str.equals("0")) {
-            System.out.println("输入1签到，输入0停止");
-            str = input.next();
-            if (str.equals("1")) {
-                if (signIn())
-                    System.out.printf("签到成功，已连续签到%d天，获得%d积分，目前积分%d，目前等级%d\n", succession, point, sumPoint, level(sumPoint));
-                else System.out.println("今天已经签到过了，明天再来吧！");
-            }
-        }
+        new beatLordGame("Apermesa");
     }
 
     ///签到

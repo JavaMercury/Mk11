@@ -86,7 +86,7 @@ public class Profile extends Initializer {
         if (code == 71) showAbout();
         else if (code == 27) {
             setVisible(false);
-            new Menu(username);
+            new MainMenu(username);
         }
     }
 
@@ -100,7 +100,7 @@ public class Profile extends Initializer {
         Object thing = mouseEvent.getSource();
         if (thing == backJB || thing == backJMI) {
             setVisible(false);
-            new Menu(username);
+            new MainMenu(username);
         } else if (thing == aboutJM) showAbout();
         else if (thing == changePhoneNumberJL) {
             setVisible(false);

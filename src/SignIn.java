@@ -115,7 +115,7 @@ public class SignIn extends Initializer {
         int code = keyEvent.getKeyCode();
         if (code == 27) {
             setVisible(false);
-            new Menu(username);
+            new MainMenu(username);
         }else if (code == 71) showAbout();
     }
 
@@ -130,7 +130,7 @@ public class SignIn extends Initializer {
         if (thing == aboutJM) showAbout();
         else if (thing == backJMI || thing == backJB) {
             setVisible(false);
-            new Menu(username);
+            new MainMenu(username);
         } else if (thing == signInJB) {
             if (signIn()) {
                 successJL.setText(String.format("签到成功，已连续签到%d天，获得%d积分，目前积分%d，等级%d", succession, point, sumPoint, level(sumPoint)));

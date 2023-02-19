@@ -58,6 +58,7 @@ public class ResetPassword extends Initializer {
 
     @Override
     void initContent() {
+        aboutJM.setText("关于");
         getContentPane().setBackground(Color.WHITE);
         phoneNumberJTF.setBounds(100, 50, 200, 30);
         inputPhoneNumberJL.setBounds(100, 20, 200, 30);
@@ -162,7 +163,7 @@ public class ResetPassword extends Initializer {
         if (thing == aboutJM) showAbout();
         else if (thing == exitJMI || thing == backJB) {
             setVisible(false);
-            new Menu(username);
+            new MainMenu(username);
         } else if (thing == codeJB) {
             codeTemp = getVerificationCode();
             codeJB.setText(codeTemp);
@@ -226,8 +227,8 @@ public class ResetPassword extends Initializer {
             resetPassword();
         } else if (code == 27) {
             setVisible(false);
-            new Menu(username);
-        }else if (code == 71) showAbout();
+            new MainMenu(username);
+        }
     }
 
     ///收集用户输入的数据

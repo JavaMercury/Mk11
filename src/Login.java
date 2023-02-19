@@ -73,6 +73,7 @@ public class Login extends Initializer {
     ///内容初始化
     @Override
     void initContent() {
+        aboutJM.setText("关于");
         getContentPane().setBackground(Color.WHITE);
         usernameJTF.setBounds(100, 70, 340, 30);
         passwordJPF.setBounds(100, 170, 340, 30);
@@ -110,7 +111,6 @@ public class Login extends Initializer {
         revealPasswordPressedJL.addMouseListener(this);
         revealPasswordJL.setVisible(false);
         loginJB.addKeyListener(this);
-        aboutJM.addKeyListener(this);
     }
 
     @Override
@@ -130,8 +130,8 @@ public class Login extends Initializer {
             login();
         } else if (code == 109) {
             setVisible(false);
-            new Menu("qwerqwer");
-        }else if (code == 71) showAbout();
+            new MainMenu("qwerqwer");
+        }
     }
 
     @Override
@@ -185,7 +185,7 @@ public class Login extends Initializer {
         invalidInputJL.setVisible(false);
         if (checkSameUsername(library, username) && checkSamePassword(library, username, passwordSB.toString())) {
             setVisible(false);
-            new Menu(username);
+            new MainMenu(username);
         } else if ((!username.equals("") || passwordSB.length() != 0))
             invalidInputJL.setVisible(true);
     }
