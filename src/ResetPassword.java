@@ -59,7 +59,7 @@ public class ResetPassword extends Initializer {
     @Override
     void initContent() {
         aboutJM.setText("关于");
-        getContentPane().setBackground(Color.WHITE);
+        con.setBackground(Color.WHITE);
         phoneNumberJTF.setBounds(100, 50, 200, 30);
         inputPhoneNumberJL.setBounds(100, 20, 200, 30);
         submitJB.setBounds(100, 500, 100, 30);
@@ -78,20 +78,20 @@ public class ResetPassword extends Initializer {
         submitJB.addMouseListener(this);
         codeJB.addMouseListener(this);
 
-        getContentPane().add(phoneNumberJTF);
-        getContentPane().add(inputPhoneNumberJL);
-        getContentPane().add(submitJB);
-        getContentPane().add(invalidPhoneNumberJL);
-        getContentPane().add(passwordJPF);
-        getContentPane().add(passwordAgainJPF);
-        getContentPane().add(inputNewPasswordJL);
-        getContentPane().add(inputNewPasswordAgainJL);
-        getContentPane().add(codeJTF);
-        getContentPane().add(codeJB);
-        getContentPane().add(invalidPasswordJL);
-        getContentPane().add(differentPasswordJL);
-        getContentPane().add(invalidCodeJL);
-        getContentPane().add(samePasswordJL);
+        con.add(phoneNumberJTF);
+        con.add(inputPhoneNumberJL);
+        con.add(submitJB);
+        con.add(invalidPhoneNumberJL);
+        con.add(passwordJPF);
+        con.add(passwordAgainJPF);
+        con.add(inputNewPasswordJL);
+        con.add(inputNewPasswordAgainJL);
+        con.add(codeJTF);
+        con.add(codeJB);
+        con.add(invalidPasswordJL);
+        con.add(differentPasswordJL);
+        con.add(invalidCodeJL);
+        con.add(samePasswordJL);
 
         invalidPhoneNumberJL.setVisible(false);
         codeJB.setContentAreaFilled(false);
@@ -107,7 +107,7 @@ public class ResetPassword extends Initializer {
         backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
         backJB.addKeyListener(this);
-        getContentPane().add(backJB);
+        con.add(backJB);
         invalidPhoneNumberJL.setForeground(Color.RED);
         invalidCodeJL.setForeground(Color.RED);
         invalidPasswordJL.setForeground(Color.RED);
@@ -120,8 +120,8 @@ public class ResetPassword extends Initializer {
         codeJTF.addKeyListener(this);
         revealPasswordJL.setBounds(70, 150, 30, 30);
         revealPasswordPressedJL.setBounds(70, 150, 30, 30);
-        getContentPane().add(revealPasswordJL);
-        getContentPane().add(revealPasswordPressedJL);
+        con.add(revealPasswordJL);
+        con.add(revealPasswordPressedJL);
         revealPasswordJL.addMouseListener(this);
         revealPasswordPressedJL.addMouseListener(this);
         revealPasswordPressedJL.setVisible(false);

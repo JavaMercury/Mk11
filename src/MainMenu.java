@@ -61,11 +61,11 @@ public class MainMenu extends Initializer implements FocusListener {
     ///内容初始化
     @Override
     void initContent() {
-        getContentPane().setBackground(Color.WHITE);
+        con.setBackground(Color.WHITE);
         functionsJB.setBounds(95, 80, 150, 50);
         gamesJB.setBounds(95, 180, 150, 50);
-        getContentPane().add(gamesJB);
-        getContentPane().add(functionsJB);
+        con.add(gamesJB);
+        con.add(functionsJB);
         functionsJB.addMouseListener(this);
         gamesJB.addMouseListener(this);
         aboutJM.addMouseListener(this);

@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 //重设手机号码
-public class ResetPhoneNumber extends Initializer{
+public class ResetPhoneNumber extends Initializer {
 
     JMenu properties = new JMenu("选项");
     JMenuItem exitJMI = new JMenuItem("取消修改");
@@ -57,7 +57,7 @@ public class ResetPhoneNumber extends Initializer{
     @Override
     void initContent() {
         aboutJM.setText("关于");
-        getContentPane().setBackground(Color.WHITE);
+        con.setBackground(Color.WHITE);
         passwordJPF.setBounds(100, 50, 200, 30);
         inputPasswordJL.setBounds(100, 20, 200, 30);
         submitJB.setBounds(100, 500, 100, 30);
@@ -69,23 +69,23 @@ public class ResetPhoneNumber extends Initializer{
         invalidPhoneNumberJL.setBounds(100, 180, 400, 30);
         invalidCodeJL.setBounds(100, 280, 400, 30);
         samePhoneNumberJL.setBounds(100, 180, 400, 30);
-        occupiedPhoneNumberJL.setBounds(100,180,400,30);
+        occupiedPhoneNumberJL.setBounds(100, 180, 400, 30);
 
         submitJB.addMouseListener(this);
         codeJB.addMouseListener(this);
 
-        getContentPane().add(phoneNumberJTF);
-        getContentPane().add(inputPasswordJL);
-        getContentPane().add(submitJB);
-        getContentPane().add(invalidPhoneNumberJL);
-        getContentPane().add(passwordJPF);
-        getContentPane().add(inputNewPhoneNumberJL);
-        getContentPane().add(codeJTF);
-        getContentPane().add(codeJB);
-        getContentPane().add(invalidPasswordJL);
-        getContentPane().add(invalidCodeJL);
-        getContentPane().add(samePhoneNumberJL);
-        getContentPane().add(occupiedPhoneNumberJL);
+        con.add(phoneNumberJTF);
+        con.add(inputPasswordJL);
+        con.add(submitJB);
+        con.add(invalidPhoneNumberJL);
+        con.add(passwordJPF);
+        con.add(inputNewPhoneNumberJL);
+        con.add(codeJTF);
+        con.add(codeJB);
+        con.add(invalidPasswordJL);
+        con.add(invalidCodeJL);
+        con.add(samePhoneNumberJL);
+        con.add(occupiedPhoneNumberJL);
 
         invalidPhoneNumberJL.setVisible(false);
         codeJB.setContentAreaFilled(false);
@@ -100,7 +100,7 @@ public class ResetPhoneNumber extends Initializer{
         backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
         backJB.addKeyListener(this);
-        getContentPane().add(backJB);
+        con.add(backJB);
         invalidPhoneNumberJL.setForeground(Color.RED);
         invalidCodeJL.setForeground(Color.RED);
         invalidPasswordJL.setForeground(Color.RED);
@@ -112,8 +112,8 @@ public class ResetPhoneNumber extends Initializer{
         codeJTF.addKeyListener(this);
         revealPasswordJL.setBounds(70, 50, 30, 30);
         revealPasswordPressedJL.setBounds(70, 50, 30, 30);
-        getContentPane().add(revealPasswordJL);
-        getContentPane().add(revealPasswordPressedJL);
+        con.add(revealPasswordJL);
+        con.add(revealPasswordPressedJL);
         revealPasswordPressedJL.setVisible(false);
         revealPasswordJL.addMouseListener(this);
         revealPasswordPressedJL.addMouseListener(this);

@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 public abstract class Initializer extends JFrame implements KeyListener, MouseListener {
+    Container con = getContentPane();
     //数字字符-48为实际数字，大写字母-55
 
     //创建集合，存储用户信息
@@ -22,7 +23,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     }
 
     JMenu aboutJM = new JMenu("关于(G)");
-    String version = "水银第11代 0.11.06.20230220";
+    String version = "水银第11代 0.11.07.20230221";
     String username;
     String password;
     JDialog aboutJD = new JDialog();

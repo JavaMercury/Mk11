@@ -167,7 +167,7 @@ public class PuzzleGame extends Initializer implements Border {
     ///菜单初始化
     @Override
     void initMenuBar() {
-        getContentPane().setBackground(Color.WHITE);
+        con.setBackground(Color.WHITE);
         changeImageJM.add(animalJMI);
         changeImageJM.add(girlJMI);
         changeImageJM.add(sportJMI);
@@ -200,25 +200,25 @@ public class PuzzleGame extends Initializer implements Border {
     ///内容初始化
     @Override
     void initContent() {
-        getContentPane().removeAll();
+        con.removeAll();
         if (victory()) {
             JLabel victoryJL = new JLabel(new ImageIcon("image\\win.png"));
             victoryJL.setBounds(203, 283, 197, 73);
             successReplayJB.setBounds(235, 380, 60, 30);
             successExitJB.setBounds(305, 380, 60, 30);
-            getContentPane().add(successReplayJB);
-            getContentPane().add(successExitJB);
-            getContentPane().add(victoryJL);
+            con.add(successReplayJB);
+            con.add(successExitJB);
+            con.add(victoryJL);
             if (step != 99999 && getUser(username).getPuzzleSteps() > step)
                 getUser(username).setPuzzleSteps(step);
             loadPuzzles();
-            getContentPane().repaint();
+            con.repaint();
             successReplayJB.setFocusable(true);
             successReplayJB.addKeyListener(this);
         }
         countStepJL.setBounds(50, 30, 100, 20);
         loadPuzzles();
-        getContentPane().repaint();
+        con.repaint();
         aboutJM.addKeyListener(this);
         successReplayJB.addMouseListener(this);
         requestFocus();
@@ -234,11 +234,11 @@ public class PuzzleGame extends Initializer implements Border {
                 JLabel mainImage = new JLabel(icon);
                 mainImage.setBounds(105 * i + 83, 105 * j + 134, 105, 105);
                 mainImage.setBorder(new BevelBorder(BevelBorder.RAISED));
-                getContentPane().add(mainImage);
+                con.add(mainImage);
                 backgroundJL.setBounds(40, 40, 508, 560);
-                getContentPane().add(backgroundJL);
+                con.add(backgroundJL);
                 countStepJL.setText("步数：" + step);
-                getContentPane().add(countStepJL);
+                con.add(countStepJL);
             }
         }
     }
@@ -348,14 +348,14 @@ public class PuzzleGame extends Initializer implements Border {
         if (victory()) return;
         int code = e.getKeyCode();
         if (code == 17) {
-            getContentPane().removeAll();
+            con.removeAll();
             JLabel fullImage = new JLabel(new ImageIcon(path + "all.jpg"));
             JLabel background = new JLabel(new ImageIcon("image\\background.png"));
             fullImage.setBounds(83, 134, 420, 420);
             background.setBounds(40, 40, 508, 560);
-            getContentPane().add(fullImage);
-            getContentPane().add(background);
-            getContentPane().repaint();
+            con.add(fullImage);
+            con.add(background);
+            con.repaint();
         }
     }
 

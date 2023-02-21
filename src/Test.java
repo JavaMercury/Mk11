@@ -1,15 +1,8 @@
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Scanner;
 
 //此类用于各种疑难理论测试，成功后可使用branch功能进行实际测试
-//现在正在测试：签到功能
-/*
- * 原理：每次签到获取当前的年月日，若上次签到的年月日与这次的一致，则直接判定签到失败；若不一致，则接着与上次签到的年月日进行对比，如果两次签到日期相差大于或等于1天，则这次签到成功。
- * 如果两次签到日期相差刚好为1天，则判定为连续签到，获得更多积分奖励。若两次签到日期相差大于1天，则连续签到天数重置为0。
- *
- * 增加签到功能后，User类可能会增加以下数据：积分数，上次签到时间，等级，连续签到天数
- * */
+//现在正在测试：
 public class Test {
     //默认的上次签到时间，用于用户第一次签到
     static LocalDateTime lastLDT = LocalDateTime.of(2020, 3, 24, 0, 0, 0);

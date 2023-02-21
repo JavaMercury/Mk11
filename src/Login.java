@@ -74,7 +74,7 @@ public class Login extends Initializer {
     @Override
     void initContent() {
         aboutJM.setText("关于");
-        getContentPane().setBackground(Color.WHITE);
+        con.setBackground(Color.WHITE);
         usernameJTF.setBounds(100, 70, 340, 30);
         passwordJPF.setBounds(100, 170, 340, 30);
         loginJB.setBounds(110, 70, 128, 47);
@@ -87,15 +87,15 @@ public class Login extends Initializer {
         signupJB.addMouseListener(this);
         invalidInputJL.setBounds(100, 215, 221, 34);
         invalidInputJL.setVisible(false);
-        getContentPane().add(invalidInputJL);
-        getContentPane().add(loginJB);
-        getContentPane().add(signupJB);
-        getContentPane().add(usernameJTF);
-        getContentPane().add(passwordJPF);
+        con.add(invalidInputJL);
+        con.add(loginJB);
+        con.add(signupJB);
+        con.add(usernameJTF);
+        con.add(passwordJPF);
         usernameJL.setBounds(100, 30, 100, 50);
         passwordJL.setBounds(100, 130, 100, 50);
-        getContentPane().add(usernameJL);
-        getContentPane().add(passwordJL);
+        con.add(usernameJL);
+        con.add(passwordJL);
         usernameJTF.addKeyListener(this);
         passwordJPF.addKeyListener(this);
         usernameJTF.setVisible(false);
@@ -104,8 +104,8 @@ public class Login extends Initializer {
         passwordJL.setVisible(false);
         revealPasswordJL.setBounds(70, 170, 30, 30);
         revealPasswordPressedJL.setBounds(70, 170, 30, 30);
-        getContentPane().add(revealPasswordJL);
-        getContentPane().add(revealPasswordPressedJL);
+        con.add(revealPasswordJL);
+        con.add(revealPasswordPressedJL);
         revealPasswordPressedJL.setVisible(false);
         revealPasswordJL.addMouseListener(this);
         revealPasswordPressedJL.addMouseListener(this);

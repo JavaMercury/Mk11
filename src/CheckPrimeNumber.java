@@ -103,7 +103,7 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
     ///内容初始化
     @Override
     void initContent() {
-        getContentPane().setBackground(Color.WHITE);
+        con.setBackground(Color.WHITE);
         inputJTF.setBounds(100, 100, 200, 30);
         submitJB.setBounds(100, 200, 70, 30);
         invalidInputWarningJL.setBounds(100, 130, 200, 50);
@@ -113,20 +113,20 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
         invalidInputWarningJL.setVisible(false);
         resultJL.setVisible(false);
         inputJTF.setText("请输入一个正整数");
-        getContentPane().add(inputJTF);
-        getContentPane().add(submitJB);
-        getContentPane().add(invalidInputWarningJL);
-        getContentPane().add(resultJL);
+        con.add(inputJTF);
+        con.add(submitJB);
+        con.add(invalidInputWarningJL);
+        con.add(resultJL);
 
         backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
-        getContentPane().add(backJB);
+        con.add(backJB);
         inputJTF.addKeyListener(this);
         submitJB.addKeyListener(this);
         backJB.addKeyListener(this);
         invalidInputWarningJL.setForeground(Color.RED);
         hintJL.setBounds(100, 70, 200, 30);
-        getContentPane().add(hintJL);
+        con.add(hintJL);
         aboutJM.addKeyListener(this);
     }
 

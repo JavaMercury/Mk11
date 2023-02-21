@@ -84,7 +84,7 @@ public class Signup extends Initializer {
     ///内容初始化
     void initContent() {
         aboutJM.setText("关于");
-        getContentPane().setBackground(Color.WHITE);
+        con.setBackground(Color.WHITE);
         usernameJTF.setBounds(100, 50, 200, 30);
         passwordJPF.setBounds(100, 130, 200, 30);
         passwordAgainJPF.setBounds(100, 210, 200, 30);
@@ -109,24 +109,24 @@ public class Signup extends Initializer {
         submitJB.setBounds(200, 460, 70, 30);
         submitJB.addMouseListener(this);
         codeJB.addMouseListener(this);
-        getContentPane().add(usernameJTF);
-        getContentPane().add(passwordJPF);
-        getContentPane().add(passwordAgainJPF);
-        getContentPane().add(phoneNumberJTF);
-        getContentPane().add(codeJTF);
-        getContentPane().add(codeJB);
-        getContentPane().add(submitJB);
-        getContentPane().add(invalidCodeJL);
-        getContentPane().add(invalidUsernameJL);
-        getContentPane().add(occupiedUsernameJL);
-        getContentPane().add(validUsernameJL);
-        getContentPane().add(invalidPasswordJL);
-        getContentPane().add(validPasswordJL);
-        getContentPane().add(differentPasswordJL);
-        getContentPane().add(inputPasswordJL);
-        getContentPane().add(inputPasswordAgainJL);
-        getContentPane().add(invalidPhoneNumberJL);
-        getContentPane().add(occupiedPhoneNumberJL);
+        con.add(usernameJTF);
+        con.add(passwordJPF);
+        con.add(passwordAgainJPF);
+        con.add(phoneNumberJTF);
+        con.add(codeJTF);
+        con.add(codeJB);
+        con.add(submitJB);
+        con.add(invalidCodeJL);
+        con.add(invalidUsernameJL);
+        con.add(occupiedUsernameJL);
+        con.add(validUsernameJL);
+        con.add(invalidPasswordJL);
+        con.add(validPasswordJL);
+        con.add(differentPasswordJL);
+        con.add(inputPasswordJL);
+        con.add(inputPasswordAgainJL);
+        con.add(invalidPhoneNumberJL);
+        con.add(occupiedPhoneNumberJL);
         invalidCodeJL.setVisible(false);
         invalidUsernameJL.setVisible(false);
         occupiedUsernameJL.setVisible(false);
@@ -139,11 +139,11 @@ public class Signup extends Initializer {
 
         backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
-        getContentPane().add(backJB);
+        con.add(backJB);
         inputUsernameJL.setBounds(310, 50, 200, 30);
         inputPhoneNumberJL.setBounds(310, 290, 200, 30);
-        getContentPane().add(inputUsernameJL);
-        getContentPane().add(inputPhoneNumberJL);
+        con.add(inputUsernameJL);
+        con.add(inputPhoneNumberJL);
         usernameJTF.addKeyListener(this);
         passwordJPF.addKeyListener(this);
         passwordAgainJPF.addKeyListener(this);
@@ -160,8 +160,8 @@ public class Signup extends Initializer {
         backJB.addKeyListener(this);
         revealPasswordJL.setBounds(70, 130, 30, 30);
         revealPasswordPressedJL.setBounds(70, 130, 30, 30);
-        getContentPane().add(revealPasswordJL);
-        getContentPane().add(revealPasswordPressedJL);
+        con.add(revealPasswordJL);
+        con.add(revealPasswordPressedJL);
         revealPasswordPressedJL.setVisible(false);
         revealPasswordJL.addMouseListener(this);
         revealPasswordPressedJL.addMouseListener(this);

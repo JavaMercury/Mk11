@@ -50,11 +50,11 @@ public class Profile extends Initializer {
 
     @Override
     void initContent() {
-        getContentPane().setBackground(Color.WHITE);
+        con.setBackground(Color.WHITE);
         backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
         backJB.addKeyListener(this);
-        getContentPane().add(backJB);
+        con.add(backJB);
         profileJL.setBounds(50, 0, 356, 360);
         profileJL.setText("<html>用户名：" + username + "<br />" +
                 "手机号码：" + getUser(username).getPhoneNumber() + "<br />" +
@@ -65,8 +65,8 @@ public class Profile extends Initializer {
         changePhoneNumberJL.setBounds(190, 148, 26, 16);
         changePhoneNumberJL.addMouseListener(this);
         changePhoneNumberJL.setForeground(Color.BLUE);
-        getContentPane().add(changePhoneNumberJL);
-        getContentPane().add(profileJL);
+        con.add(changePhoneNumberJL);
+        con.add(profileJL);
         aboutJM.addKeyListener(this);
     }
 

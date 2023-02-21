@@ -84,19 +84,19 @@ public class SignIn extends Initializer {
 
     @Override
     void initContent() {
-        getContentPane().setBackground(Color.WHITE);
+        con.setBackground(Color.WHITE);
         signInJB.setBounds(95, 180, 150, 50);
         signInJB.addMouseListener(this);
-        getContentPane().add(signInJB);
+        con.add(signInJB);
 
         successJL.setBounds(0, 130, 356, 30);
-        getContentPane().add(successJL);
+        con.add(successJL);
         successJL.setVisible(false);
 
         backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
         backJB.addKeyListener(this);
-        getContentPane().add(backJB);
+        con.add(backJB);
         aboutJM.addKeyListener(this);
     }
 
@@ -116,7 +116,7 @@ public class SignIn extends Initializer {
         if (code == 27) {
             setVisible(false);
             new MainMenu(username);
-        }else if (code == 71) showAbout();
+        } else if (code == 71) showAbout();
     }
 
     @Override

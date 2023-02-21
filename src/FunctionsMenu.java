@@ -50,9 +50,9 @@ public class FunctionsMenu extends Initializer implements FocusListener {
         changeNumberSystemJB.addMouseListener(this);
         checkPrimeNumberJB.addMouseListener(this);
         getRandomNumberJB.addMouseListener(this);
-        getContentPane().add(changeNumberSystemJB);
-        getContentPane().add(checkPrimeNumberJB);
-        getContentPane().add(getRandomNumberJB);
+        con.add(changeNumberSystemJB);
+        con.add(checkPrimeNumberJB);
+        con.add(getRandomNumberJB);
         aboutJM.addMouseListener(this);
         changeNumberSystemJB.addKeyListener(this);
         checkPrimeNumberJB.addKeyListener(this);

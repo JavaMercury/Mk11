@@ -47,8 +47,8 @@ public class GamesMenu extends Initializer implements FocusListener {
         beatLordGameJB.setBounds(95, 100, 150, 50);
         puzzleGameJB.addMouseListener(this);
         beatLordGameJB.addMouseListener(this);
-        getContentPane().add(puzzleGameJB);
-        getContentPane().add(beatLordGameJB);
+        con.add(puzzleGameJB);
+        con.add(beatLordGameJB);
         aboutJM.addMouseListener(this);
         puzzleGameJB.addKeyListener(this);
         beatLordGameJB.addKeyListener(this);

@@ -93,7 +93,7 @@ public class GetRandomNumber extends Initializer implements FocusListener {
     ///内容初始化
     @Override
     void initContent() {
-        getContentPane().setBackground(Color.WHITE);
+        con.setBackground(Color.WHITE);
         inputMinimumJTF.setBounds(100, 100, 100, 30);
         inputMaximumJTF.setBounds(250, 100, 100, 30);
         submitJB.setBounds(100, 200, 70, 30);
@@ -104,21 +104,21 @@ public class GetRandomNumber extends Initializer implements FocusListener {
         resultJL.setVisible(false);
         inputMinimumJTF.setText("范围最小值");
         inputMaximumJTF.setText("范围最大值");
-        getContentPane().add(inputMinimumJTF);
-        getContentPane().add(inputMaximumJTF);
-        getContentPane().add(submitJB);
-        getContentPane().add(warningJL);
-        getContentPane().add(resultJL);
+        con.add(inputMinimumJTF);
+        con.add(inputMaximumJTF);
+        con.add(submitJB);
+        con.add(warningJL);
+        con.add(resultJL);
 
         backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
-        getContentPane().add(backJB);
+        con.add(backJB);
         inputMinimumJTF.addFocusListener(this);
         inputMaximumJTF.addFocusListener(this);
         inputMinimumJTF.addKeyListener(this);
         inputMaximumJTF.addKeyListener(this);
         hintJL.setBounds(100, 70, 200, 30);
-        getContentPane().add(hintJL);
+        con.add(hintJL);
         submitJB.addKeyListener(this);
         backJB.addKeyListener(this);
         warningJL.setForeground(Color.RED);

@@ -102,7 +102,7 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
     ///内容初始化
     @Override
     void initContent() {
-        getContentPane().setBackground(Color.WHITE);
+        con.setBackground(Color.WHITE);
         binaryToOctalJB.setBounds(60, 60, 200, 40);
         binaryToDecimalJB.setBounds(360, 60, 200, 40);
         binaryToHexJB.setBounds(60, 160, 200, 40);
@@ -135,27 +135,27 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
         hexToDecimalJB.addMouseListener(this);
         inputJTF.addFocusListener(this);
         submitJB.addMouseListener(this);
-        getContentPane().add(binaryToOctalJB);
-        getContentPane().add(binaryToDecimalJB);
-        getContentPane().add(binaryToHexJB);
-        getContentPane().add(octalToBinaryJB);
-        getContentPane().add(octalToDecimalJB);
-        getContentPane().add(octalToHexJB);
-        getContentPane().add(decimalToBinaryJB);
-        getContentPane().add(decimalToOctalJB);
-        getContentPane().add(decimalToHexJB);
-        getContentPane().add(hexToBinaryJB);
-        getContentPane().add(hexToOctalJB);
-        getContentPane().add(hexToDecimalJB);
-        getContentPane().add(inputJTF);
-        getContentPane().add(submitJB);
-        getContentPane().add(resultJL);
-        getContentPane().add(invalidInputWarningJL);
+        con.add(binaryToOctalJB);
+        con.add(binaryToDecimalJB);
+        con.add(binaryToHexJB);
+        con.add(octalToBinaryJB);
+        con.add(octalToDecimalJB);
+        con.add(octalToHexJB);
+        con.add(decimalToBinaryJB);
+        con.add(decimalToOctalJB);
+        con.add(decimalToHexJB);
+        con.add(hexToBinaryJB);
+        con.add(hexToOctalJB);
+        con.add(hexToDecimalJB);
+        con.add(inputJTF);
+        con.add(submitJB);
+        con.add(resultJL);
+        con.add(invalidInputWarningJL);
 
         backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
         backJB.addKeyListener(this);
-        getContentPane().add(backJB);
+        con.add(backJB);
         inputJTF.addKeyListener(this);
         submitJB.setVisible(true);
         submitJB.addKeyListener(this);
