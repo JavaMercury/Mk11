@@ -19,9 +19,6 @@ public class User {
     //拼图小游戏通关最佳步数，初始为0
     private int puzzleSteps;
 
-    public User() {
-    }
-
     public User(String username, String password, String phoneNumber, int point, int level, int succession, LocalDateTime lastLDT, LocalDateTime signupDateTime, int puzzleSteps) {
         this.username = username;
         this.password = password;

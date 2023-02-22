@@ -30,14 +30,14 @@ public class beatLordGame extends Initializer implements FocusListener {
     JTextField player2CountDownJTF = new JTextField();
     JTextField player3CountDownJTF = new JTextField();
     //把三个玩家的倒计时放入一个数组中管理
-    JButton[] countDowns = new JButton[3];
+    JTextField[] countDowns = new JTextField[3];
     //把玩家的牌的集合放入一个集合中
     ArrayList<TreeSet<Integer>> playerCardsList = new ArrayList<>();
     //以下三个集合存玩家打出的牌
     TreeSet<Integer> player1OutCard = new TreeSet<>();
     TreeSet<Integer> player2OutCard = new TreeSet<>();
     TreeSet<Integer> player3OutCard = new TreeSet<>();
-    JButton ToBeLordJB = new JButton("抢地主");
+    JButton toBeLordJB = new JButton("抢地主");
     JButton notToBeLordJB = new JButton("不抢");
     //把抢地主和不抢的按钮放入一个数组中管理
     JButton[] beLordOrNot = new JButton[2];
@@ -45,12 +45,13 @@ public class beatLordGame extends Initializer implements FocusListener {
     JButton passJB = new JButton("不要");
     //把出牌和不要的按钮放入一个数组中管理
     JButton[] cardOrNot = new JButton[2];
+    JLabel lordJL = new JLabel(new ImageIcon("Mk11\\image\\poker\\dizhu.png"));
 
     ///准备牌
     static {
         String[] cardSuit = {"♦", "♣", "♠", "♥"};
         String[] cardNumber = {"3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A", "2"};
-        int serial = 0;
+        int serial = 1;
         for (String n : cardNumber) {
             for (String s : cardSuit) {
                 cardList.put(serial, s + n);
@@ -103,6 +104,28 @@ public class beatLordGame extends Initializer implements FocusListener {
         player1CountDownJTF.setVisible(true);
         player2CountDownJTF.setVisible(true);
         player3CountDownJTF.setVisible(true);
+        playerCardsList.add(player1Card);
+        playerCardsList.add(player2Card);
+        playerCardsList.add(player3Card);
+        countDowns[0] = player1CountDownJTF;
+        countDowns[1] = player2CountDownJTF;
+        countDowns[2] = player3CountDownJTF;
+        beLordOrNot[0] = toBeLordJB;
+        beLordOrNot[1] = notToBeLordJB;
+        cardOrNot[0] = outCardJB;
+        cardOrNot[1] = passJB;
+        con.add(lordJL);
+        con.add(toBeLordJB);
+        con.add(notToBeLordJB);
+        con.add(outCardJB);
+        con.add(passJB);
+        toBeLordJB.addMouseListener(this);
+        notToBeLordJB.addMouseListener(this);
+        passJB.addMouseListener(this);
+        toBeLordJB.setBounds(600, 700, 100, 30);
+        notToBeLordJB.setBounds(750, 700, 100, 30);
+        outCardJB.setBounds(600, 750, 100, 30);
+        passJB.setBounds(750, 750, 100, 30);
     }
 
     ///看牌
@@ -112,6 +135,21 @@ public class beatLordGame extends Initializer implements FocusListener {
             System.out.print(cardList.get(serial) + " ");
         }
         System.out.println();
+    }
+
+    ///将牌盒序号转为牌的名字      怎么转？
+    public void formatName(int serial) {
+        /*
+         *1 黑桃3
+         * 2 红桃3
+         * 3 梅花3
+         * 4 方块3
+         * 5 黑桃4
+         * 模4？5%4 = 1 那就是这样
+         * 如何获取牌号？
+         * 模13？不对，A和2在后面
+         * */
+        int suit = serial % 4;
     }
 
     @Override
@@ -156,7 +194,7 @@ public class beatLordGame extends Initializer implements FocusListener {
 
     @Override
     void initContent() {
-        con.setBackground(Color.WHITE);
+        con.setBackground(new Color(118, 150, 0));
         player1NameJL.setText(username);
         gameTitleJL.setBounds(550, 500, 1000, 100);
         Font gameTitleFont = new Font(null, Font.BOLD, 72);
@@ -222,6 +260,14 @@ public class beatLordGame extends Initializer implements FocusListener {
             gameTitleJL.setVisible(false);
             playJB.setVisible(false);
             prepare();
+        } else if (thing == toBeLordJB) {
+            System.out.println("抢地主！");
+        } else if (thing == notToBeLordJB) {
+            System.out.println("不抢");
+        } else if (thing == outCardJB) {
+            System.out.println("出牌");
+        } else if (thing == passJB) {
+            System.out.println("不要");
         }
     }
 
