@@ -170,7 +170,7 @@ public class beatLordGame extends Initializer implements FocusListener {
     @Override
     void initJFrame() {
         setLayout(null);
-        setSize(1500, 1300);
+        setSize(1500, 1000);
         setTitle(version);
         setIcon();
         setAlwaysOnTop(true);
