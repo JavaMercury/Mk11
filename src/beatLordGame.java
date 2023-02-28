@@ -4,7 +4,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.TreeSet;
 
 //斗地主游戏
 //大集合装三个小集合，每个小集合装每个玩家的牌；地主牌不放入大集合中
@@ -18,6 +21,25 @@ public class beatLordGame extends Initializer implements FocusListener {
 
     static HashMap<Integer, String> cardList = new HashMap<>();
     static ArrayList<Integer> serialList = new ArrayList<>();
+
+    ///准备牌
+    static {
+        String[] cardSuit = {"♦", "♣", "♠", "♥"};
+        String[] cardNumber = {"3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A", "2"};
+        int serial = 1;
+        for (String n : cardNumber) {
+            for (String s : cardSuit) {
+                cardList.put(serial, s + n);
+                serialList.add(serial);
+                serial++;
+            }
+        }
+        serialList.add(serial);
+        cardList.put(serial++, "小王");
+        serialList.add(serial);
+        cardList.put(serial, "大王");
+    }
+
     JLabel player1NameJL = new JLabel();
     JLabel player2NameJL = new JLabel("Mercury");
     JLabel player3NameJL = new JLabel("HG");
@@ -46,24 +68,8 @@ public class beatLordGame extends Initializer implements FocusListener {
     //把出牌和不要的按钮放入一个数组中管理
     JButton[] cardOrNot = new JButton[2];
     JLabel lordJL = new JLabel(new ImageIcon("Mk11\\image\\poker\\dizhu.png"));
-
-    ///准备牌
-    static {
-        String[] cardSuit = {"♦", "♣", "♠", "♥"};
-        String[] cardNumber = {"3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A", "2"};
-        int serial = 1;
-        for (String n : cardNumber) {
-            for (String s : cardSuit) {
-                cardList.put(serial, s + n);
-                serialList.add(serial);
-                serial++;
-            }
-        }
-        serialList.add(serial);
-        cardList.put(serial++, "小王");
-        serialList.add(serial);
-        cardList.put(serial, "大王");
-    }
+    //斗地主游戏开发暂停公告
+    JLabel workInProgressJL = new JLabel("2023.02.28：Please stand by as game is work in progress because advanced knowledge is needed. Wait until Apermesa learns it. ");
 
     public beatLordGame(String username) {
         this.username = username;
@@ -201,6 +207,7 @@ public class beatLordGame extends Initializer implements FocusListener {
         gameTitleJL.setFont(gameTitleFont);
         playJB.setBounds(700, 700, 100, 40);
         playJB.addMouseListener(this);
+        playJB.addKeyListener(this);
         con.add(gameTitleJL);
         con.add(playJB);
         player1NameJL.setBounds(50, 50, 200, 30);
@@ -224,6 +231,11 @@ public class beatLordGame extends Initializer implements FocusListener {
         player1CountDownJTF.setEditable(false);
         player2CountDownJTF.setEditable(false);
         player3CountDownJTF.setEditable(false);
+        workInProgressJL.setBounds(100, 100, 1500, 200);
+        Font big = new Font(null, Font.BOLD, 20);
+        workInProgressJL.setFont(big);
+        getContentPane().add(workInProgressJL);
+        workInProgressJL.setVisible(false);
     }
 
     @Override
@@ -238,7 +250,13 @@ public class beatLordGame extends Initializer implements FocusListener {
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
-
+        int code = keyEvent.getKeyCode();
+        if (code == 27) {
+            setVisible(false);
+            new GamesMenu(username);
+        } else if (code == 10) {
+            workInProgressJL.setVisible(true);
+        }
     }
 
     @Override
@@ -257,9 +275,11 @@ public class beatLordGame extends Initializer implements FocusListener {
             setVisible(false);
             new beatLordGame(username);
         } else if (thing == playJB) {
-            gameTitleJL.setVisible(false);
+            //WIP
+            /*gameTitleJL.setVisible(false);
             playJB.setVisible(false);
-            prepare();
+            prepare();*/
+            workInProgressJL.setVisible(true);
         } else if (thing == toBeLordJB) {
             System.out.println("抢地主！");
         } else if (thing == notToBeLordJB) {
