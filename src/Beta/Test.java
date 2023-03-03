@@ -1,23 +1,9 @@
 package Beta;
 
-import java.util.Random;
-
 public class Test {
     public static void main(String[] args) {
-        Random r = new Random();
-        int[] arr = new int[20];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = r.nextInt(20);
-        }
-        for (int j : arr) {
-            System.out.print(j + " ");
-        }
-        System.out.println();
-        SortAlgorithm. insertionSort(arr);
-        for (int j : arr) {
-            System.out.print(j + " ");
-        }
-        System.out.println();
-        System.out.println(RecursionAlgorithm.getFactorial(4));
+        int[][] matrix = new int[][]{new int[]{1, 2, 3}, new int[]{4, 5, 6, 7}, new int[]{7, 8, 9, 10}};
+        System.out.println(matrix[1].length);
+        int[][][][][][][][][][][][][][] polyArray = new int[1][2][3][4][5][6][7][8][9][10][11][12][13][14];
     }
 }

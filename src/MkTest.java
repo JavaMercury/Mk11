@@ -3,7 +3,7 @@ import java.time.temporal.ChronoUnit;
 
 //此类用于各种疑难理论测试，成功后可使用branch功能进行实际测试
 //现在正在测试：
-public class Test {
+public class MkTest {
     //默认的上次签到时间，用于用户第一次签到
     static LocalDateTime lastLDT = LocalDateTime.of(2020, 3, 24, 0, 0, 0);
     //连续签到天数

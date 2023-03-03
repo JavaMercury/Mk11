@@ -253,6 +253,7 @@ public class beatLordGame extends Initializer implements FocusListener {
         int code = keyEvent.getKeyCode();
         if (code == 27) {
             setVisible(false);
+            
             new GamesMenu(username);
         } else if (code == 10) {
             workInProgressJL.setVisible(true);
