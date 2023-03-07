@@ -96,8 +96,8 @@ public class GetRandomNumber extends Initializer implements FocusListener {
         con.setBackground(Color.WHITE);
         inputMinimumJTF.setBounds(100, 100, 100, 30);
         inputMaximumJTF.setBounds(250, 100, 100, 30);
-        submitJB.setBounds(100, 200, 70, 30);
-        warningJL.setBounds(100, 130, 200, 50);
+        submitJB.setBounds(100, 200, 80, 35);
+        warningJL.setBounds(100, 130, 300, 50);
         resultJL.setBounds(100, 300, 200, 30);
         submitJB.addMouseListener(this);
         warningJL.setVisible(false);
@@ -123,6 +123,9 @@ public class GetRandomNumber extends Initializer implements FocusListener {
         backJB.addKeyListener(this);
         warningJL.setForeground(Color.RED);
         aboutJM.addKeyListener(this);
+        resultJL.setFont(new Font(null,Font.BOLD,24));
+        submitJB.setFont(new Font(null,Font.BOLD,20));
+        warningJL.setFont(new Font(null,Font.BOLD,18));
     }
 
     @Override
