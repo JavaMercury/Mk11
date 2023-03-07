@@ -56,7 +56,6 @@ public class SignIn extends Initializer {
         user.setLastLDT(lastLDT);
         user.setPoint(sumPoint);
         user.setSuccession(succession);
-        System.out.println(user);
     }
 
     @Override

@@ -41,6 +41,7 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
             resultJL.setText(stateOne);
             invalidInputWarningJL.setVisible(false);
             resultJL.setVisible(true);
+            return;
         }
         StringBuilder result = new StringBuilder();
         result.append("<html>");
