@@ -32,9 +32,7 @@ public class SortAlgorithm {
     ///插入排序
     public static void insertionSort(int[] arr) {
         int i = 1;
-        for (i = 1; i < arr.length; i++) {
-            if (arr[i] < arr[i - 1]) break;
-        }
+        for (i = 1; i < arr.length; i++) if (arr[i] < arr[i - 1]) break;
         for (; i < arr.length; i++) {
             int j = i;
             while (j > 0 && arr[j] < arr[j - 1]) {
@@ -52,12 +50,8 @@ public class SortAlgorithm {
         if (start > end) return;
         int baseNumber = arr[i];
         while (start != end) {
-            for (; ; end--) {
-                if (end <= start || arr[end] < baseNumber) break;
-            }
-            for (; ; start++) {
-                if (end <= start || arr[start] > baseNumber) break;
-            }
+            for (; ; end--) if (end <= start || arr[end] < baseNumber) break;
+            for (; ; start++) if (end <= start || arr[start] > baseNumber) break;
             int temp = arr[start];
             arr[start] = arr[end];
             arr[end] = temp;

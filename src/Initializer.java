@@ -10,6 +10,8 @@ import java.util.Random;
 
 public abstract class Initializer extends JFrame implements KeyListener, MouseListener {
     //数字字符-48为实际数字，大写字母-55
+
+    //所有子类图形的统一getContentPane方法
     Container con = getContentPane();
 
     //创建集合，存储用户信息
