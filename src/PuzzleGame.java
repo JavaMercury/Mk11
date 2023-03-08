@@ -23,7 +23,7 @@ public class PuzzleGame extends Initializer implements Border {
     ArrayList<String> animalLibrary = new ArrayList<>();
     ArrayList<String> girlLibrary = new ArrayList<>();
     ArrayList<String> sportLibrary = new ArrayList<>();
-    String defaultPath = "image\\girl\\girl3\\";
+    String defaultPath = "image\\girl\\girl2\\";
     String path = defaultPath;
     String chooseImage;
     JMenu changeImageJM = new JMenu("更换图片");
