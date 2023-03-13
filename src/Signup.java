@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 
@@ -184,7 +186,11 @@ public class Signup extends Initializer {
             codeJB.setText(codeTemp);
         } else if (thing == submitJB) {
             collectData();
-            signup();
+            try {
+                signup();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         } else if (thing == revealPasswordJL) {
             revealPasswordJL.setVisible(false);
             revealPasswordPressedJL.setVisible(true);
@@ -193,9 +199,9 @@ public class Signup extends Initializer {
     }
 
     ///注册
-    void signup() {
+    void signup() throws IOException {
         if (checkUsername(username) && !checkUsernameUsed(library, username) && checkPassword(password) && password.equals(passwordAgain) && checkPhoneNumber(phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber) && code.equals(codeTemp)) {
-            library.add(new User(username, password, phoneNumber, 0, 1, 0, lastLDT, LocalDateTime.now(), 0));
+            saveData();
             setVisible(false);
             new Login();
         } else {
@@ -239,6 +245,17 @@ public class Signup extends Initializer {
         passwordAgain = passwordSB.toString();
         phoneNumber = phoneNumberJTF.getText();
         code = codeJTF.getText();
+    }
+
+    ///保存用户数据
+    void saveData() throws IOException {
+        LocalDateTime signupLDT = LocalDateTime.now();
+        FileWriter fw = new FileWriter("User\\" + username);
+        fw.write("用户名：" + username + "\r\n" + "密码：" + password + "\r\n" + "手机号：" + phoneNumber + "\r\n");
+        fw.write("积分：" + "0" + "\r\n" + "等级：" + "1" + "\r\n" + "连续签到天数：" + "0" + "\r\n");
+        fw.write("上次签到时间：" + lastLDT + "\r\n" + "注册时间：" + signupLDT + "\r\n" + "拼图小游戏最佳纪录：" + "0");
+        library.add(new User(username, password, phoneNumber, 0, 1, 0, lastLDT, signupLDT, 0));
+        fw.close();
     }
 
     @Override
@@ -288,7 +305,11 @@ public class Signup extends Initializer {
         int code = e.getKeyCode();
         if (code == 10) {
             collectData();
-            signup();
+            try {
+                signup();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         } else if (code == 27) {
             setVisible(false);
             new Login();
