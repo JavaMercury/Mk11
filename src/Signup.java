@@ -63,9 +63,7 @@ public class Signup extends Initializer {
         FileInputStream fis = new FileInputStream(src);
         FileOutputStream fos = new FileOutputStream("User\\" + username);
         int b;
-        while ((b = fis.read()) != -1) {
-            fos.write(b ^ 33);
-        }
+        while ((b = fis.read()) != -1) fos.write(b ^ 114514);
         fos.close();
         fis.close();
     }
