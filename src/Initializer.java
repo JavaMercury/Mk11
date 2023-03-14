@@ -25,7 +25,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     }
 
     JMenu aboutJM = new JMenu("关于(G)");
-    String version = "水银第11代 0.11.09.20230307";
+    String version = "水银第11代 0.11.10.20230314";
     String username;
     String password;
     JDialog aboutJD = new JDialog();
