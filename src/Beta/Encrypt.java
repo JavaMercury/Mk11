@@ -11,8 +11,7 @@ public class Encrypt {
     ///使用异或运算进行加密
     public static void xor(File src) throws IOException {
         FileInputStream fis = new FileInputStream(src);
-        FileOutputStream fos = new FileOutputStream(src.getAbsoluteFile().toString());
-        byte[] bytes = new byte[1024 * 1024];
+        FileOutputStream fos = new FileOutputStream("666.txt");
         int b;
         while ((b = fis.read()) != -1) {
             fos.write(b ^ 3);
