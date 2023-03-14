@@ -2,8 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 
@@ -57,6 +56,18 @@ public class Signup extends Initializer {
     ///判断用户名是否合法
     public static boolean checkUsername(String username) {
         return username.matches("(?!\\d+$)\\w{5,15}");
+    }
+
+    ///使用异或运算进行加密
+    public void xor(File src) throws IOException {
+        FileInputStream fis = new FileInputStream(src);
+        FileOutputStream fos = new FileOutputStream("User\\" + username);
+        int b;
+        while ((b = fis.read()) != -1) {
+            fos.write(b ^ 33);
+        }
+        fos.close();
+        fis.close();
     }
 
     ///窗口初始化
@@ -247,15 +258,21 @@ public class Signup extends Initializer {
         code = codeJTF.getText();
     }
 
-    ///保存用户数据
+    ///保存用户数据并加密
     void saveData() throws IOException {
         LocalDateTime signupLDT = LocalDateTime.now();
-        FileWriter fw = new FileWriter("User\\" + username);
+        File userTemp = new File("Temp\\" + username);
+        FileWriter fw = new FileWriter(userTemp);
         fw.write("用户名：" + username + "\r\n" + "密码：" + password + "\r\n" + "手机号：" + phoneNumber + "\r\n");
         fw.write("积分：" + "0" + "\r\n" + "等级：" + "1" + "\r\n" + "连续签到天数：" + "0" + "\r\n");
         fw.write("上次签到时间：" + lastLDT + "\r\n" + "注册时间：" + signupLDT + "\r\n" + "拼图小游戏最佳纪录：" + "0");
         library.add(new User(username, password, phoneNumber, 0, 1, 0, lastLDT, signupLDT, 0));
         fw.close();
+        xor(new File("Temp\\" + username));
+        if (!userTemp.delete()) {
+            System.out.println(username + "数据删除失败，程序紧急中止！");
+            System.exit(-1);
+        }
     }
 
     @Override
