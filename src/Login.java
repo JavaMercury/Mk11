@@ -2,10 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.util.Arrays;
 import java.util.HashSet;
 
 //用户登录界面
@@ -28,15 +26,33 @@ public class Login extends Initializer {
     }
 
     ///判断用户名是否重复
-    public static boolean checkSameUsername(HashSet<User> library, String username) {
-        if (checkUserExist(library, username)) {
+    public static boolean checkSameUsername(String username) {
+        if (checkUserExist(username)) {
             User user = getUser(username);
             return username.equals(user.getUsername());
         } else return false;
     }
 
+    ///登录检验
+    public boolean check() throws IOException {
+        if (checkUserExist(username)) {
+            xor(new File("User\\" + username));
+            File userTemp = new File("Temp\\" + username);
+            BufferedReader br = new BufferedReader(new FileReader(userTemp));
+            br.readLine();
+            boolean result = password.equals(br.readLine());
+            br.close();
+            if (!userTemp.delete()) {
+                System.out.println(username + "数据删除失败，程序紧急中止！");
+                System.exit(-1);
+            }
+            return result;
+        }
+        return false;
+    }
+
     ///判断输入新密码的用户是否存在
-    public static boolean checkUserExist(HashSet<User> library, String username) {
+    public static boolean checkUserExist(String username) {
         File[] files = new File("User").listFiles();
         assert files != null;
         for (File file : files) {
@@ -47,7 +63,7 @@ public class Login extends Initializer {
 
     ///判断密码是否重复
     public static boolean checkSamePassword(HashSet<User> library, String username, String password) {
-        if (checkUserExist(library, username)) {
+        if (checkUserExist(username)) {
             User user = getUser(username);
             return user.getPassword().equals(password);
         } else return false;
@@ -141,7 +157,11 @@ public class Login extends Initializer {
         int code = e.getKeyCode();
         if (code == 10) {
             collectData();
-            login();
+            try {
+                login();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         } else if (code == 109) {
             setVisible(false);
             new MainMenu("qwerqwer");
@@ -183,7 +203,11 @@ public class Login extends Initializer {
             signupJB.setLocation(302, 270);
             showLogin();
             collectData();
-            login();
+            try {
+                login();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         } else if (thing == signupJB) {
             setVisible(false);
             new Signup();
@@ -195,13 +219,17 @@ public class Login extends Initializer {
     }
 
     ///登录
-    void login() {
+    void login() throws IOException {
         invalidInputJL.setVisible(false);
-        if (checkSameUsername(library, username) && checkSamePassword(library, username, passwordSB.toString())) {
+        /*if (checkSameUsername(username) && checkSamePassword(library, username, passwordSB.toString())) {
+            setVisible(false);
+            new MainMenu(username);*/
+        if (check()) {
             setVisible(false);
             new MainMenu(username);
-        } else if ((!username.equals("") || passwordSB.length() != 0))
+        } else if ((!username.equals("") || passwordSB.length() != 0)) {
             invalidInputJL.setVisible(true);
+        }
     }
 
     ///采集登录信息
