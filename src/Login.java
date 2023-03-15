@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashSet;
 
 //用户登录界面
@@ -33,10 +37,10 @@ public class Login extends Initializer {
 
     ///判断输入新密码的用户是否存在
     public static boolean checkUserExist(HashSet<User> library, String username) {
-        for (User user : library) {
-            String rightUsername = user.getUsername();
-            if (username.equals(rightUsername))
-                return true;
+        File[] files = new File("User").listFiles();
+        assert files != null;
+        for (File file : files) {
+            if (username.equals(file.getName())) return true;
         }
         return false;
     }
@@ -47,6 +51,16 @@ public class Login extends Initializer {
             User user = getUser(username);
             return user.getPassword().equals(password);
         } else return false;
+    }
+
+    ///使用异或运算进行解密
+    public void xor(File src) throws IOException {
+        FileInputStream fis = new FileInputStream(src);
+        FileOutputStream fos = new FileOutputStream("Temp\\" + username);
+        int b;
+        while ((b = fis.read()) != -1) fos.write(b ^ 114514);
+        fos.close();
+        fis.close();
     }
 
     ///窗口初始化
