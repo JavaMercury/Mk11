@@ -258,19 +258,18 @@ public class Signup extends Initializer {
 
     ///保存用户数据并加密
     /*用户名
-    * 密码
-    * 手机号
-    * 积分
-    * 等级
-    * 连续签到天数
-    * 上次签到时间
-    * 注册时间
-    * 拼图小游戏最佳纪录*/
+     * 密码
+     * 手机号
+     * 积分
+     * 等级
+     * 连续签到天数
+     * 上次签到时间
+     * 注册时间
+     * 拼图小游戏最佳纪录*/
     void saveData() throws IOException {
-        LocalDateTime signupLDT = LocalDateTime.now();
         File userTemp = new File("Temp\\" + username);
-        FileWriter fw = new FileWriter(userTemp);
-        BufferedWriter bw = new BufferedWriter(fw);
+        LocalDateTime signupLDT = LocalDateTime.now();
+        BufferedWriter bw = new BufferedWriter(new FileWriter(userTemp));
         bw.write(username);
         bw.newLine();
         bw.write(password);
@@ -283,16 +282,13 @@ public class Signup extends Initializer {
         bw.newLine();
         bw.write("0");
         bw.newLine();
-        bw.write(lastLDT+"");
+        bw.write(lastLDT + "");
         bw.newLine();
-        bw.write(signupLDT+"");
+        bw.write(signupLDT + "");
         bw.newLine();
         bw.write("0");
-        fw.write("用户名：" + username + "\r\n" + "密码：" + password + "\r\n" + "手机号：" + phoneNumber + "\r\n");
-        fw.write("积分：" + "0" + "\r\n" + "等级：" + "1" + "\r\n" + "连续签到天数：" + "0" + "\r\n");
-        fw.write("上次签到时间：" + lastLDT + "\r\n" + "注册时间：" + signupLDT + "\r\n" + "拼图小游戏最佳纪录：" + "0");
         library.add(new User(username, password, phoneNumber, 0, 1, 0, lastLDT, signupLDT, 0));
-        fw.close();
+        bw.close();
         xor(new File("Temp\\" + username));
         if (!userTemp.delete()) {
             System.out.println(username + "数据删除失败，程序紧急中止！");
