@@ -1,8 +1,12 @@
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 //记录水银客户端的用户账户
-public class User {
+public class User implements Serializable {
+
+    //固定版本号用于序列化
+    private static final long serialVersionUID = 114514L;
     private String username;
     private String password;
     private String phoneNumber;
@@ -33,6 +37,7 @@ public class User {
 
     /**
      * 获取
+     *
      * @return username
      */
     public String getUsername() {
@@ -41,6 +46,7 @@ public class User {
 
     /**
      * 设置
+     *
      * @param username
      */
     public void setUsername(String username) {
@@ -49,6 +55,7 @@ public class User {
 
     /**
      * 获取
+     *
      * @return password
      */
     public String getPassword() {
@@ -57,6 +64,7 @@ public class User {
 
     /**
      * 设置
+     *
      * @param password
      */
     public void setPassword(String password) {
@@ -65,6 +73,7 @@ public class User {
 
     /**
      * 获取
+     *
      * @return phoneNumber
      */
     public String getPhoneNumber() {
@@ -73,6 +82,7 @@ public class User {
 
     /**
      * 设置
+     *
      * @param phoneNumber
      */
     public void setPhoneNumber(String phoneNumber) {
@@ -81,6 +91,7 @@ public class User {
 
     /**
      * 获取
+     *
      * @return point
      */
     public int getPoint() {
@@ -89,6 +100,7 @@ public class User {
 
     /**
      * 设置
+     *
      * @param point
      */
     public void setPoint(int point) {
@@ -97,6 +109,7 @@ public class User {
 
     /**
      * 获取
+     *
      * @return level
      */
     public int getLevel() {
@@ -105,6 +118,7 @@ public class User {
 
     /**
      * 设置
+     *
      * @param level
      */
     public void setLevel(int level) {
@@ -113,6 +127,7 @@ public class User {
 
     /**
      * 获取
+     *
      * @return succession
      */
     public int getSuccession() {
@@ -121,6 +136,7 @@ public class User {
 
     /**
      * 设置
+     *
      * @param succession
      */
     public void setSuccession(int succession) {
@@ -129,6 +145,7 @@ public class User {
 
     /**
      * 获取
+     *
      * @return lastLDT
      */
     public LocalDateTime getLastLDT() {
@@ -137,6 +154,7 @@ public class User {
 
     /**
      * 设置
+     *
      * @param lastLDT
      */
     public void setLastLDT(LocalDateTime lastLDT) {
@@ -145,6 +163,7 @@ public class User {
 
     /**
      * 获取
+     *
      * @return signupDateTime
      */
     public LocalDateTime getSignupDateTime() {
@@ -153,6 +172,7 @@ public class User {
 
     /**
      * 设置
+     *
      * @param signupDateTime
      */
     public void setSignupDateTime(LocalDateTime signupDateTime) {
@@ -161,6 +181,7 @@ public class User {
 
     /**
      * 获取
+     *
      * @return puzzleSteps
      */
     public int getPuzzleSteps() {
@@ -169,6 +190,7 @@ public class User {
 
     /**
      * 设置
+     *
      * @param puzzleSteps
      */
     public void setPuzzleSteps(int puzzleSteps) {
