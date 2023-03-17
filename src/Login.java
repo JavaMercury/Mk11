@@ -35,7 +35,7 @@ public class Login extends Initializer {
     ///登录检验
     public boolean check() throws IOException {
         if (checkUserExist(username)) {
-            xor(new File("User\\" + username));
+            xor(new File("User\\" + username), username);
             File userTemp = new File("Temp\\" + username);
             BufferedReader br = new BufferedReader(new FileReader(userTemp));
             br.readLine();
@@ -68,15 +68,7 @@ public class Login extends Initializer {
         } else return false;
     }
 
-    ///使用异或运算进行解密
-    public void xor(File src) throws IOException {
-        FileInputStream fis = new FileInputStream(src);
-        FileOutputStream fos = new FileOutputStream("Temp\\" + username);
-        int b;
-        while ((b = fis.read()) != -1) fos.write(b ^ 114514);
-        fos.close();
-        fis.close();
-    }
+
 
     ///窗口初始化
     @Override
@@ -220,9 +212,6 @@ public class Login extends Initializer {
     ///登录
     void login() throws IOException {
         invalidInputJL.setVisible(false);
-        /*if (checkSameUsername(username) && checkSamePassword(library, username, passwordSB.toString())) {
-            setVisible(false);
-            new MainMenu(username);*/
         if (check()) {
             setVisible(false);
             new MainMenu(username);

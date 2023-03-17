@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 //重设手机号码
 public class ResetPhoneNumber extends Initializer {
@@ -121,8 +122,8 @@ public class ResetPhoneNumber extends Initializer {
     }
 
     ///重设手机号码
-    private void resetPhoneNumber() {
-        if (checkSamePassword(username, password) && checkPhoneNumber(phoneNumber) && checkSamePhoneNumber(username, phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber) && code.equals(codeTemp)) {
+    private void resetPhoneNumber() throws IOException {
+        if (checkSamePassword(username, password) && checkPhoneNumber(phoneNumber) && checkSamePhoneNumber(username, phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber, username) && code.equals(codeTemp)) {
             User user = getUser(username);
             user.setPhoneNumber(phoneNumber);
             setVisible(false);
@@ -138,7 +139,7 @@ public class ResetPhoneNumber extends Initializer {
                 samePhoneNumberJL.setVisible(false);
                 invalidPhoneNumberJL.setVisible(true);
             }
-            if (checkPhoneNumberUsed(library, phoneNumber)) {
+            if (checkPhoneNumberUsed(library, phoneNumber, username)) {
                 invalidPhoneNumberJL.setVisible(false);
                 samePhoneNumberJL.setVisible(false);
                 occupiedPhoneNumberJL.setVisible(true);
@@ -168,7 +169,11 @@ public class ResetPhoneNumber extends Initializer {
             codeJB.setText(codeTemp);
         } else if (thing == submitJB) {
             collectData();
-            resetPhoneNumber();
+            try {
+                resetPhoneNumber();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         } else if (thing == revealPasswordJL) {
             revealPasswordJL.setVisible(false);
             revealPasswordPressedJL.setVisible(true);
@@ -223,7 +228,11 @@ public class ResetPhoneNumber extends Initializer {
         int code = e.getKeyCode();
         if (code == 10) {
             collectData();
-            resetPhoneNumber();
+            try {
+                resetPhoneNumber();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         } else if (code == 27) {
             setVisible(false);
             new MainMenu(username);

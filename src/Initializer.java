@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,9 +11,6 @@ import java.util.Random;
 
 public abstract class Initializer extends JFrame implements KeyListener, MouseListener {
     //数字字符-48为实际数字，大写字母-55
-
-    //所有子类图形的统一getContentPane方法
-    Container con = getContentPane();
 
     //创建集合，存储用户信息
     static HashSet<User> library = new HashSet<>();
@@ -24,6 +22,8 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         library.add(new User("qwerqwer", "12341234Aa", "12312341234", 0, 1, 0, lastLDT, LocalDateTime.of(2022, 9, 16, 0, 0, 0), 980));
     }
 
+    //所有子类图形的统一getContentPane方法
+    Container con = getContentPane();
     JMenu aboutJM = new JMenu("关于(G)");
     String version = "水银第11代 0.11.11.20230315";
     String username;
@@ -47,16 +47,6 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     ///检验整数
     public static boolean notInteger(String str) {
         return !str.matches("\\d+");
-    }
-
-    ///判断重设的手机号码是否被占用
-    public static boolean checkPhoneNumberUsed(HashSet<User> library, String phoneNumber) {
-        boolean flag = false;
-        for (User user : library) {
-            flag = user.getPhoneNumber().equals(phoneNumber);
-            if (flag) break;
-        }
-        return flag;
     }
 
     ///判断手机号码是否重复
@@ -127,6 +117,36 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     ///判断手机号码是否合法
     public static boolean checkPhoneNumber(String phoneNumber) {
         return phoneNumber.matches("1\\d{10}");
+    }
+
+    ///判断重设的手机号码是否被占用
+    public boolean checkPhoneNumberUsed(HashSet<User> library, String phoneNumber, String username) throws IOException {
+        File[] files = new File("User").listFiles();
+        assert files != null;
+        if (files.length == 0) return false;
+        BufferedReader br = null;
+        for (File file : files) {
+            xor(file, file.getName());
+            br = new BufferedReader(new FileReader("Temp\\" + file.getName()));
+            br.readLine();
+            br.readLine();
+            if (phoneNumber.equals(br.readLine())) {
+                br.close();
+                return true;
+            }
+        }
+        br.close();
+        return false;
+    }
+
+    ///使用异或运算进行解密
+    public void xor(File src, String fileName) throws IOException {
+        FileInputStream fis = new FileInputStream(src);
+        FileOutputStream fos = new FileOutputStream("Temp\\" + fileName);
+        int b;
+        while ((b = fis.read()) != -1) fos.write(b ^ 114514);
+        fos.close();
+        fis.close();
     }
 
     abstract void collectData();

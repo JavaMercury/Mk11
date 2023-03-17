@@ -45,12 +45,12 @@ public class Signup extends Initializer {
 
     ///判断注册时用户名是否被占用
     public static boolean checkUsernameUsed(HashSet<User> library, String username) {
-        boolean flag = false;
-        for (User user : library) {
-            flag = user.getUsername().equals(username);
-            if (flag) break;
+        File[] files = new File("User").listFiles();
+        assert files != null;
+        for (File file : files) {
+            if(username.equals(file.getName())) return true;
         }
-        return flag;
+        return false;
     }
 
     ///判断用户名是否合法
@@ -209,7 +209,7 @@ public class Signup extends Initializer {
 
     ///注册
     void signup() throws IOException {
-        if (checkUsername(username) && !checkUsernameUsed(library, username) && checkPassword(password) && password.equals(passwordAgain) && checkPhoneNumber(phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber) && code.equals(codeTemp)) {
+        if (checkUsername(username) && !checkUsernameUsed(library, username) && checkPassword(password) && password.equals(passwordAgain) && checkPhoneNumber(phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber, username) && code.equals(codeTemp)) {
             saveData();
             setVisible(false);
             new Login();
@@ -222,7 +222,7 @@ public class Signup extends Initializer {
             validUsernameJL.setVisible(checkUsername(username) && !checkUsernameUsed(library, username));
             invalidPasswordJL.setVisible(!checkPassword(password));
             invalidPhoneNumberJL.setVisible(!checkPhoneNumber(phoneNumber));
-            occupiedPhoneNumberJL.setVisible(checkPhoneNumberUsed(library, phoneNumber));
+            occupiedPhoneNumberJL.setVisible(checkPhoneNumberUsed(library, phoneNumber, username));
             if (!password.equals(passwordAgain)) {
                 invalidPasswordJL.setVisible(false);
                 differentPasswordJL.setVisible(true);
@@ -231,7 +231,7 @@ public class Signup extends Initializer {
                 invalidPhoneNumberJL.setVisible(true);
                 occupiedPhoneNumberJL.setVisible(false);
             }
-            if (checkPhoneNumberUsed(library, phoneNumber)) {
+            if (checkPhoneNumberUsed(library, phoneNumber, username)) {
                 invalidPhoneNumberJL.setVisible(false);
                 occupiedPhoneNumberJL.setVisible(true);
             }
