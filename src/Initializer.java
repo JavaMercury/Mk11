@@ -49,12 +49,6 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         return !str.matches("\\d+");
     }
 
-    ///判断手机号码是否重复
-    public static boolean checkSamePhoneNumber(String username, String phoneNumber) {
-        User user = getUser(username);
-        return !phoneNumber.equals(user.getPhoneNumber());
-    }
-
     ///检验密码
     public static boolean checkPassword(String password) {
         return password.matches("\\S*(?=\\S{8,20})(?=\\S*[0-9])(?=\\S*[a-z])(?=\\S*[A-Z])\\S*");
@@ -108,15 +102,42 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         return result.toString();
     }
 
-    ///判断密码是否重复
-    public static boolean checkSamePassword(String username, String password) {
-        User user = getUser(username);
-        return user.getPassword().equals(password);
-    }
-
     ///判断手机号码是否合法
     public static boolean checkPhoneNumber(String phoneNumber) {
         return phoneNumber.matches("1\\d{10}");
+    }
+
+    ///判断手机号码是否重复
+    public boolean checkSamePhoneNumber(String username, String phoneNumber) throws IOException {
+        File file = new File("User\\" + username);
+        xor(file, username);
+        File temp = new File("Temp\\" + username);
+        BufferedReader br = new BufferedReader(new FileReader(temp));
+        br.readLine();
+        br.readLine();
+        boolean result = phoneNumber.equals(br.readLine());
+        br.close();
+        if (!temp.delete()) {
+            System.out.println(username + "数据删除失败，程序紧急中止！");
+            System.exit(-1);
+        }
+        return result;
+    }
+
+    ///判断密码是否重复
+    public boolean checkSamePassword(String username, String password) throws IOException {
+        File file = new File("User\\" + username);
+        xor(file, username);
+        File temp = new File("Temp\\" + username);
+        BufferedReader br = new BufferedReader(new FileReader(temp));
+        br.readLine();
+        boolean result = password.equals(br.readLine());
+        br.close();
+        if (!temp.delete()) {
+            System.out.println(username + "数据删除失败，程序紧急中止！");
+            System.exit(-1);
+        }
+        return result;
     }
 
     ///判断重设的手机号码是否被占用
@@ -125,17 +146,27 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         assert files != null;
         if (files.length == 0) return false;
         BufferedReader br = null;
+        File temp = null;
         for (File file : files) {
+            temp = new File("Temp\\" + file.getName());
             xor(file, file.getName());
-            br = new BufferedReader(new FileReader("Temp\\" + file.getName()));
+            br = new BufferedReader(new FileReader(temp));
             br.readLine();
             br.readLine();
             if (phoneNumber.equals(br.readLine())) {
                 br.close();
+                if (!temp.delete()) {
+                    System.out.println(username + "数据删除失败，程序紧急中止！");
+                    System.exit(-1);
+                }
                 return true;
             }
         }
         br.close();
+        if (!temp.delete()) {
+            System.out.println(username + "数据删除失败，程序紧急中止！");
+            System.exit(-1);
+        }
         return false;
     }
 

@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 //重设密码
 public class ResetPassword extends Initializer {
@@ -128,7 +129,7 @@ public class ResetPassword extends Initializer {
     }
 
     ///重设密码
-    void resetPassword() {
+    void resetPassword() throws IOException {
         if (code.equals(codeTemp) && !checkSamePhoneNumber(username, phoneNumber) && checkPassword(password) && !checkSamePassword(username, password) && password.equals(passwordAgain)) {
             User user = getUser(username);
             user.setPassword(password);
@@ -169,7 +170,11 @@ public class ResetPassword extends Initializer {
             codeJB.setText(codeTemp);
         } else if (thing == submitJB) {
             collectData();
-            resetPassword();
+            try {
+                resetPassword();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         } else if (thing == revealPasswordJL) {
             revealPasswordJL.setVisible(false);
             revealPasswordPressedJL.setVisible(true);
@@ -224,7 +229,11 @@ public class ResetPassword extends Initializer {
         int code = e.getKeyCode();
         if (code == 10) {
             collectData();
-            resetPassword();
+            try {
+                resetPassword();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         } else if (code == 27) {
             setVisible(false);
             new MainMenu(username);

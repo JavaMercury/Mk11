@@ -123,7 +123,7 @@ public class ResetPhoneNumber extends Initializer {
 
     ///重设手机号码
     private void resetPhoneNumber() throws IOException {
-        if (checkSamePassword(username, password) && checkPhoneNumber(phoneNumber) && checkSamePhoneNumber(username, phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber, username) && code.equals(codeTemp)) {
+        if (checkSamePassword(username, password) && checkPhoneNumber(phoneNumber) && !checkSamePhoneNumber(username, phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber, username) && code.equals(codeTemp)) {
             User user = getUser(username);
             user.setPhoneNumber(phoneNumber);
             setVisible(false);
@@ -132,7 +132,6 @@ public class ResetPhoneNumber extends Initializer {
             invalidCodeJL.setVisible(!code.equals(codeTemp));
             codeTemp = getVerificationCode();
             codeJB.setText(codeTemp);
-            //invalidPhoneNumberJL.setVisible(!checkSamePhoneNumber(library, username, phoneNumber));
             invalidPasswordJL.setVisible(!checkPassword(password));
             if (!checkPhoneNumber(phoneNumber)) {
                 occupiedPhoneNumberJL.setVisible(false);
@@ -144,10 +143,15 @@ public class ResetPhoneNumber extends Initializer {
                 samePhoneNumberJL.setVisible(false);
                 occupiedPhoneNumberJL.setVisible(true);
             }
-            if (!checkSamePhoneNumber(username, phoneNumber)) {
+            if (checkSamePhoneNumber(username, phoneNumber)) {
                 invalidPhoneNumberJL.setVisible(false);
                 occupiedPhoneNumberJL.setVisible(false);
                 samePhoneNumberJL.setVisible(true);
+            }
+            if (!code.equals(codeTemp) && !checkPhoneNumberUsed(library, phoneNumber, username) && !checkSamePhoneNumber(username, phoneNumber)) {
+                invalidPhoneNumberJL.setVisible(false);
+                occupiedPhoneNumberJL.setVisible(false);
+                samePhoneNumberJL.setVisible(false);
             }
         }
     }
