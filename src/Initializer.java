@@ -217,6 +217,6 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     ///菜单初始化
     abstract void initMenuBar();
 
-    abstract void initContent();
+    abstract void initContent() throws IOException;
 
 }

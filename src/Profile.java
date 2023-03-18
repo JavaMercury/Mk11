@@ -2,6 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 //展示用户资料
@@ -11,7 +16,7 @@ public class Profile extends Initializer {
     JLabel profileJL = new JLabel();
     JLabel changePhoneNumberJL = new JLabel("修改");
 
-    public Profile(String username) {
+    public Profile(String username) throws IOException {
         this.username = username;
         initJFrame();
         initMenuBar();
@@ -49,20 +54,28 @@ public class Profile extends Initializer {
     }
 
     @Override
-    void initContent() {
+    void initContent() throws IOException {
         con.setBackground(Color.WHITE);
         backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
         backJB.addKeyListener(this);
         con.add(backJB);
         profileJL.setBounds(50, 0, 356, 360);
+        File file = new File("User\\" + username);
+        xor(file, username);
+        File temp = new File("Temp\\" + username);
+        BufferedReader br = new BufferedReader(new FileReader(temp));
+        br.readLine();
+        br.readLine();
         profileJL.setText("<html>用户名：" + username + "<br />" +
-                "手机号码：" + getUser(username).getPhoneNumber() + "<br />" +
-                "等级：" + getUser(username).getLevel() + "<br />" +
-                "积分：" + getUser(username).getPoint() + "<br />" +
-                "注册日期：" + getUser(username).getSignupDateTime().format(DateTimeFormatter.ofPattern("yyyy年MM月dd日hh点mm分ss秒")) + "<br />" +
-                "拼图小游戏最佳记录：" + getUser(username).getPuzzleSteps() + "步");
-        changePhoneNumberJL.setBounds(190, 148, 26, 16);
+                "手机号码：" + br.readLine() + "<br />" +
+                "积分：" + br.readLine() + "<br />" +
+                "等级：" + br.readLine() + "<br />" +
+                "连续签到天数：" + br.readLine() + "<br />" +
+                "上次签到时间：" + LocalDateTime.parse(br.readLine()).format(DateTimeFormatter.ofPattern("yyyy年MM月dd日hh点mm分ss秒")) + "<br />" +
+                "注册时间：" + LocalDateTime.parse(br.readLine()).format(DateTimeFormatter.ofPattern("yyyy年MM月dd日hh点mm分ss秒")) + "<br />" +
+                "拼图小游戏最佳记录：" + br.readLine() + "步");
+        changePhoneNumberJL.setBounds(190, 132, 26, 16);
         changePhoneNumberJL.addMouseListener(this);
         changePhoneNumberJL.setForeground(Color.BLUE);
         con.add(changePhoneNumberJL);

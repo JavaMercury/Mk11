@@ -4,6 +4,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 //水银主菜单
 public class MainMenu extends Initializer implements FocusListener {
@@ -111,7 +112,11 @@ public class MainMenu extends Initializer implements FocusListener {
             new SignIn(username);
         } else if (thing == profileJMI) {
             setVisible(false);
-            new Profile(username);
+            try {
+                new Profile(username);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
