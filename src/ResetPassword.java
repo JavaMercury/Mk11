@@ -130,16 +130,15 @@ public class ResetPassword extends Initializer {
 
     ///重设密码
     void resetPassword() throws IOException {
-        if (code.equals(codeTemp) && !checkSamePhoneNumber(username, phoneNumber) && checkPassword(password) && !checkSamePassword(username, password) && password.equals(passwordAgain)) {
-            User user = getUser(username);
-            user.setPassword(password);
+        if (code.equals(codeTemp) && checkSamePhoneNumber(username, phoneNumber) && checkPassword(password) && !checkSamePassword(username, password) && password.equals(passwordAgain)) {
+            saveData(password, 1);
             setVisible(false);
-            new Login();
+            new MainMenu(username);
         } else {
             invalidCodeJL.setVisible(!code.equals(codeTemp));
             codeTemp = getVerificationCode();
             codeJB.setText(codeTemp);
-            invalidPhoneNumberJL.setVisible(checkSamePhoneNumber(username, phoneNumber));
+            invalidPhoneNumberJL.setVisible(!checkSamePhoneNumber(username, phoneNumber));
             invalidPasswordJL.setVisible(!checkPassword(password));
             if (!password.equals(passwordAgain)) {
                 invalidPasswordJL.setVisible(false);

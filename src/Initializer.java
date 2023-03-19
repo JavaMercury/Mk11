@@ -118,9 +118,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         BufferedReader br = new BufferedReader(new FileReader(temp));
         br.readLine();
         br.readLine();
-        String pn = br.readLine();
-        System.out.println(pn);
-        boolean result = phoneNumber.equals(pn);
+        boolean result = phoneNumber.equals(br.readLine());
         br.close();
         if (!temp.delete()) {
             System.out.println(username + "数据删除失败，程序紧急中止！");
