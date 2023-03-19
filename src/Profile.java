@@ -81,6 +81,11 @@ public class Profile extends Initializer {
         con.add(changePhoneNumberJL);
         con.add(profileJL);
         aboutJM.addKeyListener(this);
+        br.close();
+        if (!temp.delete()) {
+            System.out.println(username + "数据删除失败，程序紧急中止！");
+            System.exit(-1);
+        }
     }
 
     @Override

@@ -276,7 +276,8 @@ public class Signup extends Initializer {
         bw.newLine();
         bw.write(signupLDT + "");
         bw.newLine();
-        bw.write("0");
+        //这个杠是一个标注，在签到时，程序会使用最后一行比对数据，如果不加标注，这一行可能会和上面的一些内容重复
+        bw.write("-0");
         library.add(new User(username, password, phoneNumber, 0, 1, 0, lastLDT, signupLDT, 0));
         bw.close();
         encrypt(new File("Temp\\" + username));

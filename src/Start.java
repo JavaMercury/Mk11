@@ -36,8 +36,6 @@
         修复了新手机号码合法但验证码输入有误仍然提示手机号码无效的问题
  */
 
-import java.io.File;
-
 ///水银入口
 public class Start {
     public static void main(String[] args) {

@@ -1,8 +1,11 @@
+import org.apache.commons.io.input.ReversedLinesFileReader;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -55,10 +58,15 @@ public class SignIn extends Initializer {
         File file = new File("User\\" + username);
         File temp = new File("Temp\\" + username);
         decrypt(file, username);
+        File tempReversed = new File("Temp\\" + username);
+        ReversedLinesFileReader rlf = new ReversedLinesFileReader(tempReversed, StandardCharsets.UTF_8);
+        String lastLine = rlf.readLine();
+        rlf.close();
         ArrayList<Integer> lineBytes = new ArrayList<>();
         RandomAccessFile raf = new RandomAccessFile(temp, "rw");
         int totalBytes = 0;
         int b;
+        //获取每一行开头的索引
         while ((b = raf.read()) != -1) {
             totalBytes++;
             if (b == 13) {
@@ -84,22 +92,18 @@ public class SignIn extends Initializer {
         raf.setLength(raf.length() - l);
         raf.write("\r\n".getBytes());
         while ((line = brTemp.readLine()) != null) {
+            if (line.equals(lastLine)) {
+                raf.write(line.getBytes());
+                continue;
+            }
             raf.write(line.getBytes());
             raf.write("\r\n".getBytes());
         }
+
         brTemp.close();
-        bw.close();
         br.close();
         raf.close();
         encrypt(new File("Temp\\" + username));
-        if (!tempTemp.delete()) {
-            System.out.println(username + "临时数据删除失败，程序紧急中止！");
-            System.exit(-1);
-        }
-        if (!temp.delete()) {
-            System.out.println(username + "数据删除失败，程序紧急中止！");
-            System.exit(-1);
-        }
     }
 
     @Override

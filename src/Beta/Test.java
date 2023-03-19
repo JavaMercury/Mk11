@@ -1,6 +1,11 @@
 package Beta;
 
+import cn.hutool.core.date.TemporalAccessorUtil;
+import org.apache.commons.io.input.ReversedLinesFileReader;
+
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class Test {
@@ -27,14 +32,19 @@ public class Test {
 
     public static void main(String[] args) throws IOException {
         String username = "aperture";
-        int point = 1;
+        int point = 3;
         File file = new File("User\\" + username);
         File temp = new File("Temp\\" + username);
+        File tempReversed = new File("Temp\\" + username);
+        ReversedLinesFileReader rlf = new ReversedLinesFileReader(tempReversed, StandardCharsets.UTF_8);
+        String lastLine = rlf.readLine();
+        System.out.println(lastLine);
         decrypt(file, username);
         ArrayList<Integer> lineBytes = new ArrayList<>();
         RandomAccessFile raf = new RandomAccessFile(temp, "rw");
         int totalBytes = 0;
         int b;
+        //获取每一行开头的索引
         while ((b = raf.read()) != -1) {
             totalBytes++;
             if (b == 13) {
@@ -42,6 +52,7 @@ public class Test {
                 raf.read();
             }
         }
+        System.out.println(lineBytes);
         raf.seek(lineBytes.get(3) + 1);
         File tempTemp = new File("Temp\\" + username + "Temp");
         BufferedReader br = new BufferedReader(new FileReader(raf.getFD()));
@@ -59,22 +70,27 @@ public class Test {
         long l = tempTemp.length();
         raf.setLength(raf.length() - l);
         raf.write("\r\n".getBytes());
+
         while ((line = brTemp.readLine()) != null) {
+            if (line.equals(lastLine)) {
+                raf.write(line.getBytes());
+                continue;
+            }
             raf.write(line.getBytes());
             raf.write("\r\n".getBytes());
         }
+        rlf.close();
         brTemp.close();
-        bw.close();
         br.close();
         raf.close();
         encrypt(new File("Temp\\" + username));
-        if (!tempTemp.delete()) {
+        /*if (!tempTemp.delete()) {
             System.out.println(username + "临时数据删除失败，程序紧急中止！");
             System.exit(-1);
         }
         if (!temp.delete()) {
             System.out.println(username + "数据删除失败，程序紧急中止！");
             System.exit(-1);
-        }
+        }*/
     }
 }
