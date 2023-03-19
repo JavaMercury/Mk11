@@ -110,7 +110,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     ///判断手机号码是否重复
     public boolean checkSamePhoneNumber(String username, String phoneNumber) throws IOException {
         File file = new File("User\\" + username);
-        xor(file, username);
+        decrypt(file, username);
         File temp = new File("Temp\\" + username);
         BufferedReader br = new BufferedReader(new FileReader(temp));
         br.readLine();
@@ -129,7 +129,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     ///判断密码是否重复
     public boolean checkSamePassword(String username, String password) throws IOException {
         File file = new File("User\\" + username);
-        xor(file, username);
+        decrypt(file, username);
         File temp = new File("Temp\\" + username);
         BufferedReader br = new BufferedReader(new FileReader(temp));
         br.readLine();
@@ -151,7 +151,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         File temp = null;
         for (File file : files) {
             temp = new File("Temp\\" + file.getName());
-            xor(file, file.getName());
+            decrypt(file, file.getName());
             br = new BufferedReader(new FileReader(temp));
             br.readLine();
             br.readLine();
@@ -172,8 +172,18 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         return false;
     }
 
+    ///使用异或运算进行加密
+    public void encrypt(File src) throws IOException {
+        FileInputStream fis = new FileInputStream(src);
+        FileOutputStream fos = new FileOutputStream("User\\" + username);
+        int b;
+        while ((b = fis.read()) != -1) fos.write(b ^ 114514);
+        fos.close();
+        fis.close();
+    }
+
     ///使用异或运算进行解密
-    public void xor(File src, String fileName) throws IOException {
+    public void decrypt(File src, String fileName) throws IOException {
         FileInputStream fis = new FileInputStream(src);
         FileOutputStream fos = new FileOutputStream("Temp\\" + fileName);
         int b;

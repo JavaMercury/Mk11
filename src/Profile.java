@@ -62,7 +62,7 @@ public class Profile extends Initializer {
         con.add(backJB);
         profileJL.setBounds(50, 0, 356, 360);
         File file = new File("User\\" + username);
-        xor(file, username);
+        decrypt(file, username);
         File temp = new File("Temp\\" + username);
         BufferedReader br = new BufferedReader(new FileReader(temp));
         br.readLine();

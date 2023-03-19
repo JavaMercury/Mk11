@@ -2,18 +2,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
 //签到
 public class SignIn extends Initializer {
 
-    JMenu propertiesJM = new JMenu("选项");
-    JMenuItem backJMI = new JMenuItem("返回主菜单");
-    JButton signInJB = new JButton("签到");
     static int succession;
     static int point;
     static int sumPoint;
+    JMenu propertiesJM = new JMenu("选项");
+    JMenuItem backJMI = new JMenuItem("返回主菜单");
+    JButton signInJB = new JButton("签到");
     JLabel successJL = new JLabel(String.format("签到成功，已连续签到%d天，获得%d积分，目前积分%d，等级%d", succession, point, sumPoint, level(sumPoint)));
 
     public SignIn(String username) {
@@ -31,7 +33,7 @@ public class SignIn extends Initializer {
     }
 
     ///签到
-    private boolean signIn() {
+    private boolean signIn() throws IOException {
         LocalDateTime currentLDT = LocalDateTime.now();
         long span = ChronoUnit.DAYS.between(lastLDT, currentLDT);
         if (span == 0) {
@@ -45,17 +47,63 @@ public class SignIn extends Initializer {
         }
         sumPoint += point;
         lastLDT = lastLDT.with(currentLDT);
-        collectData();
+        saveData();
         return true;
+    }
+
+    void saveData() throws IOException {
+        File file = new File("User\\" + username);
+        decrypt(file, username);
+        ArrayList<Integer> lineBytes = new ArrayList<>();
+        RandomAccessFile raf = new RandomAccessFile("Temp\\" + username, "rw");
+        int totalBytes = 0;
+        int b;
+        while ((b = raf.read()) != -1) {
+            totalBytes++;
+            if (b == 13) {
+                lineBytes.add(totalBytes++);
+                raf.read();
+            }
+        }
+        raf.seek(lineBytes.get(3) + 1);
+        File tempTemp = new File("Temp\\" + username + "Temp");
+        BufferedReader br = new BufferedReader(new FileReader(raf.getFD()));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(tempTemp));
+        String line;
+        bw.write(point + "\r\n");
+        while ((line = br.readLine()) != null) {
+            bw.write(line);
+            bw.newLine();
+        }
+        bw.close();
+        raf.seek(lineBytes.get(2));
+        raf.write((point + "").getBytes());
+        BufferedReader brTemp = new BufferedReader(new FileReader(tempTemp));
+        long l = tempTemp.length();
+        raf.setLength(raf.length() - l);
+        raf.write("\r\n".getBytes());
+        while ((line = brTemp.readLine()) != null) {
+            raf.write(line.getBytes());
+            raf.write("\r\n".getBytes());
+        }
+        brTemp.close();
+        bw.close();
+        br.close();
+        raf.close();
+        encrypt(new File("Temp\\" + username));
+        /*if (!tempTemp.delete()) {
+            System.out.println(username + "临时数据删除失败，程序紧急中止！");
+            System.exit(-1);
+        }
+        if (!temp.delete()) {
+            System.out.println(username + "数据删除失败，程序紧急中止！");
+            System.exit(-1);
+        }*/
     }
 
     @Override
     void collectData() {
-        User user = getUser(username);
-        user.setLevel(level(sumPoint));
-        user.setLastLDT(lastLDT);
-        user.setPoint(sumPoint);
-        user.setSuccession(succession);
+
     }
 
     @Override
@@ -131,9 +179,13 @@ public class SignIn extends Initializer {
             setVisible(false);
             new MainMenu(username);
         } else if (thing == signInJB) {
-            if (signIn()) {
-                successJL.setText(String.format("签到成功，已连续签到%d天，获得%d积分，目前积分%d，等级%d", succession, point, sumPoint, level(sumPoint)));
-                successJL.setVisible(true);
+            try {
+                if (signIn()) {
+                    successJL.setText(String.format("签到成功，已连续签到%d天，获得%d积分，目前积分%d，等级%d", succession, point, sumPoint, level(sumPoint)));
+                    successJL.setVisible(true);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
             signInJB.setText("今日已签到");
         }

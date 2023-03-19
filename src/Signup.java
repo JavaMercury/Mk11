@@ -58,16 +58,6 @@ public class Signup extends Initializer {
         return username.matches("(?!\\d+$)\\w{5,15}");
     }
 
-    ///使用异或运算进行加密
-    public void xor(File src) throws IOException {
-        FileInputStream fis = new FileInputStream(src);
-        FileOutputStream fos = new FileOutputStream("User\\" + username);
-        int b;
-        while ((b = fis.read()) != -1) fos.write(b ^ 114514);
-        fos.close();
-        fis.close();
-    }
-
     ///窗口初始化
     @Override
     void initJFrame() {
@@ -289,7 +279,7 @@ public class Signup extends Initializer {
         bw.write("0");
         library.add(new User(username, password, phoneNumber, 0, 1, 0, lastLDT, signupLDT, 0));
         bw.close();
-        xor(new File("Temp\\" + username));
+        encrypt(new File("Temp\\" + username));
         if (!userTemp.delete()) {
             System.out.println(username + "数据删除失败，程序紧急中止！");
             System.exit(-1);

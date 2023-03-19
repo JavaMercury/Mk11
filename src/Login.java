@@ -35,7 +35,7 @@ public class Login extends Initializer {
     ///登录检验
     public boolean check() throws IOException {
         if (checkUserExist(username)) {
-            xor(new File("User\\" + username), username);
+            decrypt(new File("User\\" + username), username);
             File userTemp = new File("Temp\\" + username);
             BufferedReader br = new BufferedReader(new FileReader(userTemp));
             br.readLine();

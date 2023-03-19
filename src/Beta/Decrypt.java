@@ -12,10 +12,9 @@ public class Decrypt {
     public static void xor(File src) throws IOException {
         FileInputStream fis = new FileInputStream(src);
         FileOutputStream fos = new FileOutputStream(src.getName());
-        byte[] bytes = new byte[1024 * 1024];
         int b;
         while ((b = fis.read()) != -1) {
-            fos.write(b ^ 33);
+            fos.write(b ^ 114514);
         }
         fos.close();
         fis.close();
