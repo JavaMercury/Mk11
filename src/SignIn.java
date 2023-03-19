@@ -53,9 +53,10 @@ public class SignIn extends Initializer {
 
     void saveData() throws IOException {
         File file = new File("User\\" + username);
+        File temp = new File("Temp\\" + username);
         decrypt(file, username);
         ArrayList<Integer> lineBytes = new ArrayList<>();
-        RandomAccessFile raf = new RandomAccessFile("Temp\\" + username, "rw");
+        RandomAccessFile raf = new RandomAccessFile(temp, "rw");
         int totalBytes = 0;
         int b;
         while ((b = raf.read()) != -1) {
@@ -91,14 +92,14 @@ public class SignIn extends Initializer {
         br.close();
         raf.close();
         encrypt(new File("Temp\\" + username));
-        /*if (!tempTemp.delete()) {
+        if (!tempTemp.delete()) {
             System.out.println(username + "临时数据删除失败，程序紧急中止！");
             System.exit(-1);
         }
         if (!temp.delete()) {
             System.out.println(username + "数据删除失败，程序紧急中止！");
             System.exit(-1);
-        }*/
+        }
     }
 
     @Override

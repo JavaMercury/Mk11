@@ -2,7 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashSet;
 
 //用户登录界面
@@ -32,24 +35,6 @@ public class Login extends Initializer {
         } else return false;
     }
 
-    ///登录检验
-    public boolean check() throws IOException {
-        if (checkUserExist(username)) {
-            decrypt(new File("User\\" + username), username);
-            File userTemp = new File("Temp\\" + username);
-            BufferedReader br = new BufferedReader(new FileReader(userTemp));
-            br.readLine();
-            boolean result = password.equals(br.readLine());
-            br.close();
-            if (!userTemp.delete()) {
-                System.out.println(username + "数据删除失败，程序紧急中止！");
-                System.exit(-1);
-            }
-            return result;
-        }
-        return false;
-    }
-
     ///判断输入新密码的用户是否存在
     public static boolean checkUserExist(String username) {
         File[] files = new File("User").listFiles();
@@ -68,7 +53,23 @@ public class Login extends Initializer {
         } else return false;
     }
 
-
+    ///登录检验
+    public boolean check() throws IOException {
+        if (checkUserExist(username)) {
+            decrypt(new File("User\\" + username), username);
+            File userTemp = new File("Temp\\" + username);
+            BufferedReader br = new BufferedReader(new FileReader(userTemp));
+            br.readLine();
+            boolean result = password.equals(br.readLine());
+            br.close();
+            if (!userTemp.delete()) {
+                System.out.println(username + "数据删除失败，程序紧急中止！");
+                System.exit(-1);
+            }
+            return result;
+        }
+        return false;
+    }
 
     ///窗口初始化
     @Override
@@ -94,6 +95,9 @@ public class Login extends Initializer {
     ///内容初始化
     @Override
     void initContent() {
+        //创建User文件夹和Temp文件夹，用于以后的文件操作
+        new File("User").mkdirs();
+        new File("Temp").mkdirs();
         aboutJM.setText("关于");
         con.setBackground(Color.WHITE);
         usernameJTF.setBounds(100, 70, 340, 30);
