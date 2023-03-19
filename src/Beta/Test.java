@@ -84,13 +84,13 @@ public class Test {
         br.close();
         raf.close();
         encrypt(new File("Temp\\" + username));
-        /*if (!tempTemp.delete()) {
+        if (!tempTemp.delete()) {
             System.out.println(username + "临时数据删除失败，程序紧急中止！");
             System.exit(-1);
         }
         if (!temp.delete()) {
             System.out.println(username + "数据删除失败，程序紧急中止！");
             System.exit(-1);
-        }*/
+        }
     }
 }

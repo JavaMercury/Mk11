@@ -124,10 +124,9 @@ public class ResetPhoneNumber extends Initializer {
     ///重设手机号码
     private void resetPhoneNumber() throws IOException {
         if (checkSamePassword(username, password) && checkPhoneNumber(phoneNumber) && !checkSamePhoneNumber(username, phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber, username) && code.equals(codeTemp)) {
-            User user = getUser(username);
-            user.setPhoneNumber(phoneNumber);
             setVisible(false);
-            new Login();
+            saveData(phoneNumber, 2);
+            new MainMenu(username);
         } else {
             invalidCodeJL.setVisible(!code.equals(codeTemp));
             codeTemp = getVerificationCode();

@@ -1,14 +1,10 @@
-import org.apache.commons.io.input.ReversedLinesFileReader;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 
 //签到
 public class SignIn extends Initializer {
@@ -50,60 +46,8 @@ public class SignIn extends Initializer {
         }
         sumPoint += point;
         lastLDT = lastLDT.with(currentLDT);
-        saveData();
+        saveData(point + "", 3);
         return true;
-    }
-
-    void saveData() throws IOException {
-        File file = new File("User\\" + username);
-        File temp = new File("Temp\\" + username);
-        decrypt(file, username);
-        File tempReversed = new File("Temp\\" + username);
-        ReversedLinesFileReader rlf = new ReversedLinesFileReader(tempReversed, StandardCharsets.UTF_8);
-        String lastLine = rlf.readLine();
-        rlf.close();
-        ArrayList<Integer> lineBytes = new ArrayList<>();
-        RandomAccessFile raf = new RandomAccessFile(temp, "rw");
-        int totalBytes = 0;
-        int b;
-        //获取每一行开头的索引
-        while ((b = raf.read()) != -1) {
-            totalBytes++;
-            if (b == 13) {
-                lineBytes.add(totalBytes++);
-                raf.read();
-            }
-        }
-        raf.seek(lineBytes.get(3) + 1);
-        File tempTemp = new File("Temp\\" + username + "Temp");
-        BufferedReader br = new BufferedReader(new FileReader(raf.getFD()));
-        BufferedWriter bw = new BufferedWriter(new FileWriter(tempTemp));
-        String line;
-        bw.write(point + "\r\n");
-        while ((line = br.readLine()) != null) {
-            bw.write(line);
-            bw.newLine();
-        }
-        bw.close();
-        raf.seek(lineBytes.get(2));
-        raf.write((point + "").getBytes());
-        BufferedReader brTemp = new BufferedReader(new FileReader(tempTemp));
-        long l = tempTemp.length();
-        raf.setLength(raf.length() - l);
-        raf.write("\r\n".getBytes());
-        while ((line = brTemp.readLine()) != null) {
-            if (line.equals(lastLine)) {
-                raf.write(line.getBytes());
-                continue;
-            }
-            raf.write(line.getBytes());
-            raf.write("\r\n".getBytes());
-        }
-
-        brTemp.close();
-        br.close();
-        raf.close();
-        encrypt(new File("Temp\\" + username));
     }
 
     @Override

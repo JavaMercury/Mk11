@@ -74,7 +74,7 @@ public class Profile extends Initializer {
                 "连续签到天数：" + br.readLine() + "<br />" +
                 "上次签到时间：" + LocalDateTime.parse(br.readLine()).format(DateTimeFormatter.ofPattern("yyyy年MM月dd日hh点mm分ss秒")) + "<br />" +
                 "注册时间：" + LocalDateTime.parse(br.readLine()).format(DateTimeFormatter.ofPattern("yyyy年MM月dd日hh点mm分ss秒")) + "<br />" +
-                "拼图小游戏最佳记录：" + br.readLine() + "步");
+                "拼图小游戏最佳记录：" + br.readLine().substring(1) + "步");
         changePhoneNumberJL.setBounds(190, 132, 26, 16);
         changePhoneNumberJL.addMouseListener(this);
         changePhoneNumberJL.setForeground(Color.BLUE);

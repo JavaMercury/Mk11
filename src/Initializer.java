@@ -1,8 +1,11 @@
+import org.apache.commons.io.input.ReversedLinesFileReader;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -140,6 +143,65 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
             System.exit(-1);
         }
         return result;
+    }
+
+    void saveData(String content, int lineLocation) throws IOException {
+        File file = new File("User\\" + username);
+        File temp = new File("Temp\\" + username);
+        decrypt(file, username);
+        File tempReversed = new File("Temp\\" + username);
+        ReversedLinesFileReader rlf = new ReversedLinesFileReader(tempReversed, StandardCharsets.UTF_8);
+        String lastLine = rlf.readLine();
+        rlf.close();
+        ArrayList<Integer> lineBytes = new ArrayList<>();
+        RandomAccessFile raf = new RandomAccessFile(temp, "rw");
+        int totalBytes = 0;
+        int b;
+        //获取每一行开头的索引
+        while ((b = raf.read()) != -1) {
+            totalBytes++;
+            if (b == 13) {
+                lineBytes.add(totalBytes++);
+                raf.read();
+            }
+        }
+        raf.seek(lineBytes.get(lineLocation) + 1);
+        File tempTemp = new File("Temp\\" + username + "Temp");
+        BufferedReader br = new BufferedReader(new FileReader(raf.getFD()));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(tempTemp));
+        String line;
+        bw.write(content + "\r\n");
+        while ((line = br.readLine()) != null) {
+            bw.write(line);
+            bw.newLine();
+        }
+        bw.close();
+        raf.seek(lineBytes.get(lineLocation - 1));
+        raf.write((content + "").getBytes());
+        BufferedReader brTemp = new BufferedReader(new FileReader(tempTemp));
+        long l = tempTemp.length();
+        raf.setLength(raf.length() - l);
+        raf.write("\r\n".getBytes());
+        while ((line = brTemp.readLine()) != null) {
+            if (line.equals(lastLine)) {
+                raf.write(line.getBytes());
+                continue;
+            }
+            raf.write(line.getBytes());
+            raf.write("\r\n".getBytes());
+        }
+        brTemp.close();
+        br.close();
+        raf.close();
+        encrypt(new File("Temp\\" + username));
+        if (!tempTemp.delete()) {
+            System.out.println(username + "临时数据删除失败，程序紧急中止！");
+            System.exit(-1);
+        }
+        if (!temp.delete()) {
+            System.out.println(username + "数据删除失败，程序紧急中止！");
+            System.exit(-1);
+        }
     }
 
     ///判断重设的手机号码是否被占用
