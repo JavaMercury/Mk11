@@ -17,7 +17,7 @@ import java.util.TreeSet;
 //按钮：抢地主/不抢->数组     出牌/不要->数组
 //地主有一个图标
 
-public class beatLordGame extends Initializer implements FocusListener {
+public class BeatLordGame extends Initializer implements FocusListener {
 
     static HashMap<Integer, String> cardList = new HashMap<>();
     static ArrayList<Integer> serialList = new ArrayList<>();
@@ -71,7 +71,7 @@ public class beatLordGame extends Initializer implements FocusListener {
     //斗地主游戏开发暂停公告
     JLabel workInProgressJL = new JLabel("2023.02.28：Please stand by as game is work in progress because advanced knowledge is needed. Wait until Apermesa learns it. ");
 
-    public beatLordGame(String username) {
+    public BeatLordGame(String username) {
         this.username = username;
         initJFrame();
         initMenuBar();
@@ -274,7 +274,7 @@ public class beatLordGame extends Initializer implements FocusListener {
             new GamesMenu(username);
         } else if (thing == replayJMI) {
             setVisible(false);
-            new beatLordGame(username);
+            new BeatLordGame(username);
         } else if (thing == playJB) {
             //WIP
             /*gameTitleJL.setVisible(false);

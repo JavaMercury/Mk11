@@ -82,7 +82,7 @@ public class GamesMenu extends Initializer implements FocusListener {
                 }
                 case 2: {
                     setVisible(false);
-                    new beatLordGame(username);
+                    new BeatLordGame(username);
                     break;
                 }
             }
@@ -104,7 +104,7 @@ public class GamesMenu extends Initializer implements FocusListener {
             new PuzzleGame(username);
         } else if (thing == beatLordGameJB) {
             setVisible(false);
-            new beatLordGame(username);
+            new BeatLordGame(username);
         }
     }
 

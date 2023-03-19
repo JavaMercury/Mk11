@@ -14,7 +14,7 @@ public class MkTest {
     static int sumPoint = 0;
 
     public static void main(String[] args) {
-        new beatLordGame("Apermesa");
+        new BeatLordGame("Apermesa");
     }
 
     ///签到
