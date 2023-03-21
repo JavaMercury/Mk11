@@ -49,8 +49,6 @@ public class SignIn extends Initializer {
             succession = 1;
         }
         sumPoint += point;
-        System.out.println(sumPoint);
-        System.out.println(getLevel(sumPoint));
         lastLDT = lastLDT.with(currentLDT);
         saveData(point + "", 3);
         saveData(getLevel(sumPoint) + "", 4);
@@ -72,7 +70,6 @@ public class SignIn extends Initializer {
         br.readLine();
         succession = Integer.parseInt(br.readLine());
         lastLDT = LocalDateTime.parse(br.readLine());
-        System.out.println(lastLDT);
         br.close();
         if (!temp.delete()) {
             System.out.println(username + "数据删除失败，程序紧急中止！");
