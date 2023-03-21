@@ -142,7 +142,7 @@ public class Login extends Initializer {
             }
         } else if (code == 109) {
             setVisible(false);
-            new MainMenu("qwerqwer");
+            new MainMenu("aperture");
         }
     }
 
