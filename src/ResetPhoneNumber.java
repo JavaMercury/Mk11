@@ -123,7 +123,7 @@ public class ResetPhoneNumber extends Initializer {
 
     ///重设手机号码
     private void resetPhoneNumber() throws IOException {
-        if (checkSamePassword(username, password) && checkPhoneNumber(phoneNumber) && !checkSamePhoneNumber(username, phoneNumber) && !checkPhoneNumberUsed(library, phoneNumber, username) && code.equals(codeTemp)) {
+        if (checkSamePassword(username, password) && checkPhoneNumber(phoneNumber) && !checkSamePhoneNumber(username, phoneNumber) && !checkPhoneNumberUsed(phoneNumber, username) && code.equals(codeTemp)) {
             setVisible(false);
             saveData(phoneNumber, 2);
             new MainMenu(username);
@@ -137,7 +137,7 @@ public class ResetPhoneNumber extends Initializer {
                 samePhoneNumberJL.setVisible(false);
                 invalidPhoneNumberJL.setVisible(true);
             }
-            if (checkPhoneNumberUsed(library, phoneNumber, username)) {
+            if (checkPhoneNumberUsed(phoneNumber, username)) {
                 invalidPhoneNumberJL.setVisible(false);
                 samePhoneNumberJL.setVisible(false);
                 occupiedPhoneNumberJL.setVisible(true);
@@ -147,7 +147,7 @@ public class ResetPhoneNumber extends Initializer {
                 occupiedPhoneNumberJL.setVisible(false);
                 samePhoneNumberJL.setVisible(true);
             }
-            if (!code.equals(codeTemp) && !checkPhoneNumberUsed(library, phoneNumber, username) && !checkSamePhoneNumber(username, phoneNumber)) {
+            if (!code.equals(codeTemp) && !checkPhoneNumberUsed(phoneNumber, username) && !checkSamePhoneNumber(username, phoneNumber)) {
                 invalidPhoneNumberJL.setVisible(false);
                 occupiedPhoneNumberJL.setVisible(false);
                 samePhoneNumberJL.setVisible(false);

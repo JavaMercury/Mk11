@@ -6,7 +6,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashSet;
 
 //用户登录界面
 public class Login extends Initializer {
@@ -27,14 +26,6 @@ public class Login extends Initializer {
         setVisible(true);
     }
 
-    ///判断用户名是否重复
-    public static boolean checkSameUsername(String username) {
-        if (checkUserExist(username)) {
-            User user = getUser(username);
-            return username.equals(user.getUsername());
-        } else return false;
-    }
-
     ///判断输入新密码的用户是否存在
     public static boolean checkUserExist(String username) {
         File[] files = new File("User").listFiles();
@@ -43,14 +34,6 @@ public class Login extends Initializer {
             if (username.equals(file.getName())) return true;
         }
         return false;
-    }
-
-    ///判断密码是否重复
-    public static boolean checkSamePassword(HashSet<User> library, String username, String password) {
-        if (checkUserExist(username)) {
-            User user = getUser(username);
-            return user.getPassword().equals(password);
-        } else return false;
     }
 
     ///登录检验

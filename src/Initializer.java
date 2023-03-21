@@ -205,7 +205,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     }
 
     ///判断重设的手机号码是否被占用
-    public boolean checkPhoneNumberUsed(HashSet<User> library, String phoneNumber, String username) throws IOException {
+    public boolean checkPhoneNumberUsed(String phoneNumber, String username) throws IOException {
         File[] files = new File("User").listFiles();
         assert files != null;
         if (files.length == 0) return false;
