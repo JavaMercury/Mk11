@@ -28,7 +28,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     //所有子类图形的统一getContentPane方法
     Container con = getContentPane();
     JMenu aboutJM = new JMenu("关于(G)");
-    String version = "水银第11代 0.11.13.20230319";
+    String version = "水银第11代 0.11.14.20230320";
     String username;
     String password;
     JDialog aboutJD = new JDialog();
@@ -163,27 +163,31 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
                 raf.read();
             }
         }
+        //把要修改的数据以及后面的数据保存为临时文件
         raf.seek(lineBytes.get(lineLocation) + 1);
         File tempTemp = new File("Temp\\" + username + "Temp");
         BufferedReader br = new BufferedReader(new FileReader(raf.getFD()));
         BufferedWriter bw = new BufferedWriter(new FileWriter(tempTemp));
         String line;
-        bw.write(content + "\r\n");
+        bw.write(content);
+        bw.newLine();
         while ((line = br.readLine()) != null) {
             bw.write(line);
             bw.newLine();
         }
         bw.close();
-        raf.seek(lineBytes.get(lineLocation - 1));
-        raf.write((content + "").getBytes());
+        raf.seek(lineBytes.get(lineLocation - 1) + 1);
+        String oldContent = raf.readLine();
+        System.out.println(oldContent);
+        //raf.write((content + "").getBytes());
         BufferedReader brTemp = new BufferedReader(new FileReader(tempTemp));
         long l = tempTemp.length();
-        raf.setLength(raf.length() - l);
+        raf.setLength(raf.length() - l - oldContent.length() + content.length());
         raf.write("\r\n".getBytes());
         while ((line = brTemp.readLine()) != null) {
             if (line.equals(lastLine)) {
                 raf.write(line.getBytes());
-                continue;
+                break;
             }
             raf.write(line.getBytes());
             raf.write("\r\n".getBytes());

@@ -1,11 +1,10 @@
 package Beta;
 
-import cn.hutool.core.date.TemporalAccessorUtil;
 import org.apache.commons.io.input.ReversedLinesFileReader;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLOutput;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Test {
@@ -30,16 +29,15 @@ public class Test {
         fis.close();
     }
 
-    public static void main(String[] args) throws IOException {
+    static void saveData(String content, int lineLocation) throws IOException {
         String username = "aperture";
-        int point = 3;
         File file = new File("User\\" + username);
         File temp = new File("Temp\\" + username);
+        decrypt(file, username);
         File tempReversed = new File("Temp\\" + username);
         ReversedLinesFileReader rlf = new ReversedLinesFileReader(tempReversed, StandardCharsets.UTF_8);
         String lastLine = rlf.readLine();
-        System.out.println(lastLine);
-        decrypt(file, username);
+        rlf.close();
         ArrayList<Integer> lineBytes = new ArrayList<>();
         RandomAccessFile raf = new RandomAccessFile(temp, "rw");
         int totalBytes = 0;
@@ -52,34 +50,35 @@ public class Test {
                 raf.read();
             }
         }
-        System.out.println(lineBytes);
-        raf.seek(lineBytes.get(3) + 1);
+        //把要修改的数据以及后面的数据保存为临时文件
+        raf.seek(lineBytes.get(lineLocation) + 1);
         File tempTemp = new File("Temp\\" + username + "Temp");
         BufferedReader br = new BufferedReader(new FileReader(raf.getFD()));
         BufferedWriter bw = new BufferedWriter(new FileWriter(tempTemp));
         String line;
-        bw.write(point + "\r\n");
+        bw.write(content);
+        bw.newLine();
         while ((line = br.readLine()) != null) {
             bw.write(line);
             bw.newLine();
         }
         bw.close();
-        raf.seek(lineBytes.get(2));
-        raf.write((point + "").getBytes());
+        raf.seek(lineBytes.get(lineLocation - 1) + 1);
+        String oldContent = raf.readLine();
+        System.out.println(oldContent);
+        //raf.write((content + "").getBytes());
         BufferedReader brTemp = new BufferedReader(new FileReader(tempTemp));
         long l = tempTemp.length();
-        raf.setLength(raf.length() - l);
+        raf.setLength(raf.length() - l - oldContent.length() + content.length());
         raf.write("\r\n".getBytes());
-
         while ((line = brTemp.readLine()) != null) {
             if (line.equals(lastLine)) {
                 raf.write(line.getBytes());
-                continue;
+                break;
             }
             raf.write(line.getBytes());
             raf.write("\r\n".getBytes());
         }
-        rlf.close();
         brTemp.close();
         br.close();
         raf.close();
@@ -92,5 +91,12 @@ public class Test {
             System.out.println(username + "数据删除失败，程序紧急中止！");
             System.exit(-1);
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        saveData(3 + "", 3);
+        saveData(4 + "", 4);
+        saveData(55555 + "", 5);
+        saveData(LocalDateTime.now().toString(), 6);
     }
 }

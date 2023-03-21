@@ -2,8 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 //签到
@@ -12,12 +17,14 @@ public class SignIn extends Initializer {
     static int succession;
     static int point;
     static int sumPoint;
+    static int level;
     JMenu propertiesJM = new JMenu("选项");
     JMenuItem backJMI = new JMenuItem("返回主菜单");
     JButton signInJB = new JButton("签到");
     JLabel successJL = new JLabel(String.format("签到成功，已连续签到%d天，获得%d积分，目前积分%d，等级%d", succession, point, sumPoint, level(sumPoint)));
 
     public SignIn(String username) {
+        System.out.println(username);
         this.username = username;
         initJFrame();
         initMenuBar();
@@ -33,6 +40,7 @@ public class SignIn extends Initializer {
 
     ///签到
     private boolean signIn() throws IOException {
+        getData(username);
         LocalDateTime currentLDT = LocalDateTime.now();
         long span = ChronoUnit.DAYS.between(lastLDT, currentLDT);
         if (span == 0) {
@@ -47,7 +55,30 @@ public class SignIn extends Initializer {
         sumPoint += point;
         lastLDT = lastLDT.with(currentLDT);
         saveData(point + "", 3);
+        saveData(level + "", 4);
+        saveData(succession + "", 5);
+        saveData(lastLDT + "", 6);
         return true;
+    }
+
+    ///获取用户数据：积分，等级，连续签到天数，上次签到时间，也就是索引3，4，5，6
+    void getData(String username) throws IOException {
+        File file = new File("User\\" + username);
+        decrypt(file,username);
+        File temp = new File("Temp\\" + username);
+        BufferedReader br = new BufferedReader(new FileReader(temp));
+        br.readLine();
+        br.readLine();
+        br.readLine();
+        point = Integer.parseInt(br.readLine());
+        level = Integer.parseInt(br.readLine());
+        succession = Integer.parseInt(br.readLine());
+        lastLDT = LocalDateTime.parse(br.readLine());
+        br.close();
+        if (!temp.delete()) {
+            System.out.println(username + "数据删除失败，程序紧急中止！");
+            System.exit(-1);
+        }
     }
 
     @Override
