@@ -2,7 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 
@@ -48,7 +51,7 @@ public class Signup extends Initializer {
         File[] files = new File("User").listFiles();
         assert files != null;
         for (File file : files) {
-            if(username.equals(file.getName())) return true;
+            if (username.equals(file.getName())) return true;
         }
         return false;
     }
@@ -272,7 +275,7 @@ public class Signup extends Initializer {
         bw.newLine();
         bw.write("0");
         bw.newLine();
-        bw.write(lastLDT + "");
+        bw.write(LocalDateTime.of(2020, 3, 24, 0, 0, 0) + "");
         bw.newLine();
         bw.write(signupLDT + "");
         bw.newLine();

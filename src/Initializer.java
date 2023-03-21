@@ -28,7 +28,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     //所有子类图形的统一getContentPane方法
     Container con = getContentPane();
     JMenu aboutJM = new JMenu("关于(G)");
-    String version = "水银第11代 0.11.14.20230320";
+    String version = "水银第11代 0.11.15.20230321";
     String username;
     String password;
     JDialog aboutJD = new JDialog();
@@ -178,8 +178,6 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         bw.close();
         raf.seek(lineBytes.get(lineLocation - 1) + 1);
         String oldContent = raf.readLine();
-        System.out.println(oldContent);
-        //raf.write((content + "").getBytes());
         BufferedReader brTemp = new BufferedReader(new FileReader(tempTemp));
         long l = tempTemp.length();
         raf.setLength(raf.length() - l - oldContent.length() + content.length());
