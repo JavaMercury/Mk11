@@ -38,7 +38,7 @@ public class SignIn extends Initializer {
     private boolean signIn() throws IOException {
         getData(username);
         LocalDateTime currentLDT = LocalDateTime.now();
-        long span = ChronoUnit.SECONDS.between(lastLDT, currentLDT);
+        long span = ChronoUnit.DAYS.between(lastLDT, currentLDT);
         if (span == 0) {
             return false;
         } else if (span == 1) {

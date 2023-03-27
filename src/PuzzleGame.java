@@ -467,7 +467,7 @@ public class PuzzleGame extends Initializer implements Border {
         }
         //官方开挂键，数字键盘“-”
         else if (code == 109) {
-            step = 3;
+            step = 99999;
             data = new int[][]{
                     {1, 5, 9, 13},
                     {2, 6, 10, 14},
