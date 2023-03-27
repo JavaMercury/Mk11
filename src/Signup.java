@@ -259,9 +259,9 @@ public class Signup extends Initializer {
      * 注册时间
      * 拼图小游戏最佳纪录*/
     void saveData() throws IOException {
-        File userTemp = new File("Temp\\" + username);
+        File temp = new File("Temp\\" + username);
         LocalDateTime signupLDT = LocalDateTime.now();
-        BufferedWriter bw = new BufferedWriter(new FileWriter(userTemp));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
         bw.write(username);
         bw.newLine();
         bw.write(password);
@@ -283,7 +283,7 @@ public class Signup extends Initializer {
         library.add(new User(username, password, phoneNumber, 0, 1, 0, lastLDT, signupLDT, 0));
         bw.close();
         encrypt(new File("Temp\\" + username));
-        if (!userTemp.delete()) {
+        if (!temp.delete()) {
             System.out.println(username + "数据删除失败，程序紧急中止！");
             System.exit(-1);
         }

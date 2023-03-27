@@ -4,6 +4,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class GamesMenu extends Initializer implements FocusListener {
     JButton puzzleGameJB = new JButton("拼图小游戏");
@@ -77,7 +78,11 @@ public class GamesMenu extends Initializer implements FocusListener {
             switch (focusSelect) {
                 case 1: {
                     setVisible(false);
-                    new PuzzleGame(username);
+                    try {
+                        new PuzzleGame(username);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 }
                 case 2: {
@@ -101,7 +106,11 @@ public class GamesMenu extends Initializer implements FocusListener {
         if (thing == aboutJM) showAbout();
         else if (thing == puzzleGameJB) {
             setVisible(false);
-            new PuzzleGame(username);
+            try {
+                new PuzzleGame(username);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         } else if (thing == beatLordGameJB) {
             setVisible(false);
             new BeatLordGame(username);

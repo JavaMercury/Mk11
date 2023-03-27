@@ -1,9 +1,14 @@
+import org.apache.commons.io.input.ReversedLinesFileReader;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -12,10 +17,11 @@ public class PuzzleGame extends Initializer implements Border {
 
     //管理图片数据
     static int[][] data = new int[4][4];
-
     //空白方块在二维数组中的位置
     static int x = 0;
     static int y = 0;
+    //用户之前的最佳通关记录
+    int lastBest;
     int mouseClickCount = 0;
     //记录用户操作的步数
     int step = 0;
@@ -48,7 +54,7 @@ public class PuzzleGame extends Initializer implements Border {
     private int BOUNDS_UP_LEFT = 3;
     private int BOUNDS_DOWN_RIGHT = 0;
 
-    public PuzzleGame(String username) {
+    public PuzzleGame(String username) throws IOException {
         animalLibrary.add("image\\animal\\animal1\\");
         animalLibrary.add("image\\animal\\animal2\\");
         animalLibrary.add("image\\animal\\animal3\\");
@@ -145,6 +151,22 @@ public class PuzzleGame extends Initializer implements Border {
         return count % 2 == 0;
     }
 
+    ///获取用户数据。在这里指的是用户通关后获取之前通关的最佳步数
+    void getData(String username) throws IOException {
+        File file = new File("User\\" + username);
+        decrypt(file, username);
+        File temp = new File("Temp\\" + username);
+        ReversedLinesFileReader rlf = new ReversedLinesFileReader(temp, StandardCharsets.UTF_8);
+        lastBest = Integer.parseInt(rlf.readLine().substring(1));
+        rlf.close();
+        if (lastBest == 0) lastBest = 99998;
+        System.out.println("last record: " + lastBest);
+        if (!temp.delete()) {
+            System.out.println(username + "数据删除失败，程序紧急中止！");
+            System.exit(-1);
+        }
+    }
+
     @Override
     void collectData() {
 
@@ -199,7 +221,7 @@ public class PuzzleGame extends Initializer implements Border {
 
     ///内容初始化
     @Override
-    void initContent() {
+    void initContent() throws IOException {
         con.removeAll();
         if (victory()) {
             JLabel victoryJL = new JLabel(new ImageIcon("image\\win.png"));
@@ -209,8 +231,11 @@ public class PuzzleGame extends Initializer implements Border {
             con.add(successReplayJB);
             con.add(successExitJB);
             con.add(victoryJL);
-            if (step != 99999 && getUser(username).getPuzzleSteps() > step)
-                getUser(username).setPuzzleSteps(step);
+            getData(username);
+            //获取用户上次的记录，若这次破纪录了，则更新数据
+            if (step != 99999 && step < lastBest) {
+                saveData(step + "", 8);
+            }
             loadPuzzles();
             con.repaint();
             successReplayJB.setFocusable(true);
@@ -276,7 +301,7 @@ public class PuzzleGame extends Initializer implements Border {
     }
 
     ///重玩
-    void replay() {
+    void replay() throws IOException {
         step = 0;
         initData();
         initContent();
@@ -286,8 +311,13 @@ public class PuzzleGame extends Initializer implements Border {
     public void mousePressed(MouseEvent e) {
         Object thing = e.getSource();
         if (thing == aboutJM) showAbout();
-        else if (thing == replayJMI || thing == successReplayJB) replay();
-        else if (thing == exitGameJMI || thing == successExitJB) {
+        else if (thing == replayJMI || thing == successReplayJB) {
+            try {
+                replay();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        } else if (thing == exitGameJMI || thing == successExitJB) {
             setVisible(false);
             new MainMenu(username);
         } else if (thing == logoutJMI) {
@@ -298,15 +328,27 @@ public class PuzzleGame extends Initializer implements Border {
         } else if (thing == animalJMI) {
             chooseImage = "animal";
             changeImage();
-            replay();
+            try {
+                replay();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         } else if (thing == girlJMI) {
             chooseImage = "girl";
             changeImage();
-            replay();
+            try {
+                replay();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         } else if (thing == sportJMI) {
             chooseImage = "sport";
             changeImage();
-            replay();
+            try {
+                replay();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         } else if (thing == backgroundJL) mouseClickCount++;
         else if (thing == moveBlankJMI) {
             MOVE_UP_LEFT_OR_Y = -1;
@@ -329,12 +371,16 @@ public class PuzzleGame extends Initializer implements Border {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        Object thing = e.getSource();
+        if (thing == successExitJB || thing == successReplayJB)
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+        Object thing = e.getSource();
+        if (thing == successExitJB || thing == successReplayJB)
+            setCursor(Cursor.getDefaultCursor());
     }
 
     @Override
@@ -371,7 +417,11 @@ public class PuzzleGame extends Initializer implements Border {
                 data[x][y] = data[x + MOVE_UP_LEFT_OR_Y][y];
                 data[x + MOVE_UP_LEFT_OR_Y][y] = 0;
                 x += MOVE_UP_LEFT_OR_Y;
-                initContent();
+                try {
+                    initContent();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         } else if (code == 38 || code == 87) {
             if (y != BOUNDS_UP_LEFT) {
@@ -379,7 +429,11 @@ public class PuzzleGame extends Initializer implements Border {
                 data[x][y] = data[x][y + MOVE_UP_LEFT_OR_Y];
                 data[x][y + MOVE_UP_LEFT_OR_Y] = 0;
                 y += MOVE_UP_LEFT_OR_Y;
-                initContent();
+                try {
+                    initContent();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         } else if (code == 39 || code == 68) {
             if (x != BOUNDS_DOWN_RIGHT) {
@@ -387,7 +441,11 @@ public class PuzzleGame extends Initializer implements Border {
                 data[x][y] = data[x + MOVE_DOWN_RIGHT_OR_Y][y];
                 data[x + MOVE_DOWN_RIGHT_OR_Y][y] = 0;
                 x += MOVE_DOWN_RIGHT_OR_Y;
-                initContent();
+                try {
+                    initContent();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         } else if (code == 40 || code == 83) {
             if (y != BOUNDS_DOWN_RIGHT) {
@@ -395,19 +453,33 @@ public class PuzzleGame extends Initializer implements Border {
                 data[x][y] = data[x][y + MOVE_DOWN_RIGHT_OR_Y];
                 data[x][y + MOVE_DOWN_RIGHT_OR_Y] = 0;
                 y += MOVE_DOWN_RIGHT_OR_Y;
-                initContent();
+                try {
+                    initContent();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
-        } else if (code == 17) initContent();
-            //官方开挂键，数字键盘“-”
+        } else if (code == 17) {
+            try {
+                initContent();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        //官方开挂键，数字键盘“-”
         else if (code == 109) {
-            step = 99999;
+            step = 3;
             data = new int[][]{
                     {1, 5, 9, 13},
                     {2, 6, 10, 14},
                     {3, 7, 11, 15},
                     {4, 8, 12, 0}
             };
-            initContent();
+            try {
+                initContent();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         } else if (code == 27) {
             setVisible(false);
             new GamesMenu(username);

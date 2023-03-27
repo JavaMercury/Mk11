@@ -23,7 +23,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     //所有子类图形的统一getContentPane方法
     Container con = getContentPane();
     JMenu aboutJM = new JMenu("关于(G)");
-    String version = "水银第11代 0.11.15.20230321";
+    String version = "水银第11代 0.11.16.20230327";
     String username;
     String password;
     JDialog aboutJD = new JDialog();
@@ -50,17 +50,6 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     ///检验密码
     public static boolean checkPassword(String password) {
         return password.matches("\\S*(?=\\S{8,20})(?=\\S*[0-9])(?=\\S*[a-z])(?=\\S*[A-Z])\\S*");
-    }
-
-    ///获取对象
-    public static User getUser(String username) {
-        Iterator<User> it = library.iterator();
-        User user = null;
-        while (it.hasNext()) {
-            user = it.next();
-            if (user.getUsername().equals(username)) break;
-        }
-        return user;
     }
 
     ///生成验证码
@@ -116,7 +105,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         boolean result = phoneNumber.equals(br.readLine());
         br.close();
         if (!temp.delete()) {
-            System.out.println(username + "数据删除失败，程序紧急中止！");
+            System.out.println(username + "数据删除失败，程序紧急中止！Initializer-checkSamePhoneNumber");
             System.exit(-1);
         }
         return result;
@@ -132,7 +121,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         boolean result = password.equals(br.readLine());
         br.close();
         if (!temp.delete()) {
-            System.out.println(username + "数据删除失败，程序紧急中止！");
+            System.out.println(username + "数据删除失败，程序紧急中止！Initializer-checkSamePassword");
             System.exit(-1);
         }
         return result;
@@ -145,9 +134,20 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         File tempReversed = new File("Temp\\" + username);
         ReversedLinesFileReader rlf = new ReversedLinesFileReader(tempReversed, StandardCharsets.UTF_8);
         String lastLine = rlf.readLine();
+        RandomAccessFile raf = new RandomAccessFile(temp, "rw");
+        if (lineLocation == 8) {
+            raf.setLength(raf.length() - lastLine.length());
+            raf.write(content.getBytes());
+            raf.close();
+            rlf.close();
+            if (!temp.delete()) {
+                System.out.println(username + "数据删除失败，程序紧急中止！Initializer-saveData-1");
+                System.exit(-1);
+            }
+            return;
+        }
         rlf.close();
         ArrayList<Integer> lineBytes = new ArrayList<>();
-        RandomAccessFile raf = new RandomAccessFile(temp, "rw");
         int totalBytes = 0;
         int b;
         //获取每一行开头的索引
@@ -158,12 +158,13 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
                 raf.read();
             }
         }
+        String line;
+        //lineLocation等于8说明此时要保存的是拼图小游戏的最佳记录，这时使用常规保存方法是会报错的，因为这是最后一行
         //把要修改的数据以及后面的数据保存为临时文件
         raf.seek(lineBytes.get(lineLocation) + 1);
         File tempTemp = new File("Temp\\" + username + "Temp");
         BufferedReader br = new BufferedReader(new FileReader(raf.getFD()));
         BufferedWriter bw = new BufferedWriter(new FileWriter(tempTemp));
-        String line;
         bw.write(content);
         bw.newLine();
         while ((line = br.readLine()) != null) {
@@ -190,11 +191,11 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         raf.close();
         encrypt(new File("Temp\\" + username));
         if (!tempTemp.delete()) {
-            System.out.println(username + "临时数据删除失败，程序紧急中止！");
+            System.out.println(username + "临时数据删除失败，程序紧急中止！Initializer-saveData-2");
             System.exit(-1);
         }
         if (!temp.delete()) {
-            System.out.println(username + "数据删除失败，程序紧急中止！");
+            System.out.println(username + "数据删除失败，程序紧急中止！Initializer-saveData-3");
             System.exit(-1);
         }
     }
