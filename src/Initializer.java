@@ -8,6 +8,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -53,37 +54,26 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
 
     ///生成验证码
     public static String getVerificationCode() {
-        Random r = new Random();
-        ArrayList<Integer> numberList = new ArrayList<>();
+        ArrayList<Character> numberList = new ArrayList<>();
         ArrayList<Character> letterList = new ArrayList<>();
+        ArrayList<Character> codeList = new ArrayList<>();
         for (int index = 0; index < 10; index++) {
-            numberList.add(index);
+            numberList.add((char) ('0' + index));
         }
         for (int index = 0; index < 26; index++) {
             letterList.add((char) ('a' + index));
             letterList.add((char) ('A' + index));
         }
-        int letterLength = r.nextInt(6);
-        int numberLength = 5 - letterLength;
-        StringBuilder sequence = new StringBuilder();
-        for (int index = 0; index < letterLength; index++) {
-            sequence.append(letterList.get(r.nextInt(52)));
+        Collections.shuffle(numberList);
+        Collections.shuffle(letterList);
+        for (int i = 0; i < 5; i++) {
+            codeList.add(numberList.get(i));
+            codeList.add(letterList.get(i));
         }
-        for (int index = 0; index < numberLength; index++) {
-            sequence.append(numberList.get(r.nextInt(10)));
-        }
-        char[] seqArray = sequence.toString().toCharArray();
-        int randomIndex;
-        char temp;
-        for (int index = 0; index < seqArray.length; index++) {
-            randomIndex = r.nextInt(seqArray.length);
-            temp = seqArray[index];
-            seqArray[index] = seqArray[randomIndex];
-            seqArray[randomIndex] = temp;
-        }
+        Collections.shuffle(codeList);
         StringBuilder result = new StringBuilder();
-        for (char c : seqArray) {
-            result.append(c);
+        for (int i = 0; i < 5; i++) {
+            result.append(codeList.get(i));
         }
         return result.toString();
     }
