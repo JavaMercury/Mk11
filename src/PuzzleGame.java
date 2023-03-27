@@ -159,8 +159,7 @@ public class PuzzleGame extends Initializer implements Border {
         ReversedLinesFileReader rlf = new ReversedLinesFileReader(temp, StandardCharsets.UTF_8);
         lastBest = Integer.parseInt(rlf.readLine().substring(1));
         rlf.close();
-        if (lastBest == 0) lastBest = 99998;
-        System.out.println("last record: " + lastBest);
+        if (lastBest == 0) lastBest = 99999;
         if (!temp.delete()) {
             System.out.println(username + "数据删除失败，程序紧急中止！PuzzleGame-getData");
             System.exit(-1);

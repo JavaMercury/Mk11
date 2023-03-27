@@ -145,15 +145,12 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
                 raf.read();
             }
         }
-        System.out.println("array length: " + lineBytes.size());
         //lineLocation等于8说明此时要保存的是拼图小游戏的最佳记录，这时使用常规保存方法是会报错的，因为这是最后一行
         if (lineLocation == 8) {
             raf.setLength(raf.length() - lastLine.length());
-            System.out.println("length after delete: " + raf.length());
             raf.seek(lineBytes.get(lineLocation - 1) + 1);
             raf.write("-".getBytes());
             raf.write(content.getBytes());
-            System.out.println("length after write: " + raf.length());
             raf.close();
             rlf.close();
             encrypt(new File("Temp\\" + username));
