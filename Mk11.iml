@@ -6,6 +6,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/User" />
       <excludeFolder url="file://$MODULE_DIR$/Temp" />
+      <excludeFolder url="file://$MODULE_DIR$/Save" />
     </content>
     <content url="file://$MODULE_DIR$/out" />
     <orderEntry type="jdk" jdkName="corretto-11 (2)" jdkType="JavaSDK" />

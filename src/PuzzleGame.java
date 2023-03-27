@@ -6,8 +6,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Random;
@@ -109,27 +108,6 @@ public class PuzzleGame extends Initializer implements Border {
         help.setVisible(true);
     }
 
-    ///数据初始化
-    private static void initData() {
-        Random r = new Random();
-        int[] arrayTemp = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
-        do {
-            for (int i = 0; i < arrayTemp.length; i++) {
-                int randomIndex = r.nextInt(16);
-                int temp = arrayTemp[i];
-                arrayTemp[i] = arrayTemp[randomIndex];
-                arrayTemp[randomIndex] = temp;
-            }
-            for (int i = 0; i < arrayTemp.length; i++) {
-                if (arrayTemp[i] == 0) {
-                    x = i / 4;
-                    y = i % 4;
-                }
-                data[i / 4][i % 4] = arrayTemp[i];
-            }
-        } while (!isPlayable());
-    }
-
     ///计算拼图可解性
     private static boolean isPlayable() {
         int[] array = new int[16];
@@ -149,6 +127,32 @@ public class PuzzleGame extends Initializer implements Border {
             base++;
         }
         return count % 2 == 0;
+    }
+
+    ///数据初始化，如果Save文件夹存在存档，则直接读取存档
+    private void initData() throws IOException {
+        File file = new File("Save\\PuzzleGameSave.txt");
+        if (file.exists()) {
+            loadData();
+            return;
+        }
+        Random r = new Random();
+        int[] arrayTemp = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+        do {
+            for (int i = 0; i < arrayTemp.length; i++) {
+                int randomIndex = r.nextInt(16);
+                int temp = arrayTemp[i];
+                arrayTemp[i] = arrayTemp[randomIndex];
+                arrayTemp[randomIndex] = temp;
+            }
+            for (int i = 0; i < arrayTemp.length; i++) {
+                if (arrayTemp[i] == 0) {
+                    x = i / 4;
+                    y = i % 4;
+                }
+                data[i / 4][i % 4] = arrayTemp[i];
+            }
+        } while (!isPlayable());
     }
 
     ///获取用户数据。在这里指的是用户通关后获取之前通关的最佳步数
@@ -218,6 +222,32 @@ public class PuzzleGame extends Initializer implements Border {
         backgroundJL.addKeyListener(this);
     }
 
+    ///用户退出游戏时，若游戏未完成，则保存数据至Save文件夹下的PuzzleGameSave.txt中
+    void saveData() throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter("Save\\PuzzleGameSave.txt"));
+        int newLineCount = 0;
+        for (int[] datum : data) {
+            for (int i : datum) {
+                bw.write((i + ""));
+                if (newLineCount < 16) {
+                    bw.newLine();
+                    newLineCount++;
+                }
+            }
+        }
+        bw.close();
+    }
+
+    ///用户进入游戏时，如果Save文件夹中存在存档，则自动读取存档
+    void loadData() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("Save\\PuzzleGameSave.txt"));
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < data.length; j++) {
+                data[i][j] = Integer.parseInt(br.readLine());
+            }
+        }
+    }
+
     ///内容初始化
     @Override
     void initContent() throws IOException {
@@ -239,6 +269,11 @@ public class PuzzleGame extends Initializer implements Border {
             con.repaint();
             successReplayJB.setFocusable(true);
             successReplayJB.addKeyListener(this);
+            File file = new File("Save\\PuzzleGameSave.txt");
+            //通关后，删除之前的游戏存档
+            if (file.exists()) {
+                file.delete();
+            }
         }
         countStepJL.setBounds(50, 30, 100, 20);
         loadPuzzles();
@@ -317,6 +352,13 @@ public class PuzzleGame extends Initializer implements Border {
                 throw new RuntimeException(ex);
             }
         } else if (thing == exitGameJMI || thing == successExitJB) {
+            if (!victory()) {
+                try {
+                    saveData();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
             setVisible(false);
             new MainMenu(username);
         } else if (thing == logoutJMI) {
@@ -480,6 +522,13 @@ public class PuzzleGame extends Initializer implements Border {
                 throw new RuntimeException(ex);
             }
         } else if (code == 27) {
+            if (!victory()) {
+                try {
+                    saveData();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
             setVisible(false);
             new GamesMenu(username);
         } else if (code == 71) showAbout();

@@ -78,9 +78,10 @@ public class Login extends Initializer {
     ///内容初始化
     @Override
     void initContent() {
-        //创建User文件夹和Temp文件夹，用于以后的文件操作
+        //创建User文件夹和Temp文件夹以及Save文件夹，用于以后的文件操作
         new File("User").mkdirs();
         new File("Temp").mkdirs();
+        new File("Save").mkdirs();
         aboutJM.setText("关于");
         con.setBackground(Color.WHITE);
         usernameJTF.setBounds(100, 70, 340, 30);

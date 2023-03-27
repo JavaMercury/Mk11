@@ -277,9 +277,9 @@ public class BeatLordGame extends Initializer implements FocusListener {
             new BeatLordGame(username);
         } else if (thing == playJB) {
             //WIP
-            /*gameTitleJL.setVisible(false);
+            gameTitleJL.setVisible(false);
             playJB.setVisible(false);
-            prepare();*/
+            prepare();
             workInProgressJL.setVisible(true);
         } else if (thing == toBeLordJB) {
             System.out.println("抢地主！");
