@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 //记录水银客户端的用户账户
 public class User implements Serializable {
@@ -23,6 +22,10 @@ public class User implements Serializable {
     //拼图小游戏通关最佳步数，初始为0
     private int puzzleSteps;
 
+    User() {
+
+    }
+
     public User(String username, String password, String phoneNumber, int point, int level, int succession, LocalDateTime lastLDT, LocalDateTime signupDateTime, int puzzleSteps) {
         this.username = username;
         this.password = password;
@@ -44,11 +47,6 @@ public class User implements Serializable {
         return username;
     }
 
-    /**
-     * 设置
-     *
-     * @param username
-     */
     public void setUsername(String username) {
         this.username = username;
     }
@@ -170,11 +168,6 @@ public class User implements Serializable {
         return signupDateTime;
     }
 
-    /**
-     * 设置
-     *
-     * @param signupDateTime
-     */
     public void setSignupDateTime(LocalDateTime signupDateTime) {
         this.signupDateTime = signupDateTime;
     }
@@ -188,11 +181,6 @@ public class User implements Serializable {
         return puzzleSteps;
     }
 
-    /**
-     * 设置
-     *
-     * @param puzzleSteps
-     */
     public void setPuzzleSteps(int puzzleSteps) {
         this.puzzleSteps = puzzleSteps;
     }
