@@ -162,7 +162,7 @@ public class PuzzleGame extends Initializer implements Border {
         if (lastBest == 0) lastBest = 99998;
         System.out.println("last record: " + lastBest);
         if (!temp.delete()) {
-            System.out.println(username + "数据删除失败，程序紧急中止！");
+            System.out.println(username + "数据删除失败，程序紧急中止！PuzzleGame-getData");
             System.exit(-1);
         }
     }

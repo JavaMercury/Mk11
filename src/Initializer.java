@@ -9,7 +9,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Random;
 
 public abstract class Initializer extends JFrame implements KeyListener, MouseListener {
@@ -135,18 +134,6 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         ReversedLinesFileReader rlf = new ReversedLinesFileReader(tempReversed, StandardCharsets.UTF_8);
         String lastLine = rlf.readLine();
         RandomAccessFile raf = new RandomAccessFile(temp, "rw");
-        if (lineLocation == 8) {
-            raf.setLength(raf.length() - lastLine.length());
-            raf.write(content.getBytes());
-            raf.close();
-            rlf.close();
-            if (!temp.delete()) {
-                System.out.println(username + "数据删除失败，程序紧急中止！Initializer-saveData-1");
-                System.exit(-1);
-            }
-            return;
-        }
-        rlf.close();
         ArrayList<Integer> lineBytes = new ArrayList<>();
         int totalBytes = 0;
         int b;
@@ -158,8 +145,26 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
                 raf.read();
             }
         }
-        String line;
+        System.out.println("array length: " + lineBytes.size());
         //lineLocation等于8说明此时要保存的是拼图小游戏的最佳记录，这时使用常规保存方法是会报错的，因为这是最后一行
+        if (lineLocation == 8) {
+            raf.setLength(raf.length() - lastLine.length());
+            System.out.println("length after delete: " + raf.length());
+            raf.seek(lineBytes.get(lineLocation - 1) + 1);
+            raf.write("-".getBytes());
+            raf.write(content.getBytes());
+            System.out.println("length after write: " + raf.length());
+            raf.close();
+            rlf.close();
+            encrypt(new File("Temp\\" + username));
+            if (!temp.delete()) {
+                System.out.println(username + "数据删除失败，程序紧急中止！Initializer-saveData-1");
+                System.exit(-1);
+            }
+            return;
+        }
+        rlf.close();
+        String line;
         //把要修改的数据以及后面的数据保存为临时文件
         raf.seek(lineBytes.get(lineLocation) + 1);
         File tempTemp = new File("Temp\\" + username + "Temp");
