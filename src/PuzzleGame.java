@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.*;
@@ -49,6 +51,16 @@ public class PuzzleGame extends Initializer implements Border {
     JButton successExitJB = new JButton("退出");
     JLabel countStepJL = new JLabel();
     boolean isReplay = false;
+    JLabel timerJL = new JLabel();
+    Timer timer = new Timer(1000, new ActionListener() {
+        private int time = 0;
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            time++;
+            timerJL.setText(String.format("%02d: %02d", time / 60, time % 60));
+        }
+    });
     private int MOVE_UP_LEFT_OR_Y = 1;
     private int MOVE_DOWN_RIGHT_OR_Y = -1;
     private int BOUNDS_UP_LEFT = 3;
@@ -285,6 +297,8 @@ public class PuzzleGame extends Initializer implements Border {
             return;
         }
         countStepJL.setBounds(50, 30, 100, 20);
+        timerJL.setBounds(500, 30, 80, 20);
+        con.add(timerJL);
         loadPuzzles();
         con.repaint();
         aboutJM.addKeyListener(this);
@@ -293,6 +307,7 @@ public class PuzzleGame extends Initializer implements Border {
         successExitJB.addMouseListener(this);
         successExitJB.setVisible(false);
         successReplayJB.setVisible(false);
+        timer.start();
     }
 
     ///加载拼图
