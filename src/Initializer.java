@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Random;
 
 public abstract class Initializer extends JFrame implements KeyListener, MouseListener {
     //数字字符-48为实际数字，大写字母-55
