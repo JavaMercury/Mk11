@@ -38,10 +38,13 @@ public class SignIn extends Initializer {
     private boolean signIn() throws IOException {
         getData(username);
         LocalDateTime currentLDT = LocalDateTime.now();
-        long span = ChronoUnit.DAYS.between(lastLDT, currentLDT);
-        if (span == 0) {
+        LocalDateTime todayMidnightLDT = LocalDateTime.of(currentLDT.getYear(), currentLDT.getMonth(), currentLDT.getDayOfMonth(), 0, 0, 0);
+        //签到从每天的0点刷新，判断用户两次尝试签到的时间间隔和本次尝试签到与0点的时间间隔的大小
+        long userSpan = ChronoUnit.MILLIS.between(lastLDT, currentLDT);
+        long signInSpan = ChronoUnit.MILLIS.between(todayMidnightLDT, currentLDT);
+        if (userSpan < signInSpan) {
             return false;
-        } else if (span == 1) {
+        } else if (userSpan > signInSpan && ChronoUnit.DAYS.between(lastLDT, currentLDT) == 1) {
             point += succession;
             succession++;
         } else {
