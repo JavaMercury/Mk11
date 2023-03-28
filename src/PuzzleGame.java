@@ -181,7 +181,7 @@ public class PuzzleGame extends Initializer implements Border {
     @Override
     void initJFrame() {
         setSize(603, 680);
-        setTitle("水银第十代 - 拼图小游戏");
+        setTitle("水银第11代 - 拼图小游戏");
         setIcon();
         setAlwaysOnTop(true);
         setLocationRelativeTo(null);
@@ -273,6 +273,8 @@ public class PuzzleGame extends Initializer implements Border {
             }
             loadPuzzles();
             con.repaint();
+            successReplayJB.setVisible(true);
+            successExitJB.setVisible(true);
             successReplayJB.setFocusable(true);
             successReplayJB.addKeyListener(this);
             File file = new File("Save\\PuzzleGameSave.txt");
@@ -280,6 +282,7 @@ public class PuzzleGame extends Initializer implements Border {
             if (file.exists()) {
                 file.delete();
             }
+            return;
         }
         countStepJL.setBounds(50, 30, 100, 20);
         loadPuzzles();
@@ -288,6 +291,8 @@ public class PuzzleGame extends Initializer implements Border {
         successReplayJB.addMouseListener(this);
         requestFocus();
         successExitJB.addMouseListener(this);
+        successExitJB.setVisible(false);
+        successReplayJB.setVisible(false);
     }
 
     ///加载拼图
@@ -350,6 +355,11 @@ public class PuzzleGame extends Initializer implements Border {
 
     @Override
     public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
         Object thing = e.getSource();
         if (thing == aboutJM) showAbout();
         else if (thing == replayJMI || thing == successReplayJB) {
@@ -366,8 +376,9 @@ public class PuzzleGame extends Initializer implements Border {
                     throw new RuntimeException(ex);
                 }
             }
+            System.out.println("exiting puzzle game...");
             setVisible(false);
-            new MainMenu(username);
+            new GamesMenu(username);
         } else if (thing == logoutJMI) {
             setVisible(false);
             new Login();
@@ -409,12 +420,7 @@ public class PuzzleGame extends Initializer implements Border {
             BOUNDS_UP_LEFT = 3;
             BOUNDS_DOWN_RIGHT = 0;
         }
-        if (mouseClickCount == 10) showHelp();
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
+        if (mouseClickCount == 3) showHelp();
     }
 
     @Override
@@ -516,7 +522,7 @@ public class PuzzleGame extends Initializer implements Border {
         }
         //官方开挂键，数字键盘“-”
         else if (code == 109) {
-            step = 99999;
+            step = 9999;
             data = new int[][]{
                     {1, 5, 9, 13},
                     {2, 6, 10, 14},

@@ -85,7 +85,7 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
         setLayout(null);
         setSize(640, 648);
         setIcon();
-        setTitle("水银第十代 质数判断器");
+        setTitle("水银第11代 质数判断器");
         setAlwaysOnTop(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
