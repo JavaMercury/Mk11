@@ -102,6 +102,11 @@ public class GamesMenu extends Initializer implements FocusListener {
 
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
         Object thing = mouseEvent.getSource();
         if (thing == aboutJM) showAbout();
         else if (thing == puzzleGameJB) {
@@ -115,11 +120,6 @@ public class GamesMenu extends Initializer implements FocusListener {
             setVisible(false);
             new BeatLordGame(username);
         }
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
     }
 
     @Override

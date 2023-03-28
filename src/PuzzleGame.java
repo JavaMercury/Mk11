@@ -48,6 +48,7 @@ public class PuzzleGame extends Initializer implements Border {
     JButton successReplayJB = new JButton("重玩");
     JButton successExitJB = new JButton("退出");
     JLabel countStepJL = new JLabel();
+    boolean isReplay = false;
     private int MOVE_UP_LEFT_OR_Y = 1;
     private int MOVE_DOWN_RIGHT_OR_Y = -1;
     private int BOUNDS_UP_LEFT = 3;
@@ -132,10 +133,11 @@ public class PuzzleGame extends Initializer implements Border {
     ///数据初始化，如果Save文件夹存在存档，则直接读取存档
     private void initData() throws IOException {
         File file = new File("Save\\PuzzleGameSave.txt");
-        if (file.exists()) {
+        if (!isReplay && file.exists()) {
             loadData();
             return;
         }
+        isReplay = true;
         Random r = new Random();
         int[] arrayTemp = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
         do {
@@ -179,7 +181,7 @@ public class PuzzleGame extends Initializer implements Border {
     @Override
     void initJFrame() {
         setSize(603, 680);
-        setTitle("水银第十代 - 拼图小游戏");
+        setTitle("水银第11代 - 拼图小游戏");
         setIcon();
         setAlwaysOnTop(true);
         setLocationRelativeTo(null);
@@ -226,6 +228,8 @@ public class PuzzleGame extends Initializer implements Border {
     void saveData() throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter("Save\\PuzzleGameSave.txt"));
         int newLineCount = 0;
+        bw.write(path);
+        bw.newLine();
         for (int[] datum : data) {
             for (int i : datum) {
                 bw.write((i + ""));
@@ -241,11 +245,13 @@ public class PuzzleGame extends Initializer implements Border {
     ///用户进入游戏时，如果Save文件夹中存在存档，则自动读取存档
     void loadData() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("Save\\PuzzleGameSave.txt"));
+        path = br.readLine();
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data.length; j++) {
                 data[i][j] = Integer.parseInt(br.readLine());
             }
         }
+        br.close();
     }
 
     ///内容初始化
@@ -267,6 +273,8 @@ public class PuzzleGame extends Initializer implements Border {
             }
             loadPuzzles();
             con.repaint();
+            successReplayJB.setVisible(true);
+            successExitJB.setVisible(true);
             successReplayJB.setFocusable(true);
             successReplayJB.addKeyListener(this);
             File file = new File("Save\\PuzzleGameSave.txt");
@@ -274,6 +282,7 @@ public class PuzzleGame extends Initializer implements Border {
             if (file.exists()) {
                 file.delete();
             }
+            return;
         }
         countStepJL.setBounds(50, 30, 100, 20);
         loadPuzzles();
@@ -282,6 +291,8 @@ public class PuzzleGame extends Initializer implements Border {
         successReplayJB.addMouseListener(this);
         requestFocus();
         successExitJB.addMouseListener(this);
+        successExitJB.setVisible(false);
+        successReplayJB.setVisible(false);
     }
 
     ///加载拼图
@@ -337,12 +348,18 @@ public class PuzzleGame extends Initializer implements Border {
     ///重玩
     void replay() throws IOException {
         step = 0;
+        isReplay = true;
         initData();
         initContent();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
         Object thing = e.getSource();
         if (thing == aboutJM) showAbout();
         else if (thing == replayJMI || thing == successReplayJB) {
@@ -359,8 +376,9 @@ public class PuzzleGame extends Initializer implements Border {
                     throw new RuntimeException(ex);
                 }
             }
+            System.out.println("exiting puzzle game...");
             setVisible(false);
-            new MainMenu(username);
+            new GamesMenu(username);
         } else if (thing == logoutJMI) {
             setVisible(false);
             new Login();
@@ -402,12 +420,7 @@ public class PuzzleGame extends Initializer implements Border {
             BOUNDS_UP_LEFT = 3;
             BOUNDS_DOWN_RIGHT = 0;
         }
-        if (mouseClickCount == 10) showHelp();
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
+        if (mouseClickCount == 3) showHelp();
     }
 
     @Override
@@ -509,7 +522,7 @@ public class PuzzleGame extends Initializer implements Border {
         }
         //官方开挂键，数字键盘“-”
         else if (code == 109) {
-            step = 99999;
+            step = 9999;
             data = new int[][]{
                     {1, 5, 9, 13},
                     {2, 6, 10, 14},
