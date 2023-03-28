@@ -48,6 +48,7 @@ public class PuzzleGame extends Initializer implements Border {
     JButton successReplayJB = new JButton("重玩");
     JButton successExitJB = new JButton("退出");
     JLabel countStepJL = new JLabel();
+    boolean isReplay = false;
     private int MOVE_UP_LEFT_OR_Y = 1;
     private int MOVE_DOWN_RIGHT_OR_Y = -1;
     private int BOUNDS_UP_LEFT = 3;
@@ -132,10 +133,11 @@ public class PuzzleGame extends Initializer implements Border {
     ///数据初始化，如果Save文件夹存在存档，则直接读取存档
     private void initData() throws IOException {
         File file = new File("Save\\PuzzleGameSave.txt");
-        if (file.exists()) {
+        if (!isReplay && file.exists()) {
             loadData();
             return;
         }
+        isReplay = true;
         Random r = new Random();
         int[] arrayTemp = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
         do {
@@ -226,6 +228,8 @@ public class PuzzleGame extends Initializer implements Border {
     void saveData() throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter("Save\\PuzzleGameSave.txt"));
         int newLineCount = 0;
+        bw.write(path);
+        bw.newLine();
         for (int[] datum : data) {
             for (int i : datum) {
                 bw.write((i + ""));
@@ -241,11 +245,13 @@ public class PuzzleGame extends Initializer implements Border {
     ///用户进入游戏时，如果Save文件夹中存在存档，则自动读取存档
     void loadData() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("Save\\PuzzleGameSave.txt"));
+        path = br.readLine();
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data.length; j++) {
                 data[i][j] = Integer.parseInt(br.readLine());
             }
         }
+        br.close();
     }
 
     ///内容初始化
@@ -337,6 +343,7 @@ public class PuzzleGame extends Initializer implements Border {
     ///重玩
     void replay() throws IOException {
         step = 0;
+        isReplay = true;
         initData();
         initContent();
     }
