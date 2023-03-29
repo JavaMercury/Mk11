@@ -257,7 +257,8 @@ public class Signup extends Initializer {
      * 连续签到天数
      * 上次签到时间
      * 注册时间
-     * 拼图小游戏最佳纪录*/
+     * 拼图小游戏最佳时间
+     * 拼图小游戏最佳步数*/
     void saveData() throws IOException {
         File temp = new File("Temp\\" + username);
         LocalDateTime signupLDT = LocalDateTime.now();
@@ -282,7 +283,6 @@ public class Signup extends Initializer {
         bw.newLine();
         //这个杠是一个标注，在签到时，程序会使用最后一行比对数据，如果不加标注，这一行可能会和上面的一些内容重复
         bw.write("-0");
-        library.add(new User(username, password, phoneNumber, 0, 1, 0, lastLDT, signupLDT, 0, 0));
         bw.close();
         encrypt(new File("Temp\\" + username));
         if (!temp.delete()) {

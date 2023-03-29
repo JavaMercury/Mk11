@@ -9,13 +9,10 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 
 public abstract class Initializer extends JFrame implements KeyListener, MouseListener {
     //数字字符-48为实际数字，大写字母-55
 
-    //创建集合，存储用户信息
-    static HashSet<User> library = new HashSet<>();
     //默认的上次签到时间，用于用户第一次签到
     static LocalDateTime lastLDT = LocalDateTime.of(2020, 3, 24, 0, 0, 0);
 

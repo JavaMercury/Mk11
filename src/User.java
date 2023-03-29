@@ -83,8 +83,6 @@ public class User implements Serializable {
 
     /**
      * 设置
-     *
-     * @param phoneNumber
      */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
@@ -101,8 +99,6 @@ public class User implements Serializable {
 
     /**
      * 设置
-     *
-     * @param point
      */
     public void setPoint(int point) {
         this.point = point;
@@ -119,8 +115,6 @@ public class User implements Serializable {
 
     /**
      * 设置
-     *
-     * @param level
      */
     public void setLevel(int level) {
         this.level = level;
@@ -137,8 +131,6 @@ public class User implements Serializable {
 
     /**
      * 设置
-     *
-     * @param succession
      */
     public void setSuccession(int succession) {
         this.succession = succession;
@@ -155,8 +147,6 @@ public class User implements Serializable {
 
     /**
      * 设置
-     *
-     * @param lastLDT
      */
     public void setLastLDT(LocalDateTime lastLDT) {
         this.lastLDT = lastLDT;
@@ -194,6 +184,7 @@ public class User implements Serializable {
 
     /**
      * 获取
+     *
      * @return puzzleTime
      */
     public int getPuzzleTime() {
@@ -202,7 +193,6 @@ public class User implements Serializable {
 
     /**
      * 设置
-     * @param puzzleTime
      */
     public void setPuzzleTime(int puzzleTime) {
         this.puzzleTime = puzzleTime;
