@@ -141,6 +141,7 @@ public class Login extends Initializer {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+            //测试用快速登录键，需要提前注册好"aperture"账号，否则会出问题
         } else if (code == 109) {
             setVisible(false);
             new MainMenu("aperture");

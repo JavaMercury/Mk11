@@ -4,8 +4,6 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.*;
@@ -21,8 +19,10 @@ public class PuzzleGame extends Initializer implements Border {
     //空白方块在二维数组中的位置
     static int x = 0;
     static int y = 0;
-    //用户之前的最佳通关记录
-    int lastBest;
+    //用户之前的最佳通关时间
+    int lastBestTime;
+    //用户之前的最佳通关步数
+    int lastBestStep;
     int mouseClickCount = 0;
     //记录用户操作的步数
     int step = 0;
@@ -52,15 +52,13 @@ public class PuzzleGame extends Initializer implements Border {
     JLabel countStepJL = new JLabel();
     boolean isReplay = false;
     JLabel timerJL = new JLabel();
-    Timer timer = new Timer(1000, new ActionListener() {
-        private int time = 0;
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            time++;
-            timerJL.setText(String.format("%02d: %02d", time / 60, time % 60));
-        }
+    int time = 0;
+    Timer timer = new Timer(1000, e -> {
+        time++;
+        timerJL.setText(String.format("%02d: %02d", time / 60, time % 60));
     });
+    JLabel startJL = new JLabel("按下空格键开始");
+    boolean isStart = false;
     private int MOVE_UP_LEFT_OR_Y = 1;
     private int MOVE_DOWN_RIGHT_OR_Y = -1;
     private int BOUNDS_UP_LEFT = 3;
@@ -169,15 +167,17 @@ public class PuzzleGame extends Initializer implements Border {
         } while (!isPlayable());
     }
 
-    ///获取用户数据。在这里指的是用户通关后获取之前通关的最佳步数
+    ///获取用户数据。在这里指的是用户通关后获取之前通关的最佳时间以及最佳步数
     void getData(String username) throws IOException {
         File file = new File("User\\" + username);
         decrypt(file, username);
         File temp = new File("Temp\\" + username);
-        ReversedLinesFileReader rlf = new ReversedLinesFileReader(temp, StandardCharsets.UTF_8);
-        lastBest = Integer.parseInt(rlf.readLine().substring(1));
-        rlf.close();
-        if (lastBest == 0) lastBest = 99999;
+        ReversedLinesFileReader rlfr = new ReversedLinesFileReader(temp, StandardCharsets.UTF_8);
+        lastBestStep = Integer.parseInt(rlfr.readLine().substring(1));
+        lastBestTime = Integer.parseInt(rlfr.readLine());
+        rlfr.close();
+        if (lastBestStep == 0) lastBestStep = 99999;
+        if (lastBestTime == 0) lastBestTime = 3599;
         if (!temp.delete()) {
             System.out.println(username + "数据删除失败，程序紧急中止！PuzzleGame-getData");
             System.exit(-1);
@@ -238,9 +238,14 @@ public class PuzzleGame extends Initializer implements Border {
 
     ///用户退出游戏时，若游戏未完成，则保存数据至Save文件夹下的PuzzleGameSave.txt中
     void saveData() throws IOException {
+        timer.stop();
         BufferedWriter bw = new BufferedWriter(new FileWriter("Save\\PuzzleGameSave.txt"));
         int newLineCount = 0;
         bw.write(path);
+        bw.newLine();
+        bw.write(time + "");
+        bw.newLine();
+        bw.write(step + "");
         bw.newLine();
         for (int[] datum : data) {
             for (int i : datum) {
@@ -258,6 +263,8 @@ public class PuzzleGame extends Initializer implements Border {
     void loadData() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("Save\\PuzzleGameSave.txt"));
         path = br.readLine();
+        time = Integer.parseInt(br.readLine());
+        step = Integer.parseInt(br.readLine());
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data.length; j++) {
                 data[i][j] = Integer.parseInt(br.readLine());
@@ -269,8 +276,14 @@ public class PuzzleGame extends Initializer implements Border {
     ///内容初始化
     @Override
     void initContent() throws IOException {
+        timerJL.setText(String.format("%02d: %02d", time / 60, time % 60));
         con.removeAll();
+        con.add(startJL);
+        startJL.setBounds(182, 292, 219, 50);
+        startJL.setOpaque(true);
+        startJL.setBackground(Color.WHITE);
         if (victory()) {
+            timer.stop();
             JLabel victoryJL = new JLabel(new ImageIcon("image\\win.png"));
             victoryJL.setBounds(203, 283, 197, 73);
             successReplayJB.setBounds(235, 380, 60, 30);
@@ -280,8 +293,11 @@ public class PuzzleGame extends Initializer implements Border {
             con.add(victoryJL);
             getData(username);
             //获取用户上次的记录，若这次破纪录了，则更新数据
-            if (step != 99999 && step < lastBest) {
-                saveData(step + "", 8);
+            if (step != 99999 && step < lastBestStep) {
+                saveData(step + "", 9);
+            }
+            if (time != 99999 && time < lastBestTime) {
+                saveData(time + "", 8);
             }
             loadPuzzles();
             con.repaint();
@@ -307,7 +323,8 @@ public class PuzzleGame extends Initializer implements Border {
         successExitJB.addMouseListener(this);
         successExitJB.setVisible(false);
         successReplayJB.setVisible(false);
-        timer.start();
+        startJL.setFont(new Font(null, Font.BOLD, 30));
+
     }
 
     ///加载拼图
@@ -362,6 +379,7 @@ public class PuzzleGame extends Initializer implements Border {
 
     ///重玩
     void replay() throws IOException {
+        time = 0;
         step = 0;
         isReplay = true;
         initData();
@@ -477,90 +495,98 @@ public class PuzzleGame extends Initializer implements Border {
     ///用户键盘操作
     @Override
     public void keyReleased(KeyEvent e) {
-        //左 37, 上 38, 右 39, 下 40, W 87, A 65, S 83, D 68, Esc 27, Enter 10, 小- 109, ctrl 17, G 71, H 72
+        //左 37, 上 38, 右 39, 下 40, W 87, A 65, S 83, D 68, Esc 27, Enter 10, 小- 109, ctrl 17, G 71, H 72, 空格 32
         if (victory()) return;
         int code = e.getKeyCode();
-        if (code == 37 || code == 65) {
-            if (x != BOUNDS_UP_LEFT) {
-                step++;
-                data[x][y] = data[x + MOVE_UP_LEFT_OR_Y][y];
-                data[x + MOVE_UP_LEFT_OR_Y][y] = 0;
-                x += MOVE_UP_LEFT_OR_Y;
-                try {
-                    initContent();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        } else if (code == 38 || code == 87) {
-            if (y != BOUNDS_UP_LEFT) {
-                step++;
-                data[x][y] = data[x][y + MOVE_UP_LEFT_OR_Y];
-                data[x][y + MOVE_UP_LEFT_OR_Y] = 0;
-                y += MOVE_UP_LEFT_OR_Y;
-                try {
-                    initContent();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        } else if (code == 39 || code == 68) {
-            if (x != BOUNDS_DOWN_RIGHT) {
-                step++;
-                data[x][y] = data[x + MOVE_DOWN_RIGHT_OR_Y][y];
-                data[x + MOVE_DOWN_RIGHT_OR_Y][y] = 0;
-                x += MOVE_DOWN_RIGHT_OR_Y;
-                try {
-                    initContent();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        } else if (code == 40 || code == 83) {
-            if (y != BOUNDS_DOWN_RIGHT) {
-                step++;
-                data[x][y] = data[x][y + MOVE_DOWN_RIGHT_OR_Y];
-                data[x][y + MOVE_DOWN_RIGHT_OR_Y] = 0;
-                y += MOVE_DOWN_RIGHT_OR_Y;
-                try {
-                    initContent();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            }
-        } else if (code == 17) {
-            try {
-                initContent();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+        if (code == 32) {
+            isStart = true;
+            startJL.setVisible(false);
+            timer.start();
         }
-        //官方开挂键，数字键盘“-”
-        else if (code == 109) {
-            step = 9999;
-            data = new int[][]{
-                    {1, 5, 9, 13},
-                    {2, 6, 10, 14},
-                    {3, 7, 11, 15},
-                    {4, 8, 12, 0}
-            };
-            try {
-                initContent();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        } else if (code == 27) {
-            if (!victory()) {
+        if (isStart) {
+            if (code == 37 || code == 65) {
+                if (x != BOUNDS_UP_LEFT) {
+                    step++;
+                    data[x][y] = data[x + MOVE_UP_LEFT_OR_Y][y];
+                    data[x + MOVE_UP_LEFT_OR_Y][y] = 0;
+                    x += MOVE_UP_LEFT_OR_Y;
+                    try {
+                        initContent();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            } else if (code == 38 || code == 87) {
+                if (y != BOUNDS_UP_LEFT) {
+                    step++;
+                    data[x][y] = data[x][y + MOVE_UP_LEFT_OR_Y];
+                    data[x][y + MOVE_UP_LEFT_OR_Y] = 0;
+                    y += MOVE_UP_LEFT_OR_Y;
+                    try {
+                        initContent();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            } else if (code == 39 || code == 68) {
+                if (x != BOUNDS_DOWN_RIGHT) {
+                    step++;
+                    data[x][y] = data[x + MOVE_DOWN_RIGHT_OR_Y][y];
+                    data[x + MOVE_DOWN_RIGHT_OR_Y][y] = 0;
+                    x += MOVE_DOWN_RIGHT_OR_Y;
+                    try {
+                        initContent();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            } else if (code == 40 || code == 83) {
+                if (y != BOUNDS_DOWN_RIGHT) {
+                    step++;
+                    data[x][y] = data[x][y + MOVE_DOWN_RIGHT_OR_Y];
+                    data[x][y + MOVE_DOWN_RIGHT_OR_Y] = 0;
+                    y += MOVE_DOWN_RIGHT_OR_Y;
+                    try {
+                        initContent();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            } else if (code == 17) {
                 try {
-                    saveData();
+                    initContent();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
             }
-            setVisible(false);
-            new GamesMenu(username);
-        } else if (code == 71) showAbout();
-        else if (code == 72) showHelp();
+            //官方开挂键，数字键盘“-”
+            else if (code == 109) {
+                step = 99999;
+                time = 3599;
+                data = new int[][]{
+                        {1, 5, 9, 13},
+                        {2, 6, 10, 14},
+                        {3, 7, 11, 15},
+                        {4, 8, 12, 0}
+                };
+                try {
+                    initContent();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            } else if (code == 27) {
+                if (!victory()) {
+                    try {
+                        saveData();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+                setVisible(false);
+                new GamesMenu(username);
+            } else if (code == 71) showAbout();
+            else if (code == 72) showHelp();
+        }
     }
 
     @Override

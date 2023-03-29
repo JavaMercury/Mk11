@@ -18,7 +18,9 @@ public class User implements Serializable {
     //上次签到时间
     private LocalDateTime lastLDT;
     //签到时间
-    private LocalDateTime signupDateTime;
+    private LocalDateTime signupLDT;
+    //拼图小游戏通关最佳时间，初始为0
+    private int puzzleTime;
     //拼图小游戏通关最佳步数，初始为0
     private int puzzleSteps;
 
@@ -26,7 +28,7 @@ public class User implements Serializable {
 
     }
 
-    public User(String username, String password, String phoneNumber, int point, int level, int succession, LocalDateTime lastLDT, LocalDateTime signupDateTime, int puzzleSteps) {
+    public User(String username, String password, String phoneNumber, int point, int level, int succession, LocalDateTime lastLDT, LocalDateTime signupLDT, int puzzleTime, int puzzleSteps) {
         this.username = username;
         this.password = password;
         this.phoneNumber = phoneNumber;
@@ -34,7 +36,8 @@ public class User implements Serializable {
         this.level = level;
         this.succession = succession;
         this.lastLDT = lastLDT;
-        this.signupDateTime = signupDateTime;
+        this.signupLDT = signupLDT;
+        this.puzzleTime = puzzleTime;
         this.puzzleSteps = puzzleSteps;
     }
 
@@ -164,12 +167,12 @@ public class User implements Serializable {
      *
      * @return signupDateTime
      */
-    public LocalDateTime getSignupDateTime() {
-        return signupDateTime;
+    public LocalDateTime getSignupLDT() {
+        return signupLDT;
     }
 
-    public void setSignupDateTime(LocalDateTime signupDateTime) {
-        this.signupDateTime = signupDateTime;
+    public void setSignupLDT(LocalDateTime signupLDT) {
+        this.signupLDT = signupLDT;
     }
 
     /**
@@ -186,6 +189,22 @@ public class User implements Serializable {
     }
 
     public String toString() {
-        return "User{username = " + username + ", password = " + password + ", phoneNumber = " + phoneNumber + ", point = " + point + ", level = " + level + ", succession = " + succession + ", lastLDT = " + lastLDT + ", signupDateTime = " + signupDateTime + ", puzzleSteps = " + puzzleSteps + "}";
+        return "User{username = " + username + ", password = " + password + ", phoneNumber = " + phoneNumber + ", point = " + point + ", level = " + level + ", succession = " + succession + ", lastLDT = " + lastLDT + ", signupDateTime = " + signupLDT + ", puzzleSteps = " + puzzleSteps + "}";
+    }
+
+    /**
+     * 获取
+     * @return puzzleTime
+     */
+    public int getPuzzleTime() {
+        return puzzleTime;
+    }
+
+    /**
+     * 设置
+     * @param puzzleTime
+     */
+    public void setPuzzleTime(int puzzleTime) {
+        this.puzzleTime = puzzleTime;
     }
 }
