@@ -19,7 +19,6 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
     JLabel resultJL = new JLabel();
     String stateOne = "1既不是质数也不是合数";
     JLabel hintJL = new JLabel("判断质数，并给出合数的所有因子");
-    JScrollPane jsp = new JScrollPane(resultJL, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
     CheckPrimeNumber() {
         setResizable(false);
@@ -112,11 +111,10 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
         inputJTF.setBounds(100, 100, 200, 30);
         submitJB.setBounds(100, 200, 70, 30);
         invalidInputWarningJL.setBounds(100, 130, 200, 50);
-        resultJL.setBounds(100, 300, 200, 100);
+        resultJL.setBounds(100, 200, 640, 300);
         submitJB.addMouseListener(this);
         inputJTF.addFocusListener(this);
         invalidInputWarningJL.setVisible(false);
-//        resultJL.setVisible(false);
         inputJTF.setText("请输入一个正整数");
         con.add(inputJTF);
         con.add(submitJB);
@@ -133,9 +131,6 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
         hintJL.setBounds(100, 70, 200, 30);
         con.add(hintJL);
         aboutJM.addKeyListener(this);
-        jsp.setPreferredSize(new Dimension(200, 100));
-        con.add(jsp);
-//        pack();
     }
 
     @Override
