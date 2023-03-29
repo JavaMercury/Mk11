@@ -73,12 +73,16 @@ public class Profile extends Initializer {
         String succession = br.readLine();
         String lastSignInTime = LocalDateTime.parse(br.readLine()).format(DateTimeFormatter.ofPattern("yyyy年MM月dd日hh点mm分ss秒"));
         String signupTime = LocalDateTime.parse(br.readLine()).format(DateTimeFormatter.ofPattern("yyyy年MM月dd日hh点mm分ss秒"));
-        String puzzleGameRecord = br.readLine().substring(1) + "步";
+        String puzzleGameTimeRecord = br.readLine() + "秒";
+        String puzzleGameStepRecord = br.readLine().substring(1) + "步";
         if (lastSignInTime.equals("2020年03月24日12点00分00秒")) {
             lastSignInTime = "暂无，快去签到吧！";
         }
-        if (puzzleGameRecord.equals("0步")) {
-            puzzleGameRecord = "暂无，快去通关吧！";
+        if (puzzleGameStepRecord.equals("0步")) {
+            puzzleGameStepRecord = "暂无，快去通关吧！";
+        }
+        if (puzzleGameTimeRecord.equals("0秒")) {
+            puzzleGameTimeRecord = "暂无，快去通关吧！";
         }
         profileJL.setText("<html>用户名：" + username + "<br />" +
                 "手机号码：" + phoneNumber + "<br />" +
@@ -87,8 +91,9 @@ public class Profile extends Initializer {
                 "连续签到天数：" + succession + "<br />" +
                 "上次签到时间：" + lastSignInTime + "<br />" +
                 "注册时间：" + signupTime + "<br />" +
-                "拼图小游戏最佳记录：" + puzzleGameRecord);
-        changePhoneNumberJL.setBounds(190, 132, 26, 16);
+                "拼图小游戏最佳时间：" + puzzleGameTimeRecord + "<br />" +
+                "拼图小游戏最佳步数：" + puzzleGameStepRecord);
+        changePhoneNumberJL.setBounds(190, 124, 26, 16);
         changePhoneNumberJL.addMouseListener(this);
         changePhoneNumberJL.setForeground(Color.BLUE);
         con.add(changePhoneNumberJL);

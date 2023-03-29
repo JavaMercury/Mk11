@@ -22,7 +22,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     //所有子类图形的统一getContentPane方法
     Container con = getContentPane();
     JMenu aboutJM = new JMenu("关于(G)");
-    String version = "水银第11代 0.11.17.20230328";
+    String version = "水银第11代 0.11.18.20230329";
     String username;
     String password;
     JDialog aboutJD = new JDialog();
@@ -134,8 +134,8 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
                 raf.read();
             }
         }
-        //lineLocation等于8说明此时要保存的是拼图小游戏的最佳记录，这时使用常规保存方法是会报错的，因为这是最后一行
-        if (lineLocation == 8) {
+        //lineLocation等于9说明此时要保存的是拼图小游戏的最佳记录，这时使用常规保存方法是会报错的，因为这是最后一行
+        if (lineLocation == 9) {
             raf.setLength(raf.length() - lastLine.length());
             raf.seek(lineBytes.get(lineLocation - 1) + 1);
             raf.write("-".getBytes());
