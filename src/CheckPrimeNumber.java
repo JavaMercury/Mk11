@@ -70,7 +70,6 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
             }
         }
         resultJL.setText(result.toString());
-//        resultJL.setVisible(true);
     }
 
     @Override
