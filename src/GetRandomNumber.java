@@ -69,7 +69,7 @@ public class GetRandomNumber extends Initializer implements FocusListener {
         setLayout(null);
         setSize(640, 648);
         setIcon();
-        setTitle("水银第十代 随机数生成器");
+        setTitle("随机数生成器");
         setAlwaysOnTop(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

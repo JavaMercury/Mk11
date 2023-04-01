@@ -193,7 +193,7 @@ public class PuzzleGame extends Initializer implements Border {
     @Override
     void initJFrame() {
         setSize(603, 680);
-        setTitle("水银第11代 - 拼图小游戏");
+        setTitle("拼图小游戏");
         setIcon();
         setAlwaysOnTop(true);
         setLocationRelativeTo(null);

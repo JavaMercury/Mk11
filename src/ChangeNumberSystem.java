@@ -77,7 +77,7 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
     void initJFrame() {
         setLayout(null);
         setSize(636, 722);
-        setTitle("水银第十代 进制转换器");
+        setTitle("进制转换器");
         setIcon();
         setAlwaysOnTop(true);
         setLocationRelativeTo(null);

@@ -65,7 +65,7 @@ public class Signup extends Initializer {
     void initJFrame() {
         setLayout(null);
         setSize(560, 648);
-        setTitle("水银第十代 注册");
+        setTitle("注册");
         setIcon();
         setAlwaysOnTop(true);
         setLocationRelativeTo(null);

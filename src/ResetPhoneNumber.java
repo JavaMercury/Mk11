@@ -37,7 +37,7 @@ public class ResetPhoneNumber extends Initializer {
     void initJFrame() {
         setLayout(null);
         setSize(640, 648);
-        setTitle("水银第十代 重设手机号码");
+        setTitle("重设手机号码");
         setIcon();
         setAlwaysOnTop(true);
         setLocationRelativeTo(null);

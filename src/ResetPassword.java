@@ -39,7 +39,7 @@ public class ResetPassword extends Initializer {
     void initJFrame() {
         setLayout(null);
         setSize(640, 648);
-        setTitle("水银第十代 重设密码");
+        setTitle("重设密码");
         setIcon();
         setAlwaysOnTop(true);
         setLocationRelativeTo(null);
