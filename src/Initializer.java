@@ -10,10 +10,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 
+//数字字符-48为实际数字，大写字母-55
+
 public abstract class Initializer extends JFrame implements KeyListener, MouseListener {
     //默认的上次签到时间，用于用户第一次签到
     static LocalDateTime lastLDT = LocalDateTime.of(2020, 3, 24, 0, 0, 0);
-    //数字字符-48为实际数字，大写字母-55
+    //此字符串代表用户启动程序后的实际文件夹位置
     String dir = System.getProperty("user.dir") + "\\";
     //所有子类图形的统一getContentPane方法
     Container con = getContentPane();
