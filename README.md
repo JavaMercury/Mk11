@@ -1,4 +1,8 @@
 # Mk11
+www.github.com/JavaMercury
+apermesa@qq.com
+QQ交流群：418939339
+
 这是我拿来练习Java的一个项目，目前只有我一个人。
 此项目旨在尽可能地运用我所有学过的Java知识，并且尽可能地为用户提供价值。
 此项目目前使用JFrame制作图形化界面。我正在考虑Web和JavaFX。
