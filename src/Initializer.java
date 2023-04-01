@@ -11,11 +11,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public abstract class Initializer extends JFrame implements KeyListener, MouseListener {
-    //数字字符-48为实际数字，大写字母-55
-
     //默认的上次签到时间，用于用户第一次签到
     static LocalDateTime lastLDT = LocalDateTime.of(2020, 3, 24, 0, 0, 0);
-
+    //数字字符-48为实际数字，大写字母-55
+    String dir = System.getProperty("user.dir") + "\\";
     //所有子类图形的统一getContentPane方法
     Container con = getContentPane();
     JMenu aboutJM = new JMenu("关于(G)");
@@ -81,9 +80,9 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
 
     ///判断手机号码是否重复
     public boolean checkSamePhoneNumber(String username, String phoneNumber) throws IOException {
-        File file = new File("User\\" + username);
+        File file = new File(dir + "User\\" + username);
         decrypt(file, username);
-        File temp = new File("Temp\\" + username);
+        File temp = new File(dir + "Temp\\" + username);
         BufferedReader br = new BufferedReader(new FileReader(temp));
         br.readLine();
         br.readLine();
@@ -98,9 +97,9 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
 
     ///判断密码是否重复
     public boolean checkSamePassword(String username, String password) throws IOException {
-        File file = new File("User\\" + username);
+        File file = new File(dir + "User\\" + username);
         decrypt(file, username);
-        File temp = new File("Temp\\" + username);
+        File temp = new File(dir + "Temp\\" + username);
         BufferedReader br = new BufferedReader(new FileReader(temp));
         br.readLine();
         boolean result = password.equals(br.readLine());
@@ -113,10 +112,10 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     }
 
     void saveData(String content, int lineLocation) throws IOException {
-        File file = new File("User\\" + username);
-        File temp = new File("Temp\\" + username);
+        File file = new File(dir + "User\\" + username);
+        File temp = new File(dir + "Temp\\" + username);
         decrypt(file, username);
-        File tempReversed = new File("Temp\\" + username);
+        File tempReversed = new File(dir + "Temp\\" + username);
         ReversedLinesFileReader rlf = new ReversedLinesFileReader(tempReversed, StandardCharsets.UTF_8);
         String lastLine = rlf.readLine();
         RandomAccessFile raf = new RandomAccessFile(temp, "rw");
@@ -139,7 +138,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
             raf.write(content.getBytes());
             raf.close();
             rlf.close();
-            encrypt(new File("Temp\\" + username));
+            encrypt(new File(dir + "Temp\\" + username));
             if (!temp.delete()) {
                 System.out.println(username + "数据删除失败，程序紧急中止！Initializer-saveData-1");
                 System.exit(-1);
@@ -150,7 +149,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         String line;
         //把要修改的数据以及后面的数据保存为临时文件
         raf.seek(lineBytes.get(lineLocation) + 1);
-        File tempTemp = new File("Temp\\" + username + "Temp");
+        File tempTemp = new File(dir + "Temp\\" + username + "Temp");
         BufferedReader br = new BufferedReader(new FileReader(raf.getFD()));
         BufferedWriter bw = new BufferedWriter(new FileWriter(tempTemp));
         bw.write(content);
@@ -177,7 +176,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         brTemp.close();
         br.close();
         raf.close();
-        encrypt(new File("Temp\\" + username));
+        encrypt(new File(dir + "Temp\\" + username));
         if (!tempTemp.delete()) {
             System.out.println(username + "临时数据删除失败，程序紧急中止！Initializer-saveData-2");
             System.exit(-1);
@@ -196,7 +195,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         BufferedReader br = null;
         File temp = null;
         for (File file : files) {
-            temp = new File("Temp\\" + file.getName());
+            temp = new File(dir + "Temp\\" + file.getName());
             decrypt(file, file.getName());
             br = new BufferedReader(new FileReader(temp));
             br.readLine();
@@ -221,7 +220,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     ///使用异或运算进行加密
     public void encrypt(File src) throws IOException {
         FileInputStream fis = new FileInputStream(src);
-        FileOutputStream fos = new FileOutputStream("User\\" + username);
+        FileOutputStream fos = new FileOutputStream(dir + "User\\" + username);
         int b;
         while ((b = fis.read()) != -1) fos.write(b ^ 114514);
         fos.close();
@@ -231,7 +230,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     ///使用异或运算进行解密
     public void decrypt(File src, String fileName) throws IOException {
         FileInputStream fis = new FileInputStream(src);
-        FileOutputStream fos = new FileOutputStream("Temp\\" + fileName);
+        FileOutputStream fos = new FileOutputStream(dir + "Temp\\" + fileName);
         int b;
         while ((b = fis.read()) != -1) fos.write(b ^ 114514);
         fos.close();

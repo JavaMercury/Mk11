@@ -142,7 +142,7 @@ public class PuzzleGame extends Initializer implements Border {
 
     ///数据初始化，如果Save文件夹存在存档，则直接读取存档
     private void initData() throws IOException {
-        File file = new File("Save\\PuzzleGameSave.txt");
+        File file = new File(dir + "Save\\PuzzleGameSave.txt");
         if (!isReplay && file.exists()) {
             loadData();
             return;
@@ -169,9 +169,9 @@ public class PuzzleGame extends Initializer implements Border {
 
     ///获取用户数据。在这里指的是用户通关后获取之前通关的最佳时间以及最佳步数
     void getData(String username) throws IOException {
-        File file = new File("User\\" + username);
+        File file = new File(dir + "User\\" + username);
         decrypt(file, username);
-        File temp = new File("Temp\\" + username);
+        File temp = new File(dir + "Temp\\" + username);
         ReversedLinesFileReader rlfr = new ReversedLinesFileReader(temp, StandardCharsets.UTF_8);
         lastBestStep = Integer.parseInt(rlfr.readLine().substring(1));
         lastBestTime = Integer.parseInt(rlfr.readLine());
@@ -239,7 +239,7 @@ public class PuzzleGame extends Initializer implements Border {
     ///用户退出游戏时，若游戏未完成，则保存数据至Save文件夹下的PuzzleGameSave.txt中
     void saveData() throws IOException {
         timer.stop();
-        BufferedWriter bw = new BufferedWriter(new FileWriter("Save\\PuzzleGameSave.txt"));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(dir + "Save\\PuzzleGameSave.txt"));
         int newLineCount = 0;
         bw.write(path);
         bw.newLine();
@@ -261,7 +261,7 @@ public class PuzzleGame extends Initializer implements Border {
 
     ///用户进入游戏时，如果Save文件夹中存在存档，则自动读取存档
     void loadData() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("Save\\PuzzleGameSave.txt"));
+        BufferedReader br = new BufferedReader(new FileReader(dir + "Save\\PuzzleGameSave.txt"));
         path = br.readLine();
         time = Integer.parseInt(br.readLine());
         step = Integer.parseInt(br.readLine());
@@ -305,7 +305,7 @@ public class PuzzleGame extends Initializer implements Border {
             successExitJB.setVisible(true);
             successReplayJB.setFocusable(true);
             successReplayJB.addKeyListener(this);
-            File file = new File("Save\\PuzzleGameSave.txt");
+            File file = new File(dir + "Save\\PuzzleGameSave.txt");
             //通关后，删除之前的游戏存档
             if (file.exists()) {
                 file.delete();

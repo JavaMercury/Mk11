@@ -61,9 +61,9 @@ public class Profile extends Initializer {
         backJB.addKeyListener(this);
         con.add(backJB);
         profileJL.setBounds(50, 0, 356, 360);
-        File file = new File("User\\" + username);
+        File file = new File(dir + "User\\" + username);
         decrypt(file, username);
-        File temp = new File("Temp\\" + username);
+        File temp = new File(dir + "Temp\\" + username);
         BufferedReader br = new BufferedReader(new FileReader(temp));
         br.readLine();
         br.readLine();

@@ -62,9 +62,9 @@ public class SignIn extends Initializer {
 
     ///获取用户数据：积分，连续签到天数，上次签到时间，也就是索引3，5，6。等级无需获取，由积分计算产生。
     void getData(String username) throws IOException {
-        File file = new File("User\\" + username);
+        File file = new File(dir + "User\\" + username);
         decrypt(file, username);
-        File temp = new File("Temp\\" + username);
+        File temp = new File(dir + "Temp\\" + username);
         BufferedReader br = new BufferedReader(new FileReader(temp));
         br.readLine();
         br.readLine();

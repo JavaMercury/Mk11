@@ -39,8 +39,8 @@ public class Login extends Initializer {
     ///登录检验
     public boolean check() throws IOException {
         if (checkUserExist(username)) {
-            decrypt(new File("User\\" + username), username);
-            File userTemp = new File("Temp\\" + username);
+            decrypt(new File(dir + "User\\" + username), username);
+            File userTemp = new File(dir + "Temp\\" + username);
             BufferedReader br = new BufferedReader(new FileReader(userTemp));
             br.readLine();
             boolean result = password.equals(br.readLine());
@@ -79,9 +79,9 @@ public class Login extends Initializer {
     @Override
     void initContent() {
         //创建User文件夹和Temp文件夹以及Save文件夹，用于以后的文件操作
-        new File("User").mkdirs();
-        new File("Temp").mkdirs();
-        new File("Save").mkdirs();
+        new File(dir + "User").mkdirs();
+        new File(dir + "Temp").mkdirs();
+        new File(dir + "Save").mkdirs();
         aboutJM.setText("关于");
         con.setBackground(Color.WHITE);
         usernameJTF.setBounds(100, 70, 340, 30);

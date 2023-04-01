@@ -260,7 +260,7 @@ public class Signup extends Initializer {
      * 拼图小游戏最佳时间
      * 拼图小游戏最佳步数*/
     void saveData() throws IOException {
-        File temp = new File("Temp\\" + username);
+        File temp = new File(dir + "\\Temp\\" + username);
         LocalDateTime signupLDT = LocalDateTime.now();
         BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
         bw.write(username);
