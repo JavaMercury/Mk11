@@ -11,7 +11,6 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
 
     JMenu propertiesJM = new JMenu("选项");
     JMenuItem exitJMI = new JMenuItem("退出质数判断器");
-    JMenuItem logoutJMI = new JMenuItem("退出登录");
     JTextField inputJTF = new JTextField();
     JButton submitJB = new JButton("确定");
     String input;
@@ -94,12 +93,10 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
     void initMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         propertiesJM.add(exitJMI);
-        propertiesJM.add(logoutJMI);
         menuBar.add(propertiesJM);
         menuBar.add(aboutJM);
         aboutJM.addMouseListener(this);
         exitJMI.addMouseListener(this);
-        logoutJMI.addMouseListener(this);
         setJMenuBar(menuBar);
     }
 
@@ -146,10 +143,7 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
         } else if (thing == aboutJM) showAbout();
         else if (thing == exitJMI || thing == backJB) {
             setVisible(false);
-            new MainMenu(username);
-        } else if (thing == logoutJMI) {
-            setVisible(false);
-            new Login();
+            new FunctionsMenu(username);
         }
     }
 

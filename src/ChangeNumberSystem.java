@@ -7,7 +7,6 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
 
     JMenu propertiesJM = new JMenu("选项");
     JMenuItem exitJMI = new JMenuItem("退出进制转换器");
-    JMenuItem logoutJMI = new JMenuItem("退出登录");
     JButton binaryToOctalJB = new JButton("将二进制转换为八进制");
     JButton binaryToDecimalJB = new JButton("将二进制转换为十进制");
     JButton binaryToHexJB = new JButton("将二进制转换为十六进制");
@@ -89,13 +88,11 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
     void initMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         propertiesJM.add(exitJMI);
-        propertiesJM.add(logoutJMI);
         menuBar.add(propertiesJM);
         menuBar.add(aboutJM);
         aboutJM.addMouseListener(this);
         propertiesJM.addMouseListener(this);
         exitJMI.addMouseListener(this);
-        logoutJMI.addMouseListener(this);
         setJMenuBar(menuBar);
     }
 
@@ -183,10 +180,7 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
         } else if (thing == aboutJM) showAbout();
         else if (thing == exitJMI || thing == backJB) {
             setVisible(false);
-            new MainMenu(username);
-        } else if (thing == logoutJMI) {
-            setVisible(false);
-            new Login();
+            new FunctionsMenu(username);
         } else if (thing == octalToDecimalJB) {
             input = null;
             indicator = 8.10;

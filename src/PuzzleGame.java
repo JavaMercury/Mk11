@@ -32,6 +32,7 @@ public class PuzzleGame extends Initializer implements Border {
     ArrayList<String> sportLibrary = new ArrayList<>();
     String defaultPath = "image\\girl\\girl2\\";
     String path = defaultPath;
+    JLabel fullImage = new JLabel(new ImageIcon(path + "all.jpg"));
     String chooseImage;
     JMenu changeImageJM = new JMenu("更换图片");
     JMenu changeMovePatternJM = new JMenu("更改移动模式");
@@ -40,7 +41,6 @@ public class PuzzleGame extends Initializer implements Border {
     JMenuItem animalJMI = new JMenuItem("动物");
     JMenuItem girlJMI = new JMenuItem("美女");
     JMenuItem sportJMI = new JMenuItem("运动");
-    JMenuItem logoutJMI = new JMenuItem("退出登录");
     JMenuItem exitGameJMI = new JMenuItem("退出游戏");
     JMenuItem replayJMI = new JMenuItem("重玩游戏");
     JMenu helpJM = new JMenu("帮助(H)");
@@ -59,6 +59,8 @@ public class PuzzleGame extends Initializer implements Border {
     });
     JLabel startJL = new JLabel("按下空格键开始");
     boolean isStart = false;
+    JDialog help = new JDialog();
+    JLabel background = new JLabel(new ImageIcon("image\\background.png"));
     private int MOVE_UP_LEFT_OR_Y = 1;
     private int MOVE_DOWN_RIGHT_OR_Y = -1;
     private int BOUNDS_UP_LEFT = 3;
@@ -104,21 +106,6 @@ public class PuzzleGame extends Initializer implements Border {
         setVisible(true);
     }
 
-    ///显示帮助
-    private static void showHelp() {
-        JDialog help = new JDialog();
-        JLabel helpText = new JLabel("使用方向键或WASD控制方向，按住ctrl查看原图，可在选项中更改移动方式");
-        help.setAlwaysOnTop(true);
-        help.setTitle("怎么玩？");
-        help.setIconImage(new ImageIcon("image\\login\\MkLogInBackground.jpg").getImage());
-        helpText.setBounds(0, 0, 420, 80);
-        help.getContentPane().add(helpText);
-        help.setSize(420, 80);
-        help.setAlwaysOnTop(true);
-        help.setLocationRelativeTo(null);
-        help.setVisible(true);
-    }
-
     ///计算拼图可解性
     private static boolean isPlayable() {
         int[] array = new int[16];
@@ -138,6 +125,21 @@ public class PuzzleGame extends Initializer implements Border {
             base++;
         }
         return count % 2 == 0;
+    }
+
+    ///显示帮助
+    private void showHelp() {
+        help.setResizable(false);
+        JLabel helpText = new JLabel("使用方向键或WASD控制方向，按住ctrl查看原图，可在选项中更改移动方式");
+        help.setAlwaysOnTop(true);
+        help.setTitle("怎么玩？");
+        help.setIconImage(new ImageIcon("image\\login\\MkLogInBackground.jpg").getImage());
+        helpText.setBounds(0, 0, 420, 80);
+        help.getContentPane().add(helpText);
+        help.setSize(420, 80);
+        help.setAlwaysOnTop(true);
+        help.setLocationRelativeTo(null);
+        help.setVisible(true);
     }
 
     ///数据初始化，如果Save文件夹存在存档，则直接读取存档
@@ -216,13 +218,11 @@ public class PuzzleGame extends Initializer implements Border {
         changeMovePatternJM.add(moveBlankJMI);
         propertiesJM.add(replayJMI);
         propertiesJM.add(exitGameJMI);
-        propertiesJM.add(logoutJMI);
         puzzleGameJMB.add(propertiesJM);
         puzzleGameJMB.add(aboutJM);
         puzzleGameJMB.add(helpJM);
         aboutJM.addMouseListener(this);
         helpJM.addMouseListener(this);
-        logoutJMI.addMouseListener(this);
         exitGameJMI.addMouseListener(this);
         replayJMI.addMouseListener(this);
         animalJMI.addMouseListener(this);
@@ -247,10 +247,16 @@ public class PuzzleGame extends Initializer implements Border {
         bw.newLine();
         bw.write(step + "");
         bw.newLine();
+        bw.write(isReplay + "");
+        bw.newLine();
+        bw.write(x + "");
+        bw.newLine();
+        bw.write(y + "");
+        bw.newLine();
         for (int[] datum : data) {
             for (int i : datum) {
                 bw.write((i + ""));
-                if (newLineCount < 16) {
+                if (newLineCount < 15) {
                     bw.newLine();
                     newLineCount++;
                 }
@@ -265,6 +271,9 @@ public class PuzzleGame extends Initializer implements Border {
         path = br.readLine();
         time = Integer.parseInt(br.readLine());
         step = Integer.parseInt(br.readLine());
+        isReplay = Boolean.parseBoolean(br.readLine());
+        x = Integer.parseInt(br.readLine());
+        y = Integer.parseInt(br.readLine());
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data.length; j++) {
                 data[i][j] = Integer.parseInt(br.readLine());
@@ -296,7 +305,7 @@ public class PuzzleGame extends Initializer implements Border {
             if (step != 99999 && step < lastBestStep) {
                 saveData(step + "", 9);
             }
-            if (time != 99999 && time < lastBestTime) {
+            if (time != 3599 && time < lastBestTime) {
                 saveData(time + "", 8);
             }
             loadPuzzles();
@@ -324,7 +333,6 @@ public class PuzzleGame extends Initializer implements Border {
         successExitJB.setVisible(false);
         successReplayJB.setVisible(false);
         startJL.setFont(new Font(null, Font.BOLD, 30));
-
     }
 
     ///加载拼图
@@ -379,6 +387,7 @@ public class PuzzleGame extends Initializer implements Border {
 
     ///重玩
     void replay() throws IOException {
+        timer.restart();
         time = 0;
         step = 0;
         isReplay = true;
@@ -388,14 +397,15 @@ public class PuzzleGame extends Initializer implements Border {
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        Object thing = e.getSource();
+        if (thing == aboutJM) showAbout();
+        else if (thing == helpJM) showHelp();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == aboutJM) showAbout();
-        else if (thing == replayJMI || thing == successReplayJB) {
+        if (thing == replayJMI || thing == successReplayJB) {
             try {
                 replay();
             } catch (IOException ex) {
@@ -409,14 +419,8 @@ public class PuzzleGame extends Initializer implements Border {
                     throw new RuntimeException(ex);
                 }
             }
-            System.out.println("exiting puzzle game...");
             setVisible(false);
             new GamesMenu(username);
-        } else if (thing == logoutJMI) {
-            setVisible(false);
-            new Login();
-        } else if (thing == helpJM) {
-            showHelp();
         } else if (thing == animalJMI) {
             chooseImage = "animal";
             changeImage();
@@ -480,10 +484,8 @@ public class PuzzleGame extends Initializer implements Border {
     public void keyPressed(KeyEvent e) {
         if (victory()) return;
         int code = e.getKeyCode();
-        if (code == 17) {
+        if (isStart && code == 17) {
             con.removeAll();
-            JLabel fullImage = new JLabel(new ImageIcon(path + "all.jpg"));
-            JLabel background = new JLabel(new ImageIcon("image\\background.png"));
             fullImage.setBounds(83, 134, 420, 420);
             background.setBounds(40, 40, 508, 560);
             con.add(fullImage);

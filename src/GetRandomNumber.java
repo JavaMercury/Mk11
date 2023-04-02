@@ -8,7 +8,6 @@ public class GetRandomNumber extends Initializer implements FocusListener {
 
     JMenu propertiesJM = new JMenu("选项");
     JMenuItem exitJMI = new JMenuItem("退出随机数生成器");
-    JMenuItem logoutJMI = new JMenuItem("退出登录");
     JTextField inputMinimumJTF = new JTextField();
     JTextField inputMaximumJTF = new JTextField();
     JButton submitJB = new JButton("确定");
@@ -81,12 +80,10 @@ public class GetRandomNumber extends Initializer implements FocusListener {
     void initMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         propertiesJM.add(exitJMI);
-        propertiesJM.add(logoutJMI);
         menuBar.add(propertiesJM);
         menuBar.add(aboutJM);
         aboutJM.addMouseListener(this);
         exitJMI.addMouseListener(this);
-        logoutJMI.addMouseListener(this);
         setJMenuBar(menuBar);
     }
 
@@ -143,10 +140,7 @@ public class GetRandomNumber extends Initializer implements FocusListener {
         } else if (thing == aboutJM) showAbout();
         else if (thing == exitJMI || thing == backJB) {
             setVisible(false);
-            new MainMenu(username);
-        } else if (thing == logoutJMI) {
-            setVisible(false);
-            new Login();
+            new FunctionsMenu(username);
         }
     }
 

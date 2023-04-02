@@ -16,6 +16,7 @@ public class Login extends Initializer {
     JLabel invalidInputJL = new JLabel(new ImageIcon("image\\login\\登录输入有误.png"));
     JLabel usernameJL = new JLabel("用户名");
     JLabel passwordJL = new JLabel("密码");
+    boolean isReveal = false;
 
     public Login() {
         addMouseListener(this);
@@ -112,14 +113,13 @@ public class Login extends Initializer {
         usernameJL.setVisible(false);
         passwordJL.setVisible(false);
         revealPasswordJL.setBounds(70, 170, 30, 30);
-        revealPasswordPressedJL.setBounds(70, 170, 30, 30);
         con.add(revealPasswordJL);
-        con.add(revealPasswordPressedJL);
-        revealPasswordPressedJL.setVisible(false);
-        revealPasswordJL.addMouseListener(this);
-        revealPasswordPressedJL.addMouseListener(this);
         revealPasswordJL.setVisible(false);
         loginJB.addKeyListener(this);
+        if (isReveal) {
+            revealPasswordJL.setIcon(new ImageIcon("image\\login\\密码隐藏.png"));
+        } else revealPasswordJL.setIcon(new ImageIcon("image\\login\\密码显示.png"));
+        revealPasswordJL.addMouseListener(this);
     }
 
     @Override
@@ -142,10 +142,10 @@ public class Login extends Initializer {
                 throw new RuntimeException(ex);
             }
             //测试用快速登录键，需要提前注册好"aperture"账号，否则会出问题
-        } else if (code == 109) {
+        } /*else if (code == 109) {
             setVisible(false);
             new MainMenu("aperture");
-        }
+        }*/
     }
 
     @Override
@@ -159,9 +159,12 @@ public class Login extends Initializer {
         if (thing == aboutJM) {
             showAbout();
         } else if (thing == revealPasswordJL) {
-            revealPasswordJL.setVisible(false);
-            revealPasswordPressedJL.setVisible(true);
-            showPassword();
+            isReveal = !isReveal;
+            if (isReveal) {
+                showPassword();
+            } else {
+                hidePassword();
+            }
         }
     }
 
@@ -191,10 +194,6 @@ public class Login extends Initializer {
         } else if (thing == signupJB) {
             setVisible(false);
             new Signup();
-        } else if (thing == revealPasswordPressedJL) {
-            revealPasswordJL.setVisible(true);
-            revealPasswordPressedJL.setVisible(false);
-            hidePassword();
         }
     }
 

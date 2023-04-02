@@ -9,6 +9,7 @@ import java.io.IOException;
 public class GamesMenu extends Initializer implements FocusListener {
     JButton puzzleGameJB = new JButton("拼图小游戏");
     JButton beatLordGameJB = new JButton("斗地主");
+    int focusSelect;
 
     public GamesMenu(String username) {
         this.username = username;
@@ -93,7 +94,6 @@ public class GamesMenu extends Initializer implements FocusListener {
             }
         }
     }
-    int focusSelect;
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
@@ -102,14 +102,14 @@ public class GamesMenu extends Initializer implements FocusListener {
 
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
-
+        Object thing = mouseEvent.getSource();
+        if (thing == aboutJM) showAbout();
     }
 
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
         Object thing = mouseEvent.getSource();
-        if (thing == aboutJM) showAbout();
-        else if (thing == puzzleGameJB) {
+        if (thing == puzzleGameJB) {
             setVisible(false);
             try {
                 new PuzzleGame(username);
