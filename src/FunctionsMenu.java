@@ -20,7 +20,7 @@ public class FunctionsMenu extends Initializer implements FocusListener {
 
     }
 
-    JButton changeNumberSystemJB = new JButton("进制转换工具");
+    JButton changeNumberSystemJB = new JButton("进制转换器");
     JButton checkPrimeNumberJB = new JButton("质数判断器");
     JButton getRandomNumberJB = new JButton("随机数生成器");
 

@@ -149,7 +149,7 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
         con.add(resultJL);
         con.add(invalidInputWarningJL);
 
-        backJB.setBounds(0, 0, 60, 30);
+        backJB.setBounds(0, 0, 50, 50);
         backJB.addMouseListener(this);
         backJB.addKeyListener(this);
         con.add(backJB);
@@ -158,6 +158,9 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
         submitJB.addKeyListener(this);
         backJB.addKeyListener(this);
         invalidInputWarningJL.setForeground(Color.RED);
+        backJB.setOpaque(false);
+        backJB.setBorderPainted(false);
+        backJB.setBackground(new Color(0,0,0,0));
     }
 
     @Override
