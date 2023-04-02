@@ -114,7 +114,6 @@ public class Login extends Initializer {
         new File(dir + "Temp").mkdirs();
         new File(dir + "Save").mkdirs();
         aboutJM.setText("关于");
-        con.setBackground(Color.WHITE);
         usernameJTF.setBounds(100, 70, 340, 30);
         passwordJPF.setBounds(100, 170, 340, 30);
         loginJB.setBounds(110, 70, 128, 47);

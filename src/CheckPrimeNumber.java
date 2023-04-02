@@ -104,7 +104,6 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
     ///内容初始化
     @Override
     void initContent() {
-        con.setBackground(Color.WHITE);
         inputJTF.setBounds(100, 100, 200, 30);
         submitJB.setBounds(100, 200, 70, 30);
         invalidInputWarningJL.setBounds(100, 130, 200, 50);

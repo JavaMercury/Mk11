@@ -99,7 +99,6 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
     ///内容初始化
     @Override
     void initContent() {
-        con.setBackground(Color.WHITE);
         binaryToOctalJB.setBounds(60, 60, 200, 40);
         binaryToDecimalJB.setBounds(360, 60, 200, 40);
         binaryToHexJB.setBounds(60, 160, 200, 40);

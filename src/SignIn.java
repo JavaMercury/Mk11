@@ -110,7 +110,6 @@ public class SignIn extends Initializer {
 
     @Override
     void initContent() {
-        con.setBackground(Color.WHITE);
         signInJB.setBounds(95, 180, 150, 50);
         signInJB.addMouseListener(this);
         con.add(signInJB);

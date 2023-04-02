@@ -87,7 +87,6 @@ public class Signup extends Initializer {
     ///内容初始化
     void initContent() {
         aboutJM.setText("关于");
-        con.setBackground(Color.WHITE);
         usernameJTF.setBounds(100, 50, 200, 30);
         passwordJPF.setBounds(100, 130, 200, 30);
         passwordAgainJPF.setBounds(100, 210, 200, 30);
