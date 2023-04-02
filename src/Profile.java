@@ -56,7 +56,6 @@ public class Profile extends Initializer {
     @Override
     void initContent() throws IOException {
         con.setBackground(Color.WHITE);
-        backJB.addKeyListener(this);
         con.add(backJB);
         profileJL.setBounds(50, 0, 356, 360);
         File file = new File(dir + "User\\" + username);

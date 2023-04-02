@@ -121,7 +121,6 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
         con.add(backJB);
         inputJTF.addKeyListener(this);
         submitJB.addKeyListener(this);
-        backJB.addKeyListener(this);
         invalidInputWarningJL.setForeground(Color.RED);
         hintJL.setBounds(100, 70, 200, 30);
         con.add(hintJL);

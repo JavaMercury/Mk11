@@ -119,7 +119,6 @@ public class SignIn extends Initializer {
         con.add(successJL);
         successJL.setVisible(false);
 
-        backJB.addKeyListener(this);
         con.add(backJB);
         aboutJM.addKeyListener(this);
     }

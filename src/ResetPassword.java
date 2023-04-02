@@ -106,7 +106,6 @@ public class ResetPassword extends Initializer {
         codeJB.setText(codeTemp);
 
         backJB.setBounds(0, 0, 60, 30);
-        backJB.addKeyListener(this);
         con.add(backJB);
         invalidPhoneNumberJL.setForeground(Color.RED);
         invalidCodeJL.setForeground(Color.RED);

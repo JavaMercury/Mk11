@@ -21,7 +21,8 @@ public class GetRandomNumber extends Initializer implements FocusListener {
     JLabel resultJL = new JLabel();
     JLabel hintJL = new JLabel("在指定范围内生成随机整数");
 
-    GetRandomNumber() {
+    GetRandomNumber(String username) {
+        this.username = username;
         setResizable(false);
         initJFrame();
         initMenuBar();
@@ -114,7 +115,6 @@ public class GetRandomNumber extends Initializer implements FocusListener {
         hintJL.setBounds(100, 70, 200, 30);
         con.add(hintJL);
         submitJB.addKeyListener(this);
-        backJB.addKeyListener(this);
         warningJL.setForeground(Color.RED);
         aboutJM.addKeyListener(this);
         resultJL.setFont(new Font(null,Font.BOLD,24));

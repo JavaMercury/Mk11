@@ -158,7 +158,6 @@ public class Signup extends Initializer {
         invalidPhoneNumberJL.setForeground(Color.RED);
         occupiedPhoneNumberJL.setForeground(Color.RED);
         submitJB.addKeyListener(this);
-        backJB.addKeyListener(this);
         revealPasswordJL.setBounds(70, 130, 30, 30);
         revealPasswordPressedJL.setBounds(70, 130, 30, 30);
         con.add(revealPasswordJL);
