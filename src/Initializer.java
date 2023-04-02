@@ -20,12 +20,19 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     //所有子类图形的统一getContentPane方法
     Container con = getContentPane();
     JMenu aboutJM = new JMenu("关于(G)");
-    String version = "水银第11代 0.11.21.20230402";
+    String version = "水银第11代 0.11.22.20230403";
     String username;
     String password;
     JDialog aboutJD = new JDialog();
     Runtime rt = Runtime.getRuntime();
-    JButton backJB = new JButton(new ImageIcon(new ImageIcon("image\\new\\left-circle.png").getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT)));
+    JButton backJB = new JButton(new ImageIcon(new ImageIcon("image\\new\\left.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+    {
+        backJB.setBounds(0, 0, 50, 50);
+        backJB.setOpaque(false);
+        backJB.setBorderPainted(false);
+        backJB.setBackground(new Color(0,0,0,0));
+        backJB.setFocusPainted(false);
+    }
     JLabel aboutJL = new JLabel("<html>水银的开发开始于2022年9月16日， <br />起源于初中作者自学的VBS语言，<br />" +
             "当时作者用此语言和同学制作了一个简陋的\"悦豪客户端\"，<br />而水银继承了这个传统。<br />当前版本：" + version + "<br />作者：邹上豪<br />感谢所有测试员！" +
             "<br /><br />当前系统运行环境对象：" + rt + "<br />" +

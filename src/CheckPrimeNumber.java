@@ -117,7 +117,6 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
         con.add(invalidInputWarningJL);
         con.add(resultJL);
 
-        backJB.setBounds(0, 0, 60, 30);
         backJB.addMouseListener(this);
         con.add(backJB);
         inputJTF.addKeyListener(this);
@@ -142,7 +141,7 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
             checkPrimeNumber();
         } else if (thing == aboutJM) showAbout();
         else if (thing == exitJMI || thing == backJB) {
-            setVisible(false);
+            dispose();
             new FunctionsMenu(username);
         }
     }
@@ -199,7 +198,7 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
             input = inputJTF.getText();
             checkPrimeNumber();
         } else if (code == 27) {
-            setVisible(false);
+            dispose();
             new FunctionsMenu(username);
         } else if (code == 71) showAbout();
     }

@@ -132,7 +132,7 @@ public class ResetPassword extends Initializer {
     void resetPassword() throws IOException {
         if (code.equals(codeTemp) && checkSamePhoneNumber(username, phoneNumber) && checkPassword(password) && !checkSamePassword(username, password) && password.equals(passwordAgain)) {
             saveData(password, 1);
-            setVisible(false);
+            dispose();
             new MainMenu(username);
         } else {
             invalidCodeJL.setVisible(!code.equals(codeTemp));
@@ -162,7 +162,7 @@ public class ResetPassword extends Initializer {
         Object thing = e.getSource();
         if (thing == aboutJM) showAbout();
         else if (thing == exitJMI || thing == backJB) {
-            setVisible(false);
+            dispose();
             new MainMenu(username);
         } else if (thing == codeJB) {
             codeTemp = getVerificationCode();
@@ -234,7 +234,7 @@ public class ResetPassword extends Initializer {
                 throw new RuntimeException(ex);
             }
         } else if (code == 27) {
-            setVisible(false);
+            dispose();
             new MainMenu(username);
         }
     }

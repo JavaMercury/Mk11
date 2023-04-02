@@ -252,8 +252,7 @@ public class BeatLordGame extends Initializer implements FocusListener {
     public void keyReleased(KeyEvent keyEvent) {
         int code = keyEvent.getKeyCode();
         if (code == 27) {
-            setVisible(false);
-            
+            dispose();
             new GamesMenu(username);
         } else if (code == 10) {
             workInProgressJL.setVisible(true);
@@ -270,10 +269,10 @@ public class BeatLordGame extends Initializer implements FocusListener {
         Object thing = mouseEvent.getSource();
         if (thing == aboutJM) showAbout();
         else if (thing == exitJMI) {
-            setVisible(false);
+            dispose();
             new GamesMenu(username);
         } else if (thing == replayJMI) {
-            setVisible(false);
+            dispose();
             new BeatLordGame(username);
         } else if (thing == playJB) {
             //WIP

@@ -91,27 +91,27 @@ public class MainMenu extends Initializer implements FocusListener {
     public void mousePressed(MouseEvent e) {
         Object thing = e.getSource();
         if (thing == aboutJM) {
-            showAbout();
+            dispose();
         } else if (thing == gamesJB) {
-            setVisible(false);
+            dispose();
             new GamesMenu(username);
         } else if (thing == functionsJB) {
-            setVisible(false);
+            dispose();
             new FunctionsMenu(username);
         } else if (thing == logoutJMI) {
-            setVisible(false);
+            dispose();
             new Login();
         } else if (thing == resetPasswordJMI) {
-            setVisible(false);
+            dispose();
             new ResetPassword(username);
         } else if (thing == resetPhoneNumberJMI) {
-            setVisible(false);
+            dispose();
             new ResetPhoneNumber(username);
         } else if (thing == signInJMI) {
-            setVisible(false);
+            dispose();
             new SignIn(username);
         } else if (thing == profileJMI) {
-            setVisible(false);
+            dispose();
             try {
                 new Profile(username);
             } catch (IOException ex) {
@@ -155,18 +155,18 @@ public class MainMenu extends Initializer implements FocusListener {
         if (code == 10) {
             switch (focusSelect) {
                 case 1: {
-                    setVisible(false);
+                    dispose();
                     new FunctionsMenu(username);
                     break;
                 }
                 case 2: {
-                    setVisible(false);
+                    dispose();
                     new GamesMenu(username);
                     break;
                 }
             }
         } else if (code == 27) {
-            setVisible(false);
+            dispose();
             new Login();
         } else if (code == 71) showAbout();
     }

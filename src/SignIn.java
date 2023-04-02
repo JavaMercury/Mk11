@@ -140,7 +140,7 @@ public class SignIn extends Initializer {
     public void keyReleased(KeyEvent keyEvent) {
         int code = keyEvent.getKeyCode();
         if (code == 27) {
-            setVisible(false);
+            dispose();
             new MainMenu(username);
         } else if (code == 71) showAbout();
     }
@@ -155,7 +155,7 @@ public class SignIn extends Initializer {
         Object thing = mouseEvent.getSource();
         if (thing == aboutJM) showAbout();
         else if (thing == backJMI || thing == backJB) {
-            setVisible(false);
+            dispose();
             new MainMenu(username);
         } else if (thing == signInJB) {
             try {

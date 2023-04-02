@@ -121,7 +121,7 @@ public class Profile extends Initializer {
         int code = keyEvent.getKeyCode();
         if (code == 71) showAbout();
         else if (code == 27) {
-            setVisible(false);
+            dispose();
             new MainMenu(username);
         }
     }
@@ -135,11 +135,11 @@ public class Profile extends Initializer {
     public void mousePressed(MouseEvent mouseEvent) {
         Object thing = mouseEvent.getSource();
         if (thing == backJB || thing == backJMI) {
-            setVisible(false);
+            dispose();
             new MainMenu(username);
         } else if (thing == aboutJM) showAbout();
         else if (thing == changePhoneNumberJL) {
-            setVisible(false);
+            dispose();
             new ResetPhoneNumber(username);
         }
     }

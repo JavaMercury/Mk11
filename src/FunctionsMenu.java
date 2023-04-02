@@ -79,22 +79,22 @@ public class FunctionsMenu extends Initializer implements FocusListener {
         int code = keyEvent.getKeyCode();
         if (code == 71) showAbout();
         else if (code == 27) {
-            setVisible(false);
+            dispose();
             new MainMenu(username);
         } else if (code == 10) {
             switch (focusSelect) {
                 case 1: {
-                    setVisible(false);
+                    dispose();
                     new ChangeNumberSystem(username);
                     break;
                 }
                 case 2: {
-                    setVisible(false);
+                    dispose();
                     new CheckPrimeNumber();
                     break;
                 }
                 case 3: {
-                    setVisible(false);
+                    dispose();
                     new GetRandomNumber();
                     break;
                 }
@@ -112,13 +112,13 @@ public class FunctionsMenu extends Initializer implements FocusListener {
         Object thing = mouseEvent.getSource();
         if (thing == aboutJM) showAbout();
         else if (thing == changeNumberSystemJB) {
-            setVisible(false);
+            dispose();
             new ChangeNumberSystem(username);
         } else if (thing == checkPrimeNumberJB) {
-            setVisible(false);
+            dispose();
             new CheckPrimeNumber();
         } else if (thing == getRandomNumberJB) {
-            setVisible(false);
+            dispose();
             new GetRandomNumber();
         }
     }

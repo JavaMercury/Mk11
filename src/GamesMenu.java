@@ -73,12 +73,12 @@ public class GamesMenu extends Initializer implements FocusListener {
         int code = keyEvent.getKeyCode();
         if (code == 71) showAbout();
         else if (code == 27) {
-            setVisible(false);
+            dispose();
             new MainMenu(username);
         } else if (code == 10) {
             switch (focusSelect) {
                 case 1: {
-                    setVisible(false);
+                    dispose();
                     try {
                         new PuzzleGame(username);
                     } catch (IOException e) {
@@ -87,7 +87,7 @@ public class GamesMenu extends Initializer implements FocusListener {
                     break;
                 }
                 case 2: {
-                    setVisible(false);
+                    dispose();
                     new BeatLordGame(username);
                     break;
                 }
@@ -110,14 +110,14 @@ public class GamesMenu extends Initializer implements FocusListener {
     public void mouseReleased(MouseEvent mouseEvent) {
         Object thing = mouseEvent.getSource();
         if (thing == puzzleGameJB) {
-            setVisible(false);
+            dispose();
             try {
                 new PuzzleGame(username);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else if (thing == beatLordGameJB) {
-            setVisible(false);
+            dispose();
             new BeatLordGame(username);
         }
     }

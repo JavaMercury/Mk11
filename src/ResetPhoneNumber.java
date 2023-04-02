@@ -165,7 +165,7 @@ public class ResetPhoneNumber extends Initializer {
         Object thing = e.getSource();
         if (thing == aboutJM) showAbout();
         else if (thing == exitJMI || thing == backJB) {
-            setVisible(false);
+            dispose();
             new MainMenu(username);
         } else if (thing == codeJB) {
             codeTemp = getVerificationCode();
@@ -237,7 +237,7 @@ public class ResetPhoneNumber extends Initializer {
                 throw new RuntimeException(ex);
             }
         } else if (code == 27) {
-            setVisible(false);
+            dispose();
             new MainMenu(username);
         }
     }

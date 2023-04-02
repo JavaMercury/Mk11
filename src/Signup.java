@@ -180,7 +180,7 @@ public class Signup extends Initializer {
         Object thing = e.getSource();
         if (thing == aboutJM) showAbout();
         else if (thing == exitJMI || thing == backJB) {
-            setVisible(false);
+            dispose();
             new Login();
         } else if (thing == codeJB) {
             codeTemp = getVerificationCode();
@@ -203,7 +203,7 @@ public class Signup extends Initializer {
     void signup() throws IOException {
         if (checkUsername(username) && !checkUsernameUsed(username) && checkPassword(password) && password.equals(passwordAgain) && checkPhoneNumber(phoneNumber) && !checkPhoneNumberUsed(phoneNumber, username) && code.equals(codeTemp)) {
             saveData();
-            setVisible(false);
+            dispose();
             new Login();
         } else {
             invalidCodeJL.setVisible(!code.equals(codeTemp));
@@ -344,7 +344,7 @@ public class Signup extends Initializer {
                 throw new RuntimeException(ex);
             }
         } else if (code == 27) {
-            setVisible(false);
+            dispose();
             new Login();
         }
     }

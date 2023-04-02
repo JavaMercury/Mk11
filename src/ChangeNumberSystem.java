@@ -149,18 +149,14 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
         con.add(resultJL);
         con.add(invalidInputWarningJL);
 
-        backJB.setBounds(0, 0, 50, 50);
         backJB.addMouseListener(this);
         backJB.addKeyListener(this);
         con.add(backJB);
         inputJTF.addKeyListener(this);
         submitJB.setVisible(true);
         submitJB.addKeyListener(this);
-        backJB.addKeyListener(this);
         invalidInputWarningJL.setForeground(Color.RED);
-        backJB.setOpaque(false);
-        backJB.setBorderPainted(false);
-        backJB.setBackground(new Color(0,0,0,0));
+
     }
 
     @Override
@@ -182,7 +178,7 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
             select();
         } else if (thing == aboutJM) showAbout();
         else if (thing == exitJMI || thing == backJB) {
-            setVisible(false);
+            dispose();
             new FunctionsMenu(username);
         } else if (thing == octalToDecimalJB) {
             input = null;
@@ -555,7 +551,7 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
             input = inputJTF.getText().toUpperCase();
             select();
         } else if (code == 27) {
-            setVisible(false);
+            dispose();
             new FunctionsMenu(username);
         } else if (code == 71) showAbout();
     }

@@ -419,7 +419,7 @@ public class PuzzleGame extends Initializer implements Border {
                     throw new RuntimeException(ex);
                 }
             }
-            setVisible(false);
+            dispose();
             new GamesMenu(username);
         } else if (thing == animalJMI) {
             chooseImage = "animal";
@@ -584,7 +584,7 @@ public class PuzzleGame extends Initializer implements Border {
                         throw new RuntimeException(ex);
                     }
                 }
-                setVisible(false);
+                dispose();
                 new GamesMenu(username);
             } else if (code == 71) showAbout();
             else if (code == 72) showHelp();
