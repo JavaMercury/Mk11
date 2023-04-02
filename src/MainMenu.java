@@ -9,7 +9,7 @@ import java.io.IOException;
 //水银主菜单
 public class MainMenu extends Initializer implements FocusListener {
 
-    JButton gamesJB = new JButton("小游戏");
+    JButton gamesJB = new JButton(new ImageIcon(new ImageIcon("image\\new\\游戏.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
     JButton functionsJB = new JButton("实用功能");
     JMenuItem resetPasswordJMI = new JMenuItem("修改密码");
     JMenuItem resetPhoneNumberJMI = new JMenuItem("修改手机号码");
@@ -63,7 +63,7 @@ public class MainMenu extends Initializer implements FocusListener {
     @Override
     void initContent() {
         functionsJB.setBounds(95, 80, 150, 50);
-        gamesJB.setBounds(95, 180, 150, 50);
+        gamesJB.setBounds(130, 180, 80, 80);
         con.add(gamesJB);
         con.add(functionsJB);
         functionsJB.addMouseListener(this);
@@ -79,6 +79,11 @@ public class MainMenu extends Initializer implements FocusListener {
         signInJMI.addMouseListener(this);
         profileJMI.addMouseListener(this);
         aboutJM.addKeyListener(this);
+
+        gamesJB.setOpaque(false);
+        gamesJB.setBorderPainted(false);
+        gamesJB.setBackground(new Color(0,0,0,0));
+        gamesJB.setFocusPainted(false);
     }
 
     @Override
