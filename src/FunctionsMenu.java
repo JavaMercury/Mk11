@@ -90,7 +90,7 @@ public class FunctionsMenu extends Initializer implements FocusListener {
                 }
                 case 2: {
                     dispose();
-                    new CheckPrimeNumber();
+                    new CheckPrimeNumber(username);
                     break;
                 }
                 case 3: {
@@ -116,7 +116,7 @@ public class FunctionsMenu extends Initializer implements FocusListener {
             new ChangeNumberSystem(username);
         } else if (thing == checkPrimeNumberJB) {
             dispose();
-            new CheckPrimeNumber();
+            new CheckPrimeNumber(username);
         } else if (thing == getRandomNumberJB) {
             dispose();
             new GetRandomNumber();

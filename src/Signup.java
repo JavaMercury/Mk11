@@ -140,8 +140,6 @@ public class Signup extends Initializer {
         invalidPhoneNumberJL.setVisible(false);
         occupiedPhoneNumberJL.setVisible(false);
 
-        backJB.setBounds(0, 0, 60, 30);
-        backJB.addMouseListener(this);
         con.add(backJB);
         inputUsernameJL.setBounds(310, 50, 200, 30);
         inputPhoneNumberJL.setBounds(310, 290, 200, 30);

@@ -32,6 +32,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         backJB.setBorderPainted(false);
         backJB.setBackground(new Color(0,0,0,0));
         backJB.setFocusPainted(false);
+        backJB.addMouseListener(this);
     }
     JLabel aboutJL = new JLabel("<html>水银的开发开始于2022年9月16日， <br />起源于初中作者自学的VBS语言，<br />" +
             "当时作者用此语言和同学制作了一个简陋的\"悦豪客户端\"，<br />而水银继承了这个传统。<br />当前版本：" + version + "<br />作者：邹上豪<br />感谢所有测试员！" +

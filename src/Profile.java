@@ -56,8 +56,6 @@ public class Profile extends Initializer {
     @Override
     void initContent() throws IOException {
         con.setBackground(Color.WHITE);
-        backJB.setBounds(0, 0, 60, 30);
-        backJB.addMouseListener(this);
         backJB.addKeyListener(this);
         con.add(backJB);
         profileJL.setBounds(50, 0, 356, 360);

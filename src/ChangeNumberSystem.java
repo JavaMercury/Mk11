@@ -149,7 +149,6 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
         con.add(resultJL);
         con.add(invalidInputWarningJL);
 
-        backJB.addMouseListener(this);
         backJB.addKeyListener(this);
         con.add(backJB);
         inputJTF.addKeyListener(this);

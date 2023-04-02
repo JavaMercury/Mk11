@@ -99,7 +99,6 @@ public class ResetPhoneNumber extends Initializer {
         codeJB.setText(codeTemp);
 
         backJB.setBounds(0, 0, 60, 30);
-        backJB.addMouseListener(this);
         backJB.addKeyListener(this);
         con.add(backJB);
         invalidPhoneNumberJL.setForeground(Color.RED);

@@ -119,8 +119,6 @@ public class SignIn extends Initializer {
         con.add(successJL);
         successJL.setVisible(false);
 
-        backJB.setBounds(0, 0, 60, 30);
-        backJB.addMouseListener(this);
         backJB.addKeyListener(this);
         con.add(backJB);
         aboutJM.addKeyListener(this);

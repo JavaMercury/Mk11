@@ -19,7 +19,8 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
     String stateOne = "1既不是质数也不是合数";
     JLabel hintJL = new JLabel("判断质数，并给出合数的所有因子");
 
-    CheckPrimeNumber() {
+    CheckPrimeNumber(String username) {
+        this.username = username;
         setResizable(false);
         initJFrame();
         initMenuBar();
@@ -117,7 +118,6 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
         con.add(invalidInputWarningJL);
         con.add(resultJL);
 
-        backJB.addMouseListener(this);
         con.add(backJB);
         inputJTF.addKeyListener(this);
         submitJB.addKeyListener(this);

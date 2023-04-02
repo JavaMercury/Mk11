@@ -106,7 +106,6 @@ public class GetRandomNumber extends Initializer implements FocusListener {
         con.add(warningJL);
         con.add(resultJL);
 
-        backJB.addMouseListener(this);
         con.add(backJB);
         inputMinimumJTF.addFocusListener(this);
         inputMaximumJTF.addFocusListener(this);
