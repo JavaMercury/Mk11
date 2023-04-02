@@ -55,6 +55,36 @@ public class Login extends Initializer {
         return false;
     }
 
+    ///显示输入框
+    void showLogin() {
+        revealPasswordJL.setVisible(true);
+        usernameJTF.setVisible(true);
+        passwordJPF.setVisible(true);
+        usernameJL.setVisible(true);
+        passwordJL.setVisible(true);
+    }
+
+    ///登录
+    void login() throws IOException {
+        invalidInputJL.setVisible(false);
+        if (check()) {
+            setVisible(false);
+            new MainMenu(username);
+        } else if ((!username.equals("") || passwordSB.length() != 0)) {
+            invalidInputJL.setVisible(true);
+        }
+    }
+
+    ///采集登录信息
+    void collectData() {
+        username = usernameJTF.getText();
+        passwordSB.delete(0, passwordSB.length());
+        for (char c : passwordJPF.getPassword()) {
+            passwordSB.append(c);
+        }
+        password = passwordSB.toString();
+    }
+
     ///窗口初始化
     @Override
     void initJFrame() {
@@ -116,9 +146,6 @@ public class Login extends Initializer {
         con.add(revealPasswordJL);
         revealPasswordJL.setVisible(false);
         loginJB.addKeyListener(this);
-        if (isReveal) {
-            revealPasswordJL.setIcon(new ImageIcon("image\\login\\密码隐藏.png"));
-        } else revealPasswordJL.setIcon(new ImageIcon("image\\login\\密码显示.png"));
         revealPasswordJL.addMouseListener(this);
     }
 
@@ -161,20 +188,15 @@ public class Login extends Initializer {
         } else if (thing == revealPasswordJL) {
             isReveal = !isReveal;
             if (isReveal) {
+                revealPasswordJL.setIcon(new ImageIcon(new ImageIcon("image\\login\\密码显示.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+            } else revealPasswordJL.setIcon(new ImageIcon(new ImageIcon("image\\login\\密码隐藏.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+            if (isReveal) {
                 showPassword();
             } else {
                 hidePassword();
             }
-        }
-    }
 
-    ///显示输入框
-    void showLogin() {
-        revealPasswordJL.setVisible(true);
-        usernameJTF.setVisible(true);
-        passwordJPF.setVisible(true);
-        usernameJL.setVisible(true);
-        passwordJL.setVisible(true);
+        }
     }
 
     @Override
@@ -195,27 +217,6 @@ public class Login extends Initializer {
             setVisible(false);
             new Signup();
         }
-    }
-
-    ///登录
-    void login() throws IOException {
-        invalidInputJL.setVisible(false);
-        if (check()) {
-            setVisible(false);
-            new MainMenu(username);
-        } else if ((!username.equals("") || passwordSB.length() != 0)) {
-            invalidInputJL.setVisible(true);
-        }
-    }
-
-    ///采集登录信息
-    void collectData() {
-        username = usernameJTF.getText();
-        passwordSB.delete(0, passwordSB.length());
-        for (char c : passwordJPF.getPassword()) {
-            passwordSB.append(c);
-        }
-        password = passwordSB.toString();
     }
 
     @Override
