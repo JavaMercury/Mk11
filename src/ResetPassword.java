@@ -105,7 +105,6 @@ public class ResetPassword extends Initializer {
         codeTemp = getVerificationCode();
         codeJB.setText(codeTemp);
 
-        backJB.setBounds(0, 0, 60, 30);
         con.add(backJB);
         invalidPhoneNumberJL.setForeground(Color.RED);
         invalidCodeJL.setForeground(Color.RED);

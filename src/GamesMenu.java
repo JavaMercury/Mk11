@@ -56,6 +56,7 @@ public class GamesMenu extends Initializer implements FocusListener {
         beatLordGameJB.addKeyListener(this);
         puzzleGameJB.addFocusListener(this);
         beatLordGameJB.addFocusListener(this);
+        con.add(backJB);
     }
 
     @Override
@@ -104,12 +105,7 @@ public class GamesMenu extends Initializer implements FocusListener {
     public void mousePressed(MouseEvent mouseEvent) {
         Object thing = mouseEvent.getSource();
         if (thing == aboutJM) showAbout();
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-        Object thing = mouseEvent.getSource();
-        if (thing == puzzleGameJB) {
+        else if (thing == puzzleGameJB) {
             dispose();
             try {
                 new PuzzleGame(username);
@@ -119,20 +115,27 @@ public class GamesMenu extends Initializer implements FocusListener {
         } else if (thing == beatLordGameJB) {
             dispose();
             new BeatLordGame(username);
+        } else if (thing == backJB) {
+            dispose();
+            new MainMenu(username);
         }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
     }
 
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
         Object thing = mouseEvent.getSource();
-        if (thing == puzzleGameJB || thing == beatLordGameJB)
+        if (thing == puzzleGameJB || thing == beatLordGameJB || thing == backJB)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
         Object thing = mouseEvent.getSource();
-        if (thing == puzzleGameJB || thing == beatLordGameJB)
+        if (thing == puzzleGameJB || thing == beatLordGameJB || thing == backJB)
             setCursor(Cursor.getDefaultCursor());
     }
 

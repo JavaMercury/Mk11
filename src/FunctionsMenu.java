@@ -6,6 +6,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class FunctionsMenu extends Initializer implements FocusListener {
+    JButton changeNumberSystemJB = new JButton("进制转换器");
+    JButton checkPrimeNumberJB = new JButton("质数判断器");
+    JButton getRandomNumberJB = new JButton("随机数生成器");
+    int focusSelect;
+
     public FunctionsMenu(String username) {
         this.username = username;
         initJFrame();
@@ -19,10 +24,6 @@ public class FunctionsMenu extends Initializer implements FocusListener {
     void collectData() {
 
     }
-
-    JButton changeNumberSystemJB = new JButton("进制转换器");
-    JButton checkPrimeNumberJB = new JButton("质数判断器");
-    JButton getRandomNumberJB = new JButton("随机数生成器");
 
     @Override
     void initJFrame() {
@@ -60,6 +61,7 @@ public class FunctionsMenu extends Initializer implements FocusListener {
         changeNumberSystemJB.addFocusListener(this);
         checkPrimeNumberJB.addFocusListener(this);
         getRandomNumberJB.addFocusListener(this);
+        con.add(backJB);
     }
 
     @Override
@@ -71,8 +73,6 @@ public class FunctionsMenu extends Initializer implements FocusListener {
     public void keyPressed(KeyEvent keyEvent) {
 
     }
-
-    int focusSelect;
 
     @Override
     public void keyReleased(KeyEvent keyEvent) {
@@ -120,6 +120,9 @@ public class FunctionsMenu extends Initializer implements FocusListener {
         } else if (thing == getRandomNumberJB) {
             dispose();
             new GetRandomNumber(username);
+        } else if (thing == backJB) {
+            dispose();
+            new MainMenu(username);
         }
     }
 
@@ -131,14 +134,14 @@ public class FunctionsMenu extends Initializer implements FocusListener {
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
         Object thing = mouseEvent.getSource();
-        if (thing == changeNumberSystemJB || thing == checkPrimeNumberJB || thing == getRandomNumberJB)
+        if (thing == changeNumberSystemJB || thing == checkPrimeNumberJB || thing == getRandomNumberJB || thing == backJB)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
         Object thing = mouseEvent.getSource();
-        if (thing == changeNumberSystemJB || thing == checkPrimeNumberJB || thing == getRandomNumberJB)
+        if (thing == changeNumberSystemJB || thing == checkPrimeNumberJB || thing == getRandomNumberJB || thing == backJB)
             setCursor(Cursor.getDefaultCursor());
     }
 
