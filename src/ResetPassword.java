@@ -60,7 +60,6 @@ public class ResetPassword extends Initializer {
     @Override
     void initContent() {
         aboutJM.setText("关于");
-        con.setBackground(Color.WHITE);
         phoneNumberJTF.setBounds(100, 50, 200, 30);
         inputPhoneNumberJL.setBounds(100, 20, 200, 30);
         submitJB.setBounds(100, 500, 100, 30);

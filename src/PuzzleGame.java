@@ -208,7 +208,6 @@ public class PuzzleGame extends Initializer implements Border {
     ///菜单初始化
     @Override
     void initMenuBar() {
-        con.setBackground(Color.WHITE);
         changeImageJM.add(animalJMI);
         changeImageJM.add(girlJMI);
         changeImageJM.add(sportJMI);

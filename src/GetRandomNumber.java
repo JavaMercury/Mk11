@@ -90,7 +90,6 @@ public class GetRandomNumber extends Initializer implements FocusListener {
     ///内容初始化
     @Override
     void initContent() {
-        con.setBackground(Color.WHITE);
         inputMinimumJTF.setBounds(100, 100, 100, 30);
         inputMaximumJTF.setBounds(250, 100, 100, 30);
         submitJB.setBounds(100, 200, 80, 35);

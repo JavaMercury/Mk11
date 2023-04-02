@@ -62,7 +62,6 @@ public class MainMenu extends Initializer implements FocusListener {
     ///内容初始化
     @Override
     void initContent() {
-        con.setBackground(Color.WHITE);
         functionsJB.setBounds(95, 80, 150, 50);
         gamesJB.setBounds(95, 180, 150, 50);
         con.add(gamesJB);
