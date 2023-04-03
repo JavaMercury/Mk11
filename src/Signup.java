@@ -306,6 +306,10 @@ public class Signup extends Initializer {
             codeJB.setText(String.format("<HTML><U>%s", codeTemp));
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         }
+        if (thing == backJB) {
+            assert backJB != null;
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+        }
     }
 
     @Override
@@ -316,6 +320,10 @@ public class Signup extends Initializer {
         else if (thing == codeJB) {
             codeJB.setText(codeTemp);
             setCursor(Cursor.getDefaultCursor());
+        }
+        if (thing == backJB) {
+            assert backJB != null;
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         }
     }
 

@@ -136,6 +136,9 @@ public class ToolsMenu extends Initializer implements FocusListener {
         Object thing = mouseEvent.getSource();
         if (thing == changeNumberSystemJB || thing == checkPrimeNumberJB || thing == getRandomNumberJB || thing == backJB)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        if (thing == backJB) {
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+        }
     }
 
     @Override
@@ -143,6 +146,9 @@ public class ToolsMenu extends Initializer implements FocusListener {
         Object thing = mouseEvent.getSource();
         if (thing == changeNumberSystemJB || thing == checkPrimeNumberJB || thing == getRandomNumberJB || thing == backJB)
             setCursor(Cursor.getDefaultCursor());
+        if (thing == backJB) {
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+        }
     }
 
     @Override

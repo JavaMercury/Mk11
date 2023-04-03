@@ -148,8 +148,10 @@ public class Profile extends Initializer {
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
         Object thing = mouseEvent.getSource();
-        if (thing == backJB) setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        else if (thing == changePhoneNumberJL) {
+        if (thing == backJB) {
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+        } else if (thing == changePhoneNumberJL) {
             changePhoneNumberJL.setText("<HTML><U>修改");
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         }
@@ -158,8 +160,10 @@ public class Profile extends Initializer {
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
         Object thing = mouseEvent.getSource();
-        if (thing == backJB) setCursor(Cursor.getDefaultCursor());
-        else if (thing == changePhoneNumberJL) {
+        if (thing == backJB) {
+            setCursor(Cursor.getDefaultCursor());
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+        } else if (thing == changePhoneNumberJL) {
             changePhoneNumberJL.setText("修改");
             setCursor(Cursor.getDefaultCursor());
         }

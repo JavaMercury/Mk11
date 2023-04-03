@@ -153,12 +153,18 @@ public class CheckPrimeNumber extends Initializer implements FocusListener {
     public void mouseEntered(MouseEvent e) {
         Object thing = e.getSource();
         if (thing == backJB || thing == submitJB) setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        if (thing == backJB) {
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+        }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         Object thing = e.getSource();
         if (thing == backJB || thing == submitJB) setCursor(Cursor.getDefaultCursor());
+        if (thing == backJB) {
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+        }
     }
 
     @Override

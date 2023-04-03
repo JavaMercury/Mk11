@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 //进制转换功能
 public class ChangeNumberSystem extends Initializer implements FocusListener {
@@ -287,6 +290,9 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
                 thing == octalToDecimalJB || thing == octalToHexJB || thing == decimalToBinaryJB || thing == decimalToOctalJB ||
                 thing == decimalToHexJB || thing == hexToBinaryJB || thing == hexToOctalJB || thing == hexToDecimalJB || thing == submitJB || thing == backJB)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        if (thing == backJB) {
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+        }
     }
 
     @Override
@@ -296,6 +302,9 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
                 thing == octalToDecimalJB || thing == octalToHexJB || thing == decimalToBinaryJB || thing == decimalToOctalJB ||
                 thing == decimalToHexJB || thing == hexToBinaryJB || thing == hexToOctalJB || thing == hexToDecimalJB || thing == submitJB || thing == backJB)
             setCursor(Cursor.getDefaultCursor());
+        if (thing == backJB) {
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+        }
     }
 
     @Override
