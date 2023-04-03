@@ -150,7 +150,7 @@ public class Profile extends Initializer {
         Object thing = mouseEvent.getSource();
         if (thing == backJB) {
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\返回 - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         } else if (thing == changePhoneNumberJL) {
             changePhoneNumberJL.setText("<HTML><U>修改");
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -162,7 +162,7 @@ public class Profile extends Initializer {
         Object thing = mouseEvent.getSource();
         if (thing == backJB) {
             setCursor(Cursor.getDefaultCursor());
-            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\返回.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         } else if (thing == changePhoneNumberJL) {
             changePhoneNumberJL.setText("修改");
             setCursor(Cursor.getDefaultCursor());

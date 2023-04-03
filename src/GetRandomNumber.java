@@ -153,7 +153,7 @@ public class GetRandomNumber extends Initializer implements FocusListener {
         Object thing = e.getSource();
         if (thing == backJB || thing == submitJB) setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         if (thing == backJB) {
-            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\返回 - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         }
     }
 
@@ -162,7 +162,7 @@ public class GetRandomNumber extends Initializer implements FocusListener {
         Object thing = e.getSource();
         if (thing == backJB || thing == submitJB) setCursor(Cursor.getDefaultCursor());
         if (thing == backJB) {
-            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\返回.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         }
     }
 

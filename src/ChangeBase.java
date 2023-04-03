@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 //进制转换功能
-public class ChangeNumberSystem extends Initializer implements FocusListener {
+public class ChangeBase extends Initializer implements FocusListener {
 
     JMenu propertiesJM = new JMenu("选项");
     JMenuItem exitJMI = new JMenuItem("退出进制转换器");
@@ -40,7 +40,7 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
     JTextField inputJTF = new JTextField();
     Double indicator = 0.0;
 
-    public ChangeNumberSystem(String username) {
+    public ChangeBase(String username) {
         super.username = username;
         setResizable(false);
         initJFrame();
@@ -291,7 +291,7 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
                 thing == decimalToHexJB || thing == hexToBinaryJB || thing == hexToOctalJB || thing == hexToDecimalJB || thing == submitJB || thing == backJB)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         if (thing == backJB) {
-            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\返回 - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         }
     }
 
@@ -303,7 +303,7 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
                 thing == decimalToHexJB || thing == hexToBinaryJB || thing == hexToOctalJB || thing == hexToDecimalJB || thing == submitJB || thing == backJB)
             setCursor(Cursor.getDefaultCursor());
         if (thing == backJB) {
-            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\返回.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         }
     }
 

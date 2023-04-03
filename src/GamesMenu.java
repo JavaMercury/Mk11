@@ -7,8 +7,10 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class GamesMenu extends Initializer implements FocusListener {
-    JButton puzzleGameJB = new JButton("拼图小游戏");
-    JButton beatLordGameJB = new JButton("斗地主");
+    JButton puzzleGameJB = new JButton(new ImageIcon(new ImageIcon("image\\new\\拼图.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
+    JButton beatLordGameJB = new JButton(new ImageIcon(new ImageIcon("image\\new\\斗地主.png").getImage().getScaledInstance(96, 96, Image.SCALE_DEFAULT)));
+    JLabel puzzleGameJL = new JLabel("拼图");
+    JLabel beatLordGameJL = new JLabel("斗地主");
     int focusSelect;
 
     public GamesMenu(String username) {
@@ -45,8 +47,8 @@ public class GamesMenu extends Initializer implements FocusListener {
 
     @Override
     void initContent() {
-        puzzleGameJB.setBounds(95, 20, 150, 50);
-        beatLordGameJB.setBounds(95, 100, 150, 50);
+        puzzleGameJB.setBounds(130, 180, 80, 80);
+        beatLordGameJB.setBounds(120, 32, 96, 96);
         puzzleGameJB.addMouseListener(this);
         beatLordGameJB.addMouseListener(this);
         con.add(puzzleGameJB);
@@ -57,6 +59,23 @@ public class GamesMenu extends Initializer implements FocusListener {
         puzzleGameJB.addFocusListener(this);
         beatLordGameJB.addFocusListener(this);
         con.add(backJB);
+
+        puzzleGameJB.setOpaque(false);
+        puzzleGameJB.setBorderPainted(false);
+        puzzleGameJB.setBackground(new Color(0, 0, 0, 0));
+        puzzleGameJB.setFocusPainted(false);
+        beatLordGameJB.setOpaque(false);
+        beatLordGameJB.setBorderPainted(false);
+        beatLordGameJB.setBackground(new Color(0, 0, 0, 0));
+        beatLordGameJB.setFocusPainted(false);
+        puzzleGameJL.setBounds(130, 260, 80, 30);
+        puzzleGameJL.setHorizontalAlignment(JLabel.CENTER);
+        puzzleGameJL.setVerticalAlignment(JLabel.CENTER);
+        beatLordGameJL.setBounds(120, 128, 96, 30);
+        beatLordGameJL.setHorizontalAlignment(JLabel.CENTER);
+        beatLordGameJL.setVerticalAlignment(JLabel.CENTER);
+        con.add(beatLordGameJL);
+        con.add(puzzleGameJL);
     }
 
     @Override
@@ -131,7 +150,15 @@ public class GamesMenu extends Initializer implements FocusListener {
         if (thing == puzzleGameJB || thing == beatLordGameJB || thing == backJB)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         if (thing == backJB) {
-            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\返回 - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+        }
+        if (thing == beatLordGameJB) {
+            beatLordGameJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\斗地主 - 按下.png").getImage().getScaledInstance(96, 96, Image.SCALE_DEFAULT)));
+            beatLordGameJL.setForeground(Color.decode("#d4237a"));
+        }
+        if (thing == puzzleGameJB) {
+            puzzleGameJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\拼图 - 按下.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
+            puzzleGameJL.setForeground(Color.decode("#bcb417"));
         }
     }
 
@@ -141,7 +168,15 @@ public class GamesMenu extends Initializer implements FocusListener {
         if (thing == puzzleGameJB || thing == beatLordGameJB || thing == backJB)
             setCursor(Cursor.getDefaultCursor());
         if (thing == backJB) {
-            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\返回.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+        }
+        if (thing == beatLordGameJB) {
+            beatLordGameJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\斗地主.png").getImage().getScaledInstance(96, 96, Image.SCALE_DEFAULT)));
+            beatLordGameJL.setForeground(Color.decode("#000000"));
+        }
+        if (thing == puzzleGameJB) {
+            puzzleGameJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\拼图.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
+            puzzleGameJL.setForeground(Color.decode("#000000"));
         }
     }
 

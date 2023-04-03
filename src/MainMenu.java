@@ -10,7 +10,7 @@ import java.io.IOException;
 public class MainMenu extends Initializer implements FocusListener {
 
     JButton gamesJB = new JButton(new ImageIcon(new ImageIcon("image\\new\\游戏.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
-    JButton toolsJB = new JButton(new ImageIcon(new ImageIcon("image\\new\\功能管理.png").getImage().getScaledInstance(92, 92, Image.SCALE_DEFAULT)));
+    JButton toolsJB = new JButton(new ImageIcon(new ImageIcon("image\\new\\工具.png").getImage().getScaledInstance(92, 92, Image.SCALE_DEFAULT)));
     JLabel gamesJL = new JLabel("游戏");
     JLabel toolsJL = new JLabel("工具");
     JMenuItem resetPasswordJMI = new JMenuItem("修改密码");
@@ -149,10 +149,10 @@ public class MainMenu extends Initializer implements FocusListener {
         if (thing == toolsJB || thing == gamesJB)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         if (thing == toolsJB) {
-            toolsJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\功能管理 - 按下.png").getImage().getScaledInstance(92, 92, Image.SCALE_DEFAULT)));
+            toolsJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\工具 - 按下.png").getImage().getScaledInstance(92, 92, Image.SCALE_DEFAULT)));
             toolsJL.setForeground(Color.decode("#1296db"));
         }
-        if (thing==gamesJB) {
+        if (thing == gamesJB) {
             gamesJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\游戏 - 按下.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
             gamesJL.setForeground(Color.decode("#d4237a"));
         }
@@ -164,10 +164,10 @@ public class MainMenu extends Initializer implements FocusListener {
         if (thing == toolsJB || thing == gamesJB)
             setCursor(Cursor.getDefaultCursor());
         if (thing == toolsJB) {
-            toolsJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\功能管理.png").getImage().getScaledInstance(92, 92, Image.SCALE_DEFAULT)));
+            toolsJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\工具.png").getImage().getScaledInstance(92, 92, Image.SCALE_DEFAULT)));
             toolsJL.setForeground(Color.decode("#000000"));
         }
-        if (thing==gamesJB) {
+        if (thing == gamesJB) {
             gamesJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\游戏.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
             gamesJL.setForeground(Color.decode("#000000"));
         }

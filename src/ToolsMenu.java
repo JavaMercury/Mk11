@@ -85,7 +85,7 @@ public class ToolsMenu extends Initializer implements FocusListener {
             switch (focusSelect) {
                 case 1: {
                     dispose();
-                    new ChangeNumberSystem(username);
+                    new ChangeBase(username);
                     break;
                 }
                 case 2: {
@@ -113,7 +113,7 @@ public class ToolsMenu extends Initializer implements FocusListener {
         if (thing == aboutJM) showAbout();
         else if (thing == changeNumberSystemJB) {
             dispose();
-            new ChangeNumberSystem(username);
+            new ChangeBase(username);
         } else if (thing == checkPrimeNumberJB) {
             dispose();
             new CheckPrimeNumber(username);
@@ -137,7 +137,7 @@ public class ToolsMenu extends Initializer implements FocusListener {
         if (thing == changeNumberSystemJB || thing == checkPrimeNumberJB || thing == getRandomNumberJB || thing == backJB)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         if (thing == backJB) {
-            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\返回 - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         }
     }
 
@@ -147,7 +147,7 @@ public class ToolsMenu extends Initializer implements FocusListener {
         if (thing == changeNumberSystemJB || thing == checkPrimeNumberJB || thing == getRandomNumberJB || thing == backJB)
             setCursor(Cursor.getDefaultCursor());
         if (thing == backJB) {
-            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\left.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+            backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\返回.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         }
     }
 
