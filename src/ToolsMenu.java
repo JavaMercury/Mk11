@@ -5,13 +5,13 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public class FunctionsMenu extends Initializer implements FocusListener {
+public class ToolsMenu extends Initializer implements FocusListener {
     JButton changeNumberSystemJB = new JButton("进制转换器");
     JButton checkPrimeNumberJB = new JButton("质数判断器");
     JButton getRandomNumberJB = new JButton("随机数生成器");
     int focusSelect;
 
-    public FunctionsMenu(String username) {
+    public ToolsMenu(String username) {
         this.username = username;
         initJFrame();
         initMenuBar();

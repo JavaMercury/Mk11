@@ -10,7 +10,9 @@ import java.io.IOException;
 public class MainMenu extends Initializer implements FocusListener {
 
     JButton gamesJB = new JButton(new ImageIcon(new ImageIcon("image\\new\\游戏.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
-    JButton functionsJB = new JButton("实用功能");
+    JButton toolsJB = new JButton(new ImageIcon(new ImageIcon("image\\new\\功能管理.png").getImage().getScaledInstance(92, 92, Image.SCALE_DEFAULT)));
+    JLabel gamesJL = new JLabel("游戏");
+    JLabel toolsJL = new JLabel("工具");
     JMenuItem resetPasswordJMI = new JMenuItem("修改密码");
     JMenuItem resetPhoneNumberJMI = new JMenuItem("修改手机号码");
     JMenuItem logoutJMI = new JMenuItem("退出登录");
@@ -62,19 +64,19 @@ public class MainMenu extends Initializer implements FocusListener {
     ///内容初始化
     @Override
     void initContent() {
-        functionsJB.setBounds(95, 80, 150, 50);
+        toolsJB.setBounds(124, 34, 92, 92);
         gamesJB.setBounds(130, 180, 80, 80);
         con.add(gamesJB);
-        con.add(functionsJB);
-        functionsJB.addMouseListener(this);
+        con.add(toolsJB);
+        toolsJB.addMouseListener(this);
         gamesJB.addMouseListener(this);
         aboutJM.addMouseListener(this);
         logoutJMI.addMouseListener(this);
         resetPasswordJMI.addMouseListener(this);
         resetPhoneNumberJMI.addMouseListener(this);
-        functionsJB.addKeyListener(this);
+        toolsJB.addKeyListener(this);
         gamesJB.addKeyListener(this);
-        functionsJB.addFocusListener(this);
+        toolsJB.addFocusListener(this);
         gamesJB.addFocusListener(this);
         signInJMI.addMouseListener(this);
         profileJMI.addMouseListener(this);
@@ -84,6 +86,18 @@ public class MainMenu extends Initializer implements FocusListener {
         gamesJB.setBorderPainted(false);
         gamesJB.setBackground(new Color(0,0,0,0));
         gamesJB.setFocusPainted(false);
+        toolsJB.setOpaque(false);
+        toolsJB.setBorderPainted(false);
+        toolsJB.setBackground(new Color(0,0,0,0));
+        toolsJB.setFocusPainted(false);
+        gamesJL.setBounds(130,260,80,30);
+        con.add(gamesJL);
+        con.add(toolsJL);
+        gamesJL.setHorizontalAlignment(JLabel.CENTER);
+        gamesJL.setVerticalAlignment(JLabel.CENTER);
+        toolsJL.setBounds(124,126,92,30);
+        toolsJL.setHorizontalAlignment(JLabel.CENTER);
+        toolsJL.setVerticalAlignment(JLabel.CENTER);
     }
 
     @Override
@@ -99,9 +113,9 @@ public class MainMenu extends Initializer implements FocusListener {
         } else if (thing == gamesJB) {
             dispose();
             new GamesMenu(username);
-        } else if (thing == functionsJB) {
+        } else if (thing == toolsJB) {
             dispose();
-            new FunctionsMenu(username);
+            new ToolsMenu(username);
         } else if (thing == logoutJMI) {
             dispose();
             new Login();
@@ -132,14 +146,14 @@ public class MainMenu extends Initializer implements FocusListener {
     @Override
     public void mouseEntered(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == functionsJB || thing == gamesJB)
+        if (thing == toolsJB || thing == gamesJB)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == functionsJB || thing == gamesJB)
+        if (thing == toolsJB || thing == gamesJB)
             setCursor(Cursor.getDefaultCursor());
     }
 
@@ -160,7 +174,7 @@ public class MainMenu extends Initializer implements FocusListener {
             switch (focusSelect) {
                 case 1: {
                     dispose();
-                    new FunctionsMenu(username);
+                    new ToolsMenu(username);
                     break;
                 }
                 case 2: {
@@ -178,7 +192,7 @@ public class MainMenu extends Initializer implements FocusListener {
     @Override
     public void focusGained(FocusEvent e) {
         Object thing = e.getSource();
-        if (thing == functionsJB) {
+        if (thing == toolsJB) {
             focusSelect = 1;
         } else if (thing == gamesJB) {
             focusSelect = 2;

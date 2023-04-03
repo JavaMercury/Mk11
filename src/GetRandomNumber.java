@@ -136,7 +136,7 @@ public class GetRandomNumber extends Initializer implements FocusListener {
         } else if (thing == aboutJM) showAbout();
         else if (thing == exitJMI || thing == backJB) {
             dispose();
-            new FunctionsMenu(username);
+            new ToolsMenu(username);
         }
     }
 
@@ -196,7 +196,7 @@ public class GetRandomNumber extends Initializer implements FocusListener {
             getRandomNumber();
         } else if (code == 27) {
             dispose();
-            new FunctionsMenu(username);
+            new ToolsMenu(username);
         }else if (code == 71) showAbout();
     }
 }

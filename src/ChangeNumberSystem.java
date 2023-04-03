@@ -176,7 +176,7 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
         } else if (thing == aboutJM) showAbout();
         else if (thing == exitJMI || thing == backJB) {
             dispose();
-            new FunctionsMenu(username);
+            new ToolsMenu(username);
         } else if (thing == octalToDecimalJB) {
             input = null;
             indicator = 8.10;
@@ -549,7 +549,7 @@ public class ChangeNumberSystem extends Initializer implements FocusListener {
             select();
         } else if (code == 27) {
             dispose();
-            new FunctionsMenu(username);
+            new ToolsMenu(username);
         } else if (code == 71) showAbout();
     }
 }
