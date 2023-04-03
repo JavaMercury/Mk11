@@ -1,3 +1,5 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -184,7 +186,8 @@ public class Login extends Initializer {
             isReveal = !isReveal;
             if (isReveal) {
                 revealPasswordJL.setIcon(new ImageIcon(new ImageIcon("image\\login\\密码显示.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
-            } else revealPasswordJL.setIcon(new ImageIcon(new ImageIcon("image\\login\\密码隐藏.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+            } else
+                revealPasswordJL.setIcon(new ImageIcon(new ImageIcon("image\\login\\密码隐藏.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
             if (isReveal) {
                 showPassword();
             } else {
@@ -212,6 +215,13 @@ public class Login extends Initializer {
             dispose();
             new Signup();
         }
+        if (thing == loginJB || thing == signupJB) {
+            try {
+                playAudio("buttonclickrelease");
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 
     @Override
@@ -219,8 +229,14 @@ public class Login extends Initializer {
         Object thing = e.getSource();
         if (thing == loginJB) loginJB.setIcon(new ImageIcon("image\\login\\登录按下.png"));
         else if (thing == signupJB) signupJB.setIcon(new ImageIcon("image\\login\\注册按下.png"));
-        if (thing == loginJB || thing == signupJB || thing == revealPasswordJL || thing == revealPasswordPressedJL)
+        if (thing == loginJB || thing == signupJB || thing == revealPasswordJL || thing == revealPasswordPressedJL) {
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            try {
+                playAudio("buttonrollover");
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 
     @Override
