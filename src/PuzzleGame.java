@@ -30,7 +30,8 @@ public class PuzzleGame extends Initializer implements Border {
     ArrayList<String> animalLibrary = new ArrayList<>();
     ArrayList<String> girlLibrary = new ArrayList<>();
     ArrayList<String> sportLibrary = new ArrayList<>();
-    String defaultPath = "image\\girl\\girl2\\";
+    ArrayList<String> miscLibrary = new ArrayList<>();
+    String defaultPath = "image\\misc\\misc1\\";
     String path = defaultPath;
     JLabel fullImage = new JLabel(new ImageIcon(path + "all.jpg"));
     String chooseImage;
@@ -41,6 +42,7 @@ public class PuzzleGame extends Initializer implements Border {
     JMenuItem animalJMI = new JMenuItem("动物");
     JMenuItem girlJMI = new JMenuItem("美女");
     JMenuItem sportJMI = new JMenuItem("运动");
+    JMenuItem miscJMI = new JMenuItem("其他");
     JMenuItem exitGameJMI = new JMenuItem("退出游戏");
     JMenuItem replayJMI = new JMenuItem("重玩游戏");
     JMenu helpJM = new JMenu("帮助(H)");
@@ -67,6 +69,38 @@ public class PuzzleGame extends Initializer implements Border {
     private int BOUNDS_DOWN_RIGHT = 0;
 
     public PuzzleGame(String username) throws IOException {
+        loadLibrary();
+        this.username = username;
+        initJFrame();
+        initMenuBar();
+        initData();
+        initContent();
+        setVisible(true);
+    }
+
+    ///计算拼图可解性
+    private static boolean isPlayable() {
+        int[] array = new int[16];
+        int index = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                array[index] = data[i][j];
+            }
+        }
+        //记录逆序数
+        int count = x + y + 2;
+        int base = 1;
+        for (int i : array) {
+            for (int start2 = 1; start2 < array.length - base; start2++) {
+                if (i > array[start2]) count++;
+            }
+            base++;
+        }
+        return count % 2 == 0;
+    }
+
+    ///加载图片素材
+    void loadLibrary() {
         animalLibrary.add("image\\animal\\animal1\\");
         animalLibrary.add("image\\animal\\animal2\\");
         animalLibrary.add("image\\animal\\animal3\\");
@@ -98,33 +132,7 @@ public class PuzzleGame extends Initializer implements Border {
         sportLibrary.add("image\\sport\\sport8\\");
         sportLibrary.add("image\\sport\\sport9\\");
         sportLibrary.add("image\\sport\\sport10\\");
-        this.username = username;
-        initJFrame();
-        initMenuBar();
-        initData();
-        initContent();
-        setVisible(true);
-    }
-
-    ///计算拼图可解性
-    private static boolean isPlayable() {
-        int[] array = new int[16];
-        int index = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                array[index] = data[i][j];
-            }
-        }
-        //记录逆序数
-        int count = x + y + 2;
-        int base = 1;
-        for (int i : array) {
-            for (int start2 = 1; start2 < array.length - base; start2++) {
-                if (i > array[start2]) count++;
-            }
-            base++;
-        }
-        return count % 2 == 0;
+        miscLibrary.add("image\\misc\\misc1\\");
     }
 
     ///显示帮助
@@ -211,6 +219,7 @@ public class PuzzleGame extends Initializer implements Border {
         changeImageJM.add(animalJMI);
         changeImageJM.add(girlJMI);
         changeImageJM.add(sportJMI);
+        changeImageJM.add(miscJMI);
         propertiesJM.add(changeImageJM);
         propertiesJM.add(changeMovePatternJM);
         changeMovePatternJM.add(movePuzzleJMI);
@@ -227,6 +236,7 @@ public class PuzzleGame extends Initializer implements Border {
         animalJMI.addMouseListener(this);
         girlJMI.addMouseListener(this);
         sportJMI.addMouseListener(this);
+        miscJMI.addMouseListener(this);
         setJMenuBar(puzzleGameJMB);
         backgroundJL.addMouseListener(this);
         changeMovePatternJM.addMouseListener(this);
@@ -339,7 +349,7 @@ public class PuzzleGame extends Initializer implements Border {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 int number = data[i][j];
-                ImageIcon icon = new ImageIcon(path + number + ".jpg");
+                ImageIcon icon = new ImageIcon(new ImageIcon(path + number + ".jpg").getImage().getScaledInstance(105, 105, Image.SCALE_DEFAULT));
                 JLabel mainImage = new JLabel(icon);
                 mainImage.setBounds(105 * i + 83, 105 * j + 134, 105, 105);
                 mainImage.setBorder(new BevelBorder(BevelBorder.RAISED));
@@ -369,14 +379,18 @@ public class PuzzleGame extends Initializer implements Border {
     void changeImage() {
         switch (chooseImage) {
             case "animal":
-                path = animalLibrary.get(new Random().nextInt(8));
+                path = animalLibrary.get(new Random().nextInt(animalLibrary.size()));
                 break;
             case "girl":
-                path = girlLibrary.get(new Random().nextInt(10));
+                path = girlLibrary.get(new Random().nextInt(girlLibrary.size()));
                 break;
             case "sport":
-                path = sportLibrary.get(new Random().nextInt(10));
+                path = sportLibrary.get(new Random().nextInt(sportLibrary.size()));
                 break;
+            case "misc": {
+                path = miscLibrary.get(new Random().nextInt(miscLibrary.size()));
+            }
+            break;
         }
     }
 
@@ -444,6 +458,14 @@ public class PuzzleGame extends Initializer implements Border {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+        } else if (thing == miscJMI) {
+            chooseImage = "misc";
+            changeImage();
+            try {
+                replay();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         } else if (thing == backgroundJL) mouseClickCount++;
         else if (thing == moveBlankJMI) {
             MOVE_UP_LEFT_OR_Y = -1;
@@ -485,6 +507,7 @@ public class PuzzleGame extends Initializer implements Border {
         int code = e.getKeyCode();
         if (isStart && code == 17) {
             con.removeAll();
+            fullImage = new JLabel(new ImageIcon(path + "all.jpg"));
             fullImage.setBounds(83, 134, 420, 420);
             background.setBounds(40, 40, 508, 560);
             con.add(fullImage);

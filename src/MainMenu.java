@@ -84,18 +84,18 @@ public class MainMenu extends Initializer implements FocusListener {
 
         gamesJB.setOpaque(false);
         gamesJB.setBorderPainted(false);
-        gamesJB.setBackground(new Color(0,0,0,0));
+        gamesJB.setBackground(new Color(0, 0, 0, 0));
         gamesJB.setFocusPainted(false);
         toolsJB.setOpaque(false);
         toolsJB.setBorderPainted(false);
-        toolsJB.setBackground(new Color(0,0,0,0));
+        toolsJB.setBackground(new Color(0, 0, 0, 0));
         toolsJB.setFocusPainted(false);
-        gamesJL.setBounds(130,260,80,30);
+        gamesJL.setBounds(130, 260, 80, 30);
         con.add(gamesJL);
         con.add(toolsJL);
         gamesJL.setHorizontalAlignment(JLabel.CENTER);
         gamesJL.setVerticalAlignment(JLabel.CENTER);
-        toolsJL.setBounds(124,126,92,30);
+        toolsJL.setBounds(124, 126, 92, 30);
         toolsJL.setHorizontalAlignment(JLabel.CENTER);
         toolsJL.setVerticalAlignment(JLabel.CENTER);
     }
@@ -148,6 +148,14 @@ public class MainMenu extends Initializer implements FocusListener {
         Object thing = e.getSource();
         if (thing == toolsJB || thing == gamesJB)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        if (thing == toolsJB) {
+            toolsJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\功能管理 - 按下.png").getImage().getScaledInstance(92, 92, Image.SCALE_DEFAULT)));
+            toolsJL.setForeground(Color.decode("#1296db"));
+        }
+        if (thing==gamesJB) {
+            gamesJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\游戏 - 按下.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
+            gamesJL.setForeground(Color.decode("#d4237a"));
+        }
     }
 
     @Override
@@ -155,6 +163,14 @@ public class MainMenu extends Initializer implements FocusListener {
         Object thing = e.getSource();
         if (thing == toolsJB || thing == gamesJB)
             setCursor(Cursor.getDefaultCursor());
+        if (thing == toolsJB) {
+            toolsJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\功能管理.png").getImage().getScaledInstance(92, 92, Image.SCALE_DEFAULT)));
+            toolsJL.setForeground(Color.decode("#000000"));
+        }
+        if (thing==gamesJB) {
+            gamesJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\游戏.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
+            gamesJL.setForeground(Color.decode("#000000"));
+        }
     }
 
     @Override
