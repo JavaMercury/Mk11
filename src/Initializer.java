@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 //数字字符-48为实际数字，大写字母-55
 
@@ -39,6 +40,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     StringBuilder passwordSB = new StringBuilder();
     JLabel revealPasswordJL = new JLabel(new ImageIcon(new ImageIcon("image\\login\\密码隐藏.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
     JLabel revealPasswordPressedJL = new JLabel(new ImageIcon(new ImageIcon("image\\login\\密码显示.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+    char[] chars = new char[]{'♫', '☭', '☣', '☢', '☯', '☮', '♡', 'λ', '∞'};
 
     {
         backJB.setBounds(0, 0, 50, 50);
@@ -50,6 +52,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         backJB.addKeyListener(this);
         con.setBackground(Color.WHITE);
         aboutJM.addMouseListener(this);
+        passwordJPF.setEchoChar(chars[new Random().nextInt(chars.length)]);
     }
 
     ///播放wav音频
@@ -280,7 +283,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
 
     ///隐藏密码
     void hidePassword() {
-        passwordJPF.setEchoChar('•');
+        passwordJPF.setEchoChar(chars[new Random().nextInt(chars.length)]);
     }
 
     ///显示关于界面
