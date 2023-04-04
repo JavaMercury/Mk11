@@ -1,3 +1,5 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -189,9 +191,17 @@ public class Signup extends Initializer {
                 throw new RuntimeException(ex);
             }
         } else if (thing == revealPasswordJL) {
+            assert revealPasswordJL != null;
             revealPasswordJL.setVisible(false);
             revealPasswordPressedJL.setVisible(true);
             showPassword();
+        }
+        if (thing == backJB || thing == revealPasswordJL || thing == codeJB || thing == submitJB || thing == aboutJM) {
+            try {
+                playButtonClickRelease();
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
@@ -295,12 +305,14 @@ public class Signup extends Initializer {
             revealPasswordPressedJL.setVisible(false);
             hidePassword();
         }
+
+
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == backJB || thing == submitJB || thing == revealPasswordJL || thing == revealPasswordPressedJL)
+        if (thing == backJB || thing == submitJB || thing == revealPasswordJL || thing == revealPasswordPressedJL || thing == aboutJM)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         else if (thing == codeJB) {
             codeJB.setText(String.format("<HTML><U>%s", codeTemp));
@@ -310,12 +322,19 @@ public class Signup extends Initializer {
             assert backJB != null;
             backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\返回 - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
         }
+        if (thing == backJB || thing == revealPasswordJL || thing == codeJB || thing == submitJB || thing == aboutJM) {
+            try {
+                playButtonRollover();
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == backJB || thing == submitJB || thing == revealPasswordJL || thing == revealPasswordPressedJL)
+        if (thing == backJB || thing == submitJB || thing == revealPasswordJL || thing == revealPasswordPressedJL || thing == aboutJM)
             setCursor(Cursor.getDefaultCursor());
         else if (thing == codeJB) {
             codeJB.setText(codeTemp);

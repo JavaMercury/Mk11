@@ -1,3 +1,5 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
@@ -19,6 +21,7 @@ public class MainMenu extends Initializer implements FocusListener {
     JMenuItem signInJMI = new JMenuItem("每日签到");
     JMenuItem profileJMI = new JMenuItem("账户信息");
     int focusSelect;
+    JMenu meJM = new JMenu("我的");
 
     public MainMenu(String username) {
         this.username = username;
@@ -50,7 +53,6 @@ public class MainMenu extends Initializer implements FocusListener {
     @Override
     void initMenuBar() {
         JMenuBar jmb = new JMenuBar();
-        JMenu meJM = new JMenu("我的");
         meJM.add(profileJMI);
         meJM.add(signInJMI);
         meJM.add(logoutJMI);
@@ -98,6 +100,7 @@ public class MainMenu extends Initializer implements FocusListener {
         toolsJL.setBounds(124, 126, 92, 30);
         toolsJL.setHorizontalAlignment(JLabel.CENTER);
         toolsJL.setVerticalAlignment(JLabel.CENTER);
+        meJM.addMouseListener(this);
     }
 
     @Override
@@ -109,7 +112,7 @@ public class MainMenu extends Initializer implements FocusListener {
     public void mousePressed(MouseEvent e) {
         Object thing = e.getSource();
         if (thing == aboutJM) {
-            dispose();
+            showAbout();
         } else if (thing == gamesJB) {
             dispose();
             new GamesMenu(username);
@@ -136,6 +139,14 @@ public class MainMenu extends Initializer implements FocusListener {
                 throw new RuntimeException(ex);
             }
         }
+        if (thing == toolsJB || thing == gamesJB || thing == signInJMI || thing == profileJMI || thing == meJM
+                || thing == logoutJMI || thing == resetPasswordJMI || thing == resetPhoneNumberJMI || thing == aboutJM) {
+            try {
+                playButtonClickRelease();
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 
     @Override
@@ -146,22 +157,34 @@ public class MainMenu extends Initializer implements FocusListener {
     @Override
     public void mouseEntered(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == toolsJB || thing == gamesJB)
+        if (thing == toolsJB || thing == gamesJB || thing == aboutJM || thing == signInJMI || thing == profileJMI || thing == meJM
+                || thing == logoutJMI || thing == resetPasswordJMI || thing == resetPhoneNumberJMI)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         if (thing == toolsJB) {
+            assert toolsJB != null;
             toolsJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\工具 - 按下.png").getImage().getScaledInstance(92, 92, Image.SCALE_DEFAULT)));
             toolsJL.setForeground(Color.decode("#1296db"));
         }
         if (thing == gamesJB) {
+            assert gamesJB != null;
             gamesJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\游戏 - 按下.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
             gamesJL.setForeground(Color.decode("#d4237a"));
+        }
+        if (thing == toolsJB || thing == gamesJB || thing == signInJMI || thing == profileJMI || thing == meJM
+                || thing == logoutJMI || thing == resetPasswordJMI || thing == resetPhoneNumberJMI || thing == aboutJM) {
+            try {
+                playButtonRollover();
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == toolsJB || thing == gamesJB)
+        if (thing == toolsJB || thing == gamesJB || thing == aboutJM || thing == signInJMI || thing == profileJMI || thing == meJM
+                || thing == logoutJMI || thing == resetPasswordJMI || thing == resetPhoneNumberJMI)
             setCursor(Cursor.getDefaultCursor());
         if (thing == toolsJB) {
             toolsJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\工具.png").getImage().getScaledInstance(92, 92, Image.SCALE_DEFAULT)));

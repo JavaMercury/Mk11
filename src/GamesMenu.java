@@ -1,3 +1,5 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
@@ -138,6 +140,13 @@ public class GamesMenu extends Initializer implements FocusListener {
             dispose();
             new MainMenu(username);
         }
+        if (thing == backJB || thing == beatLordGameJB || thing == puzzleGameJB) {
+            try {
+                playButtonClickRelease();
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 
     @Override
@@ -159,6 +168,13 @@ public class GamesMenu extends Initializer implements FocusListener {
         if (thing == puzzleGameJB) {
             puzzleGameJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\拼图 - 按下.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
             puzzleGameJL.setForeground(Color.decode("#bcb417"));
+        }
+        if (thing == backJB || thing == beatLordGameJB || thing == puzzleGameJB) {
+            try {
+                playButtonRollover();
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 

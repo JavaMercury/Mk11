@@ -1,3 +1,5 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -164,6 +166,13 @@ public class SignIn extends Initializer {
             }
             signInJB.setText("今日已签到");
         }
+        if (thing == backJB || thing == signInJB) {
+            try {
+                playButtonClickRelease();
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 
     @Override
@@ -177,6 +186,13 @@ public class SignIn extends Initializer {
         if (thing == signInJB || thing == backJB) setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         if (thing == backJB) {
             backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\返回 - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+        }
+        if (thing == backJB || thing == signInJB) {
+            try {
+                playButtonRollover();
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 

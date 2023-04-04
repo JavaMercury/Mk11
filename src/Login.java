@@ -193,7 +193,13 @@ public class Login extends Initializer {
             } else {
                 hidePassword();
             }
-
+        }
+        if (thing == loginJB || thing == signupJB || thing == revealPasswordJL || thing == aboutJM) {
+            try {
+                playButtonClickRelease();
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 
@@ -215,13 +221,7 @@ public class Login extends Initializer {
             dispose();
             new Signup();
         }
-        if (thing == loginJB || thing == signupJB) {
-            try {
-                playAudio("buttonclickrelease");
-            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
+
     }
 
     @Override
@@ -229,10 +229,10 @@ public class Login extends Initializer {
         Object thing = e.getSource();
         if (thing == loginJB) loginJB.setIcon(new ImageIcon("image\\login\\登录按下.png"));
         else if (thing == signupJB) signupJB.setIcon(new ImageIcon("image\\login\\注册按下.png"));
-        if (thing == loginJB || thing == signupJB || thing == revealPasswordJL || thing == revealPasswordPressedJL) {
+        if (thing == loginJB || thing == signupJB || thing == revealPasswordJL || thing == aboutJM) {
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             try {
-                playAudio("buttonrollover");
+                playButtonRollover();
             } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
                 throw new RuntimeException(ex);
             }
@@ -244,7 +244,7 @@ public class Login extends Initializer {
         Object thing = e.getSource();
         if (thing == loginJB) loginJB.setIcon(new ImageIcon("image\\login\\登录按钮.png"));
         else if (thing == signupJB) signupJB.setIcon(new ImageIcon("image\\login\\注册按钮.png"));
-        if (thing == loginJB || thing == signupJB || thing == revealPasswordJL || thing == revealPasswordPressedJL)
+        if (thing == loginJB || thing == signupJB || thing == revealPasswordJL || thing == aboutJM)
             setCursor(Cursor.getDefaultCursor());
     }
 

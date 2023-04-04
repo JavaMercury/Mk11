@@ -1,3 +1,5 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -178,6 +180,13 @@ public class ResetPhoneNumber extends Initializer {
             revealPasswordPressedJL.setVisible(true);
             showPassword();
         }
+        if (thing == backJB || thing == revealPasswordJL || thing == codeJB || thing == submitJB || thing == aboutJM) {
+            try {
+                playButtonClickRelease();
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 
     @Override
@@ -193,7 +202,7 @@ public class ResetPhoneNumber extends Initializer {
     @Override
     public void mouseEntered(MouseEvent e) {
         Object thing = e.getSource();
-        if (thing == backJB || thing == submitJB || thing == revealPasswordJL || thing == revealPasswordPressedJL)
+        if (thing == backJB || thing == submitJB || thing == revealPasswordJL || thing == revealPasswordPressedJL || thing == aboutJM)
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         else if (thing == codeJB) {
             codeJB.setText(String.format("<HTML><U>%s", codeTemp));
@@ -202,6 +211,13 @@ public class ResetPhoneNumber extends Initializer {
         if (thing == backJB) {
             assert backJB != null;
             backJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\返回 - 按下.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+        }
+        if (thing == backJB || thing == revealPasswordJL || thing == codeJB || thing == submitJB || thing == aboutJM) {
+            try {
+                playButtonRollover();
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 

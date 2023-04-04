@@ -1,3 +1,5 @@
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -138,6 +140,13 @@ public class Profile extends Initializer {
             dispose();
             new ResetPhoneNumber(username);
         }
+        if (thing == backJB || thing == changePhoneNumberJL) {
+            try {
+                playButtonClickRelease();
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
     }
 
     @Override
@@ -154,6 +163,13 @@ public class Profile extends Initializer {
         } else if (thing == changePhoneNumberJL) {
             changePhoneNumberJL.setText("<HTML><U>修改");
             setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        }
+        if (thing == backJB || thing == changePhoneNumberJL) {
+            try {
+                playButtonRollover();
+            } catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 

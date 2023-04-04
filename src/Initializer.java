@@ -21,7 +21,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     //所有子类图形的统一getContentPane方法
     Container con = getContentPane();
     JMenu aboutJM = new JMenu("关于(G)");
-    String version = "水银第11代 0.11.25.20230403";
+    String version = "水银第11代 0.11.26.20230404";
     String username;
     String password;
     JDialog aboutJD = new JDialog();
@@ -49,14 +49,26 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
         backJB.addMouseListener(this);
         backJB.addKeyListener(this);
         con.setBackground(Color.WHITE);
+        aboutJM.addMouseListener(this);
     }
 
+    ///播放wav音频
     static void playAudio(String fileName) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         Clip clip;
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("sound\\" + fileName + ".wav"));
         clip = AudioSystem.getClip();
         clip.open(audioInputStream);
         clip.start();
+    }
+
+    ///播放bottonclickrelease.wav
+    static void playButtonClickRelease() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        playAudio("buttonclickrelease");
+    }
+
+    ///播放buttonrollover.wav
+    static void playButtonRollover() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        playAudio("buttonrollover");
     }
 
     ///检验整数
