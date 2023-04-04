@@ -22,7 +22,7 @@ public abstract class Initializer extends JFrame implements KeyListener, MouseLi
     //所有子类图形的统一getContentPane方法
     Container con = getContentPane();
     JMenu aboutJM = new JMenu("关于(G)");
-    String version = "水银第11代 0.11.26.20230404";
+    String version = "水银第11代 0.11.27.20230404";
     String username;
     String password;
     JDialog aboutJD = new JDialog();
