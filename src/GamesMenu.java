@@ -167,7 +167,7 @@ public class GamesMenu extends Initializer implements FocusListener {
         }
         if (thing == puzzleGameJB) {
             puzzleGameJB.setIcon(new ImageIcon(new ImageIcon("image\\new\\拼图 - 按下.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
-            puzzleGameJL.setForeground(Color.decode("#bcb417"));
+            puzzleGameJL.setForeground(Color.decode("#16de23"));
         }
         if (thing == backJB || thing == beatLordGameJB || thing == puzzleGameJB) {
             try {

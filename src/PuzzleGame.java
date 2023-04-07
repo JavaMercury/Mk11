@@ -31,7 +31,7 @@ public class PuzzleGame extends Initializer implements Border {
     ArrayList<String> girlLibrary = new ArrayList<>();
     ArrayList<String> sportLibrary = new ArrayList<>();
     ArrayList<String> miscLibrary = new ArrayList<>();
-    String defaultPath = "image\\misc\\misc1\\";
+    String defaultPath = "image\\girl\\girl2\\";
     String path = defaultPath;
     JLabel fullImage = new JLabel(new ImageIcon(path + "all.jpg"));
     String chooseImage;
@@ -120,8 +120,6 @@ public class PuzzleGame extends Initializer implements Border {
         girlLibrary.add("image\\girl\\girl9\\");
         girlLibrary.add("image\\girl\\girl10\\");
         girlLibrary.add("image\\girl\\girl11\\");
-        girlLibrary.add("image\\girl\\girl12\\");
-        girlLibrary.add("image\\girl\\girl13\\");
         sportLibrary.add("image\\sport\\sport1\\");
         sportLibrary.add("image\\sport\\sport2\\");
         sportLibrary.add("image\\sport\\sport3\\");
@@ -133,6 +131,7 @@ public class PuzzleGame extends Initializer implements Border {
         sportLibrary.add("image\\sport\\sport9\\");
         sportLibrary.add("image\\sport\\sport10\\");
         miscLibrary.add("image\\misc\\misc1\\");
+        miscLibrary.add("image\\misc\\misc2\\");
     }
 
     ///显示帮助
